@@ -1,0 +1,71 @@
+
+.app-shell {
+	position: relative;
+	background-color: #071a36;
+}
+
+.animated-gradient {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, #0b1f3a, #3f2b96, #a03ef3, #ff6f6f, #ffc35c);
+	background-size: 280% 280%;
+	animation: gradientShift 22s ease infinite;
+	filter: saturate(120%);
+	z-index: 0;
+}
+
+.gradient-overlay {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.16), transparent 52%),
+		radial-gradient(circle at 82% 78%, rgba(255, 255, 255, 0.1), transparent 55%),
+		radial-gradient(circle at 50% 50%, rgba(9, 22, 45, 0.4), transparent 70%);
+	z-index: 1;
+	pointer-events: none;
+}
+
+@keyframes gradientShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.timer-digits {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.timer-digit {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 88px;
+	height: 112px;
+	border-radius: 20px;
+	background: #0b0b0e;
+	font-family: 'Share Tech Mono', 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-size: clamp(3rem, 6vw, 5.5rem);
+	font-weight: 700;
+	color: #ffffff;
+	letter-spacing: -0.05em;
+}
+
+.timer-colon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 112px;
+	font-family: 'Share Tech Mono', 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-size: clamp(3rem, 6vw, 5.5rem);
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.92);
+}
+

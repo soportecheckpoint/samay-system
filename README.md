@@ -1,135 +1,163 @@
-# Turborepo starter
+# Escape Room Software - Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+Sistema modular de Escape Room con arquitectura de **máxima independencia** donde cada módulo funciona autónomamente.
 
-## Using this example
+## Estructura del Proyecto
 
-Run the following command:
+```
+scape-room-software/
+├── apps/
+│   ├── server/              # Servidor central (Express + Socket.io)
+│   ├── main-screen/         # Pantalla principal (React)
+│   ├── tablet-feedback/     # Tablet para feedback y QR (React PWA)
+│   ├── buttons-game/        # Juego de botones (React)
+│   ├── totem-tactil/        # Totem táctil con drag&drop y NFC (React)
+│   ├── admin-ipad/          # iPad de administración (React)
+│   └── usb-totem/           # Totem USB con audio (Electron - Por crear)
+├── packages/
+│   ├── ui/                  # Componentes compartidos
+│   ├── typescript-config/   # Configuraciones de TypeScript
+│   └── eslint-config/       # Configuraciones de ESLint
+├── base-apps.md             # Arquitectura detallada del sistema
+└── README.md
+```
+
+## Instalación Rápida
 
 ```sh
-npx create-turbo@latest
+# Instalar dependencias
+pnpm install
+
+# Ejecutar todo en desarrollo
+pnpm dev
+
+# Ejecutar apps específicas
+pnpm --filter @scape-room/server dev
+pnpm --filter @scape-room/main-screen dev
 ```
 
-## What's inside?
+## Aplicaciones
 
-This Turborepo includes the following packages/apps:
+### 1. **Server** - Servidor Central (`apps/server`)
+- Puerto: **3001**
+- Express + Socket.io + REST API para Arduinos
+- Orquesta la comunicación entre todos los módulos
+- Mantiene estado global y logs
 
-### Apps and Packages
+### 2. **Main Screen** - Pantalla Principal (`apps/main-screen`)
+- Puerto: **5173**
+- Muestra cronómetro, mensaje anterior y proyección de tablet
+- Pantalla de victoria cuando completan el escape room
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### 3. **Tablet Feedback** (`apps/tablet-feedback`)
+- PWA con QR scanner, feedback, captura de foto y códigos
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### 4. **Buttons Game** (`apps/buttons-game`)
+- Visualización en tiempo real del juego de 10 botones
 
-### Utilities
+### 5. **Totem Táctil** (`apps/totem-tactil`)
+- Drag & Drop, insignias NFC y contrato de no divulgación
 
-This Turborepo has some additional tools already setup for you:
+### 6. **Admin iPad** (`apps/admin-ipad`)
+- Dashboard administrativo con control de todos los módulos
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+Ver `base-apps.md` para arquitectura detallada.
+
+## Stack Técnico
+
+- **Monorepo:** Turborepo + pnpm workspaces
+- **Server:** Node.js, Express, Socket.io, Axios, Winston
+- **Frontend:** React 18+, Vite, TypeScript
+- **Styles:** TailwindCSS
+- **State:** Zustand
+- **Real-time:** WebSocket (Socket.io)
+- **Type Checking:** TypeScript 5+
+
+## Comandos
 
 ### Build
+```bash
+# Build todas las aplicaciones
+pnpm build
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# Build aplicación específica
+pnpm --filter @scape-room/server build
+pnpm --filter @scape-room/main-screen build
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Desarrollo
+```bash
+# Ejecutar todo en desarrollo
+pnpm dev
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+# Ejecutar aplicaciones específicas
+pnpm --filter @scape-room/server dev
+pnpm --filter @scape-room/main-screen dev
+pnpm --filter @scape-room/tablet-feedback dev
+pnpm --filter @scape-room/buttons-game dev
+pnpm --filter @scape-room/totem-tactil dev
+pnpm --filter @scape-room/admin-ipad dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+### Lint y Type Check
+```bash
+pnpm lint
+pnpm check-types
 ```
 
-### Remote Caching
+## Configuración
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Cada aplicación requiere su archivo `.env`:
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+### Server
+```env
+PORT=3001
+NODE_ENV=development
+ARDUINO_TIMEOUT=30000
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+### Apps React
+```env
+VITE_SERVER_URL=http://192.168.18.165:3001
 ```
 
-## Useful Links
+Copia los archivos `.env.example` a `.env` en cada aplicación.
 
-Learn more about the power of Turborepo:
+## Comunicación
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+### WebSocket Events
+- `register` - Cliente se registra
+- `timer:update` - Actualización de cronómetro
+- `timer:stop` - Detener cronómetro
+- `tablet:mirror` - Proyección de tablet
+- `completion` - Módulo completado
+- `game:victory` - Victoria del juego
+
+### Arduino REST API
+- `POST /connect` - Arduino se registra
+- `POST /dispatch` - Arduino envía evento
+- `POST /heartbeat` - Heartbeat de Arduino
+
+Ver `base-apps.md` para detalles completos de la arquitectura.
+
+## Próximos Pasos
+
+- [ ] Implementar app USB Totem con Electron
+- [ ] Configurar PWA para tablet-feedback
+- [ ] Implementar Google Drive API para fotos
+- [ ] Agregar impresión de certificados
+- [ ] Testing end-to-end
+
+## Arquitectura
+
+El sistema sigue el principio de **máxima independencia**:
+- Cada módulo funciona autónomamente
+- Comunicación mínima entre módulos
+- Local-first: funciona offline
+- El servidor solo orquesta, no controla lógica
+
+Ver `base-apps.md` para arquitectura completa.
+
+## Licencia
+
+Privado - Escape Room Software
