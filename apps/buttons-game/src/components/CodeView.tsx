@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import View from '../view-manager/View';
 import { useGameStore } from '../store';
 import useViewStore from '../view-manager/view-manager-store';
+import { sendCodeToServer } from '../socket';
 
 export const CodeView: React.FC = () => {
   const [digits, setDigits] = useState(['', '', '', '']);
@@ -48,18 +49,8 @@ export const CodeView: React.FC = () => {
     const code = digits.join('');
     if (code.length === 4) {
       setError('');
-      // Verificar si el código es correcto (1606)
-      if (code === '1606') {
-        // Pasar automáticamente a la vista de la mesa
-        useViewStore.getState().setView('mesa');
-      } else {
-        // Código incorrecto, mostrar error
-        setError('Código incorrecto');
-        setTimeout(() => {
-          setDigits(['', '', '', '']);
-          inputRefs.current[0]?.focus();
-        }, 1500);
-      }
+      // Enviar código al servidor para validación y envío de comando al Arduino
+      sendCodeToServer(code);
     }
   }, [digits, setError]);
 
