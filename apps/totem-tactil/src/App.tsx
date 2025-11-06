@@ -1,9 +1,10 @@
-import { useSocket } from './socket';
-import { IdleScreen } from './components/IdleScreen';
-import { DragDropPhase } from './components/DragDropPhase';
-import { MessageCodeView } from './components/MessageCodeView';
-import { ContractView } from './components/ContractView';
-import { BadgeView } from './components/BadgeView';
+import { useSocket } from "./socket";
+import { IdleScreen } from "./components/IdleScreen";
+import { BeforeStartView } from "./components/BeforeStartView";
+import { DragDropPhase } from "./components/DragDropPhase";
+import { MessageCodeView } from "./components/MessageCodeView";
+import { ContractView } from "./components/ContractView";
+import { BadgeView } from "./components/BadgeView";
 
 function App() {
   useSocket();
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-black">
       <IdleScreen />
+      <BeforeStartView />
       <DragDropPhase />
       <MessageCodeView />
       <ContractView />

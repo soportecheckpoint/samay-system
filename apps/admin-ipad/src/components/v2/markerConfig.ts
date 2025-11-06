@@ -97,4 +97,16 @@ export const DEFAULT_MARKERS: StageMarker[] = [
     },
     icon: "📺",
   },
+  {
+    id: "tablet-feedback",
+    label: "Tablet Feedback",
+    description: "Tablet para mensajes y pistas al equipo.",
+    type: "module",
+    moduleId: "tablet",
+    position: {
+      x: 0.65,
+      y: 0.5,
+    },
+    icon: "📱",
+  },
 ];

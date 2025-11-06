@@ -15,7 +15,7 @@ function App() {
       <div className="gradient-overlay" aria-hidden="true" />
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <div className="mx-auto flex w-full flex-1 flex-col gap-12 px-6 py-12 md:px-10 lg:max-w-6xl lg:flex-row">
+        <div className="mx-auto flex w-full flex-1 flex-col gap-12 px-6 py-12 md:px-10 lg:flex-row">
           <div className="flex w-full flex-col gap-10 lg:w-1/2">
             <Timer />
             <PreviousMessage />

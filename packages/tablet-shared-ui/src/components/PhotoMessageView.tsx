@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent } from "react";
 
 export type PhotoMessageViewProps = {
   value: string;
@@ -32,17 +32,13 @@ export function PhotoMessageView({
   return (
     <div
       className="flex h-full w-full flex-col items-center justify-center bg-cover bg-center px-8"
-      style={{ backgroundImage: 'url(/images/fb_bg3.png)' }}
+      style={{ backgroundImage: "url(/images/fb_bg4.png)" }}
     >
       <div className="mb-10 text-center">
         <p className="text-3xl font-semibold italic leading-tight text-white">
-          Escriban un mensaje
+          Escriban
           <br />
-          de reconocimiento
-          <br />
-          y agradecimiento
-          <br />
-          por el esfuerzo.
+          su mensaje
         </p>
       </div>
 

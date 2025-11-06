@@ -12,14 +12,14 @@
 
 ## 📱 Apps React y sus IDs
 
-| App | App Type | Session ID |
-|-----|----------|-----------|
-| Admin iPad | `admin-ipad` | `ADMIN_SESSION` |
-| AI App (Laptop e Impresora) | `ai-app` | `AI_SESSION` |
-| Buttons Game | `buttons-game` | `SESSION_001` |
-| Main Screen | `main-screen` | `SESSION_001` |
-| Tablet Feedback | `tablet-feedback` | `TABLET_SESSION` |
-| Totem Táctil | `totem-tactil` | `TOTEM_SESSION` |
+| App                         | App Type          | Session ID       |
+| --------------------------- | ----------------- | ---------------- |
+| Admin iPad                  | `admin-ipad`      | `ADMIN_SESSION`  |
+| AI App (Laptop e Impresora) | `ai-app`          | `AI_SESSION`     |
+| Buttons Game                | `buttons-game`    | `SESSION_001`    |
+| Main Screen                 | `main-screen`     | `SESSION_001`    |
+| Tablet Feedback             | `tablet-feedback` | `TABLET_SESSION` |
+| Totem Táctil                | `totem-tactil`    | `TOTEM_SESSION`  |
 
 ---
 
@@ -30,10 +30,11 @@ Todas las apps React deben registrarse al conectarse:
 **Event**: `register`
 
 **Emit**:
+
 ```javascript
-socket.emit('register', {
-  appType: 'buttons-game',
-  sessionId: 'SESSION_001'
+socket.emit("register", {
+  appType: "buttons-game",
+  sessionId: "SESSION_001",
 });
 ```
 
@@ -44,39 +45,83 @@ socket.emit('register', {
 ### Buttons Game
 
 #### buttons:code-entered
+
 ```javascript
-socket.emit('buttons:code-entered', {
-  code: '1606'
+socket.emit("buttons:code-entered", {
+  code: "1606",
 });
 ```
 
 **Responde con**:
+
 - `buttons:game-started` si el código es correcto
 - `buttons:invalid-code` si el código es incorrecto
+
+---
+
+### AI App
+
+#### ai:print-pdf
+
+```javascript
+socket.emit("ai:print-pdf", {
+  timestamp: "2025-11-05T10:30:00.000Z",
+});
+```
+
+**Descripción**: Solicita al servidor imprimir el PDF `to-print.pdf` en la impresora configurada.
+
+**Responde con**:
+
+- `ai:print-success` si la impresión fue exitosa
+- `ai:print-error` si ocurrió un error
+
+#### ai:code-correct
+
+```javascript
+socket.emit("ai:code-correct", {
+  timestamp: "2025-11-05T10:30:00.000Z",
+});
+```
+
+**Descripción**: Notifica que el código fue ingresado correctamente en la vista CODE.
+
+#### ai:selector-correct
+
+```javascript
+socket.emit("ai:selector-correct", {
+  timestamp: "2025-11-05T10:30:00.000Z",
+});
+```
+
+**Descripción**: Notifica que la opción correcta fue seleccionada en la vista SELECTOR.
 
 ---
 
 ### Tablet Feedback
 
 #### tablet:message-selected
+
 ```javascript
-socket.emit('tablet:message-selected', {
-  messageText: '¡Lo logramos!'
+socket.emit("tablet:message-selected", {
+  messageText: "¡Lo logramos!",
 });
 ```
 
 #### tablet:mirror
+
 ```javascript
-socket.emit('tablet:mirror', {
-  screen: 'feedback_form',
+socket.emit("tablet:mirror", {
+  screen: "feedback_form",
   step: 2,
   content: {
-    feedbackText: 'Fue una gran experiencia...'
-  }
+    feedbackText: "Fue una gran experiencia...",
+  },
 });
 ```
 
 **Screens posibles**:
+
 - `message_select`
 - `message_selected`
 - `feedback_form`
@@ -86,21 +131,24 @@ socket.emit('tablet:mirror', {
 - `final`
 
 #### tablet:frame-message
+
 ```javascript
-socket.emit('tablet:frame-message', {
-  message: 'Nuestro equipo ganador',
-  photoData: 'data:image/jpeg;base64,...'
+socket.emit("tablet:frame-message", {
+  message: "Nuestro equipo ganador",
+  photoData: "data:image/jpeg;base64,...",
 });
 ```
 
 #### tablet:step-change
+
 ```javascript
-socket.emit('tablet:step-change', {
-  step: 'message-select'
+socket.emit("tablet:step-change", {
+  step: "message-select",
 });
 ```
 
 **Steps posibles**:
+
 - `qr-scan`
 - `message-select`
 - `feedback-form`
@@ -110,8 +158,9 @@ socket.emit('tablet:step-change', {
 - `completion`
 
 #### tablet:reset
+
 ```javascript
-socket.emit('tablet:reset');
+socket.emit("tablet:reset");
 ```
 
 ---
@@ -119,15 +168,17 @@ socket.emit('tablet:reset');
 ### Totem Táctil
 
 #### totem:messages-ordered
+
 ```javascript
-socket.emit('totem:messages-ordered', {
-  messages: ['Mensaje 1', 'Mensaje 2', 'Mensaje 3']
+socket.emit("totem:messages-ordered", {
+  messages: ["Mensaje 1", "Mensaje 2", "Mensaje 3"],
 });
 ```
 
 #### totem:contract-accepted
+
 ```javascript
-socket.emit('totem:contract-accepted');
+socket.emit("totem:contract-accepted");
 ```
 
 **Efecto**: Detiene el timer y dispara `game:victory`
@@ -137,23 +188,26 @@ socket.emit('totem:contract-accepted');
 ### Admin iPad
 
 #### admin:get-state
+
 ```javascript
-socket.emit('admin:get-state');
+socket.emit("admin:get-state");
 ```
 
 **Responde con**: `admin:state-update` y `admin:arduinos-list`
 
 #### admin:command
+
 ```javascript
-socket.emit('admin:command', {
-  command: 'start-timer',
-  data: { duration: 3600 }
+socket.emit("admin:command", {
+  command: "start-timer",
+  data: { duration: 3600 },
 });
 ```
 
 **Comandos disponibles**:
 
 **start-timer**
+
 ```javascript
 {
   command: 'start-timer',
@@ -162,27 +216,31 @@ socket.emit('admin:command', {
 ```
 
 **pause-timer**
+
 ```javascript
 {
-  command: 'pause-timer'
+  command: "pause-timer";
 }
 ```
 
 **resume-timer**
+
 ```javascript
 {
-  command: 'resume-timer'
+  command: "resume-timer";
 }
 ```
 
 **reset-timer**
+
 ```javascript
 {
-  command: 'reset-timer'
+  command: "reset-timer";
 }
 ```
 
 **reset-module**
+
 ```javascript
 {
   command: 'reset-module',
@@ -191,29 +249,33 @@ socket.emit('admin:command', {
 ```
 
 **trigger-victory**
+
 ```javascript
 {
-  command: 'trigger-victory'
+  command: "trigger-victory";
 }
 ```
 
 **reset-game**
+
 ```javascript
 {
-  command: 'reset-game'
+  command: "reset-game";
 }
 ```
 
 #### admin:custom-event
+
 ```javascript
-socket.emit('admin:custom-event', 
+socket.emit(
+  "admin:custom-event",
   {
-    eventName: 'mi-evento-custom',
-    payload: { data: 'cualquier cosa' }
+    eventName: "mi-evento-custom",
+    payload: { data: "cualquier cosa" },
   },
   (response) => {
     console.log(response); // { ok: true } o { ok: false, error: '...' }
-  }
+  },
 );
 ```
 
@@ -224,8 +286,9 @@ socket.emit('admin:custom-event',
 ### Eventos Globales (todas las apps)
 
 #### state:update
+
 ```javascript
-socket.on('state:update', (data) => {
+socket.on("state:update", (data) => {
   console.log(data);
   // {
   //   session: { status, elapsed, remaining, total },
@@ -235,8 +298,9 @@ socket.on('state:update', (data) => {
 ```
 
 #### module:completed
+
 ```javascript
-socket.on('module:completed', (data) => {
+socket.on("module:completed", (data) => {
   console.log(data);
   // {
   //   moduleId: 'MODULE_BUTTONS',
@@ -247,8 +311,9 @@ socket.on('module:completed', (data) => {
 ```
 
 #### module:error
+
 ```javascript
-socket.on('module:error', (data) => {
+socket.on("module:error", (data) => {
   console.log(data);
   // {
   //   moduleId: 'MODULE_BUTTONS',
@@ -259,15 +324,17 @@ socket.on('module:error', (data) => {
 ```
 
 #### game:reset
+
 ```javascript
-socket.on('game:reset', () => {
+socket.on("game:reset", () => {
   // Resetear todo el estado local
 });
 ```
 
 #### game:victory
+
 ```javascript
-socket.on('game:victory', (data) => {
+socket.on("game:victory", (data) => {
   console.log(data);
   // {
   //   message: '¡GANARON!',
@@ -281,8 +348,9 @@ socket.on('game:victory', (data) => {
 ### Eventos del Timer
 
 #### timer:update
+
 ```javascript
-socket.on('timer:update', (data) => {
+socket.on("timer:update", (data) => {
   console.log(data);
   // {
   //   status: 'active',
@@ -294,8 +362,9 @@ socket.on('timer:update', (data) => {
 ```
 
 #### timer:stop
+
 ```javascript
-socket.on('timer:stop', (data) => {
+socket.on("timer:stop", (data) => {
   console.log(data);
   // {
   //   reason: 'completed' | 'forced' | 'timeout',
@@ -305,8 +374,9 @@ socket.on('timer:stop', (data) => {
 ```
 
 #### timer:reset
+
 ```javascript
-socket.on('timer:reset', (snapshot) => {
+socket.on("timer:reset", (snapshot) => {
   console.log(snapshot);
   // {
   //   status: 'waiting',
@@ -319,27 +389,88 @@ socket.on('timer:reset', (snapshot) => {
 
 ---
 
+### Eventos de AI App
+
+#### ai:print-success
+
+```javascript
+socket.on("ai:print-success", (data) => {
+  console.log(data);
+  // {
+  //   message: 'PDF impreso exitosamente',
+  //   timestamp: '2025-11-05T10:30:00.000Z'
+  // }
+});
+```
+
+#### ai:print-error
+
+```javascript
+socket.on("ai:print-error", (data) => {
+  console.log(data);
+  // {
+  //   message: 'Error al imprimir PDF: ...',
+  //   timestamp: '2025-11-05T10:30:00.000Z'
+  // }
+});
+```
+
+#### ai:code-correct
+
+```javascript
+socket.on("ai:code-correct", (data) => {
+  console.log(data);
+  // {
+  //   timestamp: '2025-11-05T10:30:00.000Z'
+  // }
+});
+```
+
+#### ai:selector-correct
+
+```javascript
+socket.on("ai:selector-correct", (data) => {
+  console.log(data);
+  // {
+  //   timestamp: '2025-11-05T10:30:00.000Z'
+  // }
+});
+```
+
+#### printer:reset
+
+```javascript
+socket.on("printer:reset", () => {
+  // Resetear estado del módulo de impresión (ai-app)
+});
+```
+
+---
+
 ### Eventos de Botones
 
 #### buttons:game-started
+
 ```javascript
-socket.on('buttons:game-started', (data) => {
+socket.on("buttons:game-started", (data) => {
   console.log(data);
   // { status: 'active' }
 });
 ```
 
 #### buttons:invalid-code
+
 ```javascript
-socket.on('buttons:invalid-code', (data) => {
+socket.on("buttons:invalid-code", (data) => {
   console.log(data);
   // { message: 'Código incorrecto' }
 });
 ```
 
 #### buttons:state-changed
+
 ```javascript
-socket.on('buttons:state-changed', (data) => {
+socket.on("buttons:state-changed", (data) => {
   console.log(data);
   // {
   //   buttons: [{ id: 0, pressed: false }, ...],
@@ -350,16 +481,18 @@ socket.on('buttons:state-changed', (data) => {
 ```
 
 #### buttons:completed
+
 ```javascript
-socket.on('buttons:completed', (data) => {
+socket.on("buttons:completed", (data) => {
   console.log(data);
   // { code: '1234' }
 });
 ```
 
 #### buttons:reset
+
 ```javascript
-socket.on('buttons:reset', () => {
+socket.on("buttons:reset", () => {
   // Resetear estado del módulo de botones
 });
 ```
@@ -369,8 +502,9 @@ socket.on('buttons:reset', () => {
 ### Eventos de Tablet
 
 #### tablet:state
+
 ```javascript
-socket.on('tablet:state', (data) => {
+socket.on("tablet:state", (data) => {
   console.log(data);
   // {
   //   currentStep: 'message-select',
@@ -385,8 +519,9 @@ socket.on('tablet:state', (data) => {
 ```
 
 #### tablet:mirror
+
 ```javascript
-socket.on('tablet:mirror', (data) => {
+socket.on("tablet:mirror", (data) => {
   console.log(data);
   // {
   //   screen: 'feedback_form',
@@ -397,24 +532,27 @@ socket.on('tablet:mirror', (data) => {
 ```
 
 #### tablet:message-selected
+
 ```javascript
-socket.on('tablet:message-selected', (data) => {
+socket.on("tablet:message-selected", (data) => {
   console.log(data);
   // { messageText: '¡Lo logramos!' }
 });
 ```
 
 #### tablet:step-change
+
 ```javascript
-socket.on('tablet:step-change', (data) => {
+socket.on("tablet:step-change", (data) => {
   console.log(data);
   // { step: 'feedback-form' }
 });
 ```
 
 #### tablet:frame-message
+
 ```javascript
-socket.on('tablet:frame-message', (data) => {
+socket.on("tablet:frame-message", (data) => {
   console.log(data);
   // {
   //   message: 'Nuestro equipo ganador',
@@ -424,8 +562,9 @@ socket.on('tablet:frame-message', (data) => {
 ```
 
 #### tablet:reset
+
 ```javascript
-socket.on('tablet:reset', () => {
+socket.on("tablet:reset", () => {
   // Resetear estado de la tablet
 });
 ```
@@ -435,30 +574,34 @@ socket.on('tablet:reset', () => {
 ### Eventos de Totem
 
 #### totem:messages-ordered
+
 ```javascript
-socket.on('totem:messages-ordered', (data) => {
+socket.on("totem:messages-ordered", (data) => {
   console.log(data);
   // { messages: ['Mensaje 1', 'Mensaje 2', 'Mensaje 3'] }
 });
 ```
 
 #### totem:contract-accepted
+
 ```javascript
-socket.on('totem:contract-accepted', () => {
+socket.on("totem:contract-accepted", () => {
   // Contrato aceptado, juego completado
 });
 ```
 
 #### totem:show-sixth-badge
+
 ```javascript
-socket.on('totem:show-sixth-badge', () => {
+socket.on("totem:show-sixth-badge", () => {
   // Mostrar la sexta insignia virtual
 });
 ```
 
 #### totem:reset
+
 ```javascript
-socket.on('totem:reset', () => {
+socket.on("totem:reset", () => {
   // Resetear estado del totem
 });
 ```
@@ -470,8 +613,9 @@ socket.on('totem:reset', () => {
 Estos eventos son enviados por Arduinos vía HTTP POST /dispatch y el servidor los reemite por WebSocket a todas las apps.
 
 #### connections:state-changed
+
 ```javascript
-socket.on('connections:state-changed', (data) => {
+socket.on("connections:state-changed", (data) => {
   console.log(data);
   // {
   //   connections: [{ from: 1, to: 3, connected: true }, ...],
@@ -484,15 +628,17 @@ socket.on('connections:state-changed', (data) => {
 ```
 
 #### tablero-conexiones:state-changed
+
 ```javascript
-socket.on('tablero-conexiones:state-changed', (data) => {
+socket.on("tablero-conexiones:state-changed", (data) => {
   // Mismo formato que connections:state-changed
 });
 ```
 
 #### nfc:state-changed
+
 ```javascript
-socket.on('nfc:state-changed', (data) => {
+socket.on("nfc:state-changed", (data) => {
   console.log(data);
   // {
   //   badges: [{ id: 'badge_001', name: 'Comunicación', slot: 1, detected: true }, ...],
@@ -504,22 +650,25 @@ socket.on('nfc:state-changed', (data) => {
 ```
 
 #### rfid:state-changed
+
 ```javascript
-socket.on('rfid:state-changed', (data) => {
+socket.on("rfid:state-changed", (data) => {
   // Mismo formato que nfc:state-changed
 });
 ```
 
 #### tablero-nfc:state-changed
+
 ```javascript
-socket.on('tablero-nfc:state-changed', (data) => {
+socket.on("tablero-nfc:state-changed", (data) => {
   // Mismo formato que nfc:state-changed
 });
 ```
 
 #### arduino:error
+
 ```javascript
-socket.on('arduino:error', (data) => {
+socket.on("arduino:error", (data) => {
   console.log(data);
   // {
   //   arduinoId: 'buttons',
@@ -529,8 +678,9 @@ socket.on('arduino:error', (data) => {
 ```
 
 #### arduino:disconnected
+
 ```javascript
-socket.on('arduino:disconnected', (data) => {
+socket.on("arduino:disconnected", (data) => {
   console.log(data);
   // {
   //   arduinoId: 'buttons',
@@ -540,8 +690,9 @@ socket.on('arduino:disconnected', (data) => {
 ```
 
 #### arduinos:reset
+
 ```javascript
-socket.on('arduinos:reset', (data) => {
+socket.on("arduinos:reset", (data) => {
   console.log(data);
   // { deviceIds: ['buttons', 'connections', 'nfc'] }
 });
@@ -552,8 +703,9 @@ socket.on('arduinos:reset', (data) => {
 ### Eventos del Admin
 
 #### admin:state-update
+
 ```javascript
-socket.on('admin:state-update', (data) => {
+socket.on("admin:state-update", (data) => {
   console.log(data);
   // {
   //   timer: {
@@ -574,8 +726,9 @@ socket.on('admin:state-update', (data) => {
 ```
 
 #### admin:arduinos-list
+
 ```javascript
-socket.on('admin:arduinos-list', (data) => {
+socket.on("admin:arduinos-list", (data) => {
   console.log(data);
   // [
   //   {
@@ -596,8 +749,9 @@ socket.on('admin:arduinos-list', (data) => {
 ### Eventos de Feedback
 
 #### feedback:message
+
 ```javascript
-socket.on('feedback:message', (data) => {
+socket.on("feedback:message", (data) => {
   console.log(data);
   // {
   //   message: '¡Van por buen camino!',
@@ -617,17 +771,17 @@ socket.on('feedback:message', (data) => {
    → socket.connect()
    ← connect
    → emit('register', { appType: 'buttons-game', sessionId: 'SESSION_001' })
-   
+
 2. Usuario ingresa código en Buttons App
    → emit('buttons:code-entered', { code: '1606' })
-   
+
 3. Servidor valida código y envía comando a Arduino
    Servidor → POST http://192.168.1.100:8080/control
    Body: { command: 'start' }
-   
+
 4. Servidor confirma inicio del juego
    ← on('buttons:game-started', { status: 'active' })
-   
+
 5. Arduino detecta botón presionado
    Arduino → POST http://servidor:3001/dispatch
    Body: {
@@ -635,10 +789,10 @@ socket.on('feedback:message', (data) => {
      event: 'buttons:state-changed',
      data: { buttons: [...], lastPressed: 1, completed: false }
    }
-   
+
 6. Servidor reemite evento a todas las apps
    ← on('buttons:state-changed', { buttons: [...], lastPressed: 1, completed: false })
-   
+
 7. Usuario completa secuencia
    Arduino → POST /dispatch
    Body: {
@@ -646,7 +800,7 @@ socket.on('feedback:message', (data) => {
      event: 'buttons:state-changed',
      data: { buttons: [...], completed: true, code: '1234' }
    }
-   
+
 8. Servidor reemite completación
    ← on('buttons:state-changed', { completed: true, code: '1234' })
    ← on('module:completed', { moduleId: 'MODULE_BUTTONS', code: '1234' })
@@ -656,10 +810,27 @@ socket.on('feedback:message', (data) => {
 
 ## 🎯 Resumen de Eventos por App
 
+### AI App
+
+**Emite**:
+
+- `ai:print-pdf`
+- `ai:code-correct`
+- `ai:selector-correct`
+
+**Escucha**:
+
+- `ai:print-success`
+- `ai:print-error`
+- `printer:reset`
+- `game:reset`
+
 ### Buttons Game
+
 **Emite**: `buttons:code-entered`
 
-**Escucha**: 
+**Escucha**:
+
 - `buttons:game-started`
 - `buttons:invalid-code`
 - `buttons:state-changed`
@@ -669,7 +840,9 @@ socket.on('feedback:message', (data) => {
 - `game:reset`
 
 ### Tablet Feedback
+
 **Emite**:
+
 - `tablet:message-selected`
 - `tablet:mirror`
 - `tablet:frame-message`
@@ -677,16 +850,20 @@ socket.on('feedback:message', (data) => {
 - `tablet:reset`
 
 **Escucha**:
+
 - `state:update`
 - `tablet:state`
 - `tablet:reset`
 
 ### Totem Táctil
+
 **Emite**:
+
 - `totem:messages-ordered`
 - `totem:contract-accepted`
 
 **Escucha**:
+
 - `connections:state-changed` / `tablero-conexiones:state-changed`
 - `nfc:state-changed` / `rfid:state-changed` / `tablero-nfc:state-changed`
 - `module:completed`
@@ -695,9 +872,11 @@ socket.on('feedback:message', (data) => {
 - `totem:show-sixth-badge`
 
 ### Main Screen
+
 **Emite**: Ninguno (solo recibe)
 
 **Escucha**:
+
 - `state:update`
 - `timer:update`
 - `timer:stop`
@@ -711,12 +890,15 @@ socket.on('feedback:message', (data) => {
 - `game:victory`
 
 ### Admin iPad
+
 **Emite**:
+
 - `admin:get-state`
 - `admin:command`
 - `admin:custom-event`
 
 **Escucha**:
+
 - `admin:state-update`
 - `admin:arduinos-list`
 - `buttons:game-started`

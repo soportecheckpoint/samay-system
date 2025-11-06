@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { PointerEvent as ReactPointerEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import {
   Menu,
   // Edit3, // DESACTIVADO TEMPORALMENTE
@@ -11,7 +11,7 @@ import {
   Play,
   StopCircle,
   Pause,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   restartAllArduinos,
   restartArduino,
@@ -26,17 +26,18 @@ import {
   triggerTotemShowSixthBadge,
   triggerTotemMatchActivation,
   sendFeedbackMessage,
-} from '../../socket.ts';
-import { useAdminStore } from '../../store.ts';
-import type { ArduinoState, ModuleId, ModuleState } from '../../store.ts';
-import { MarkerLayer } from './MarkerLayer.tsx';
-import { HardwareDrawer, type DrawerAction } from './HardwareDrawer.tsx';
-import { VictoryModal } from './VictoryModal.tsx';
-import { DEFAULT_MARKERS } from './markerConfig.ts';
-import { deriveMarkerDetails, type MarkerDetails } from './status.ts';
-import type { MarkerStatus, StageMarker } from './types.ts';
+  resetTabletFeedback,
+} from "../../socket.ts";
+import { useAdminStore } from "../../store.ts";
+import type { ArduinoState, ModuleId, ModuleState } from "../../store.ts";
+import { MarkerLayer } from "./MarkerLayer.tsx";
+import { HardwareDrawer, type DrawerAction } from "./HardwareDrawer.tsx";
+import { VictoryModal } from "./VictoryModal.tsx";
+import { DEFAULT_MARKERS } from "./markerConfig.ts";
+import { deriveMarkerDetails, type MarkerDetails } from "./status.ts";
+import type { MarkerStatus, StageMarker } from "./types.ts";
 
-const BACKGROUND_SRC = '/background.png';
+const BACKGROUND_SRC = "/background.png";
 
 type ModuleMap = Record<ModuleId, ModuleState>;
 
@@ -53,20 +54,22 @@ type DraggingState = {
   pointerId: number;
 } | null;
 
-const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+const clamp = (value: number, min = 0, max = 1) =>
+  Math.min(max, Math.max(min, value));
 
 export function DashboardV2() {
   const stageRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { connected, modules, arduinos, timer, gameCompleted, completionTime } = useAdminStore((state) => ({
-    connected: state.connected,
-    modules: state.modules,
-    arduinos: state.arduinos,
-    timer: state.timer,
-    gameCompleted: state.gameCompleted,
-    completionTime: state.completionTime,
-  }));
+  const { connected, modules, arduinos, timer, gameCompleted, completionTime } =
+    useAdminStore((state) => ({
+      connected: state.connected,
+      modules: state.modules,
+      arduinos: state.arduinos,
+      timer: state.timer,
+      gameCompleted: state.gameCompleted,
+      completionTime: state.completionTime,
+    }));
 
   const [isPressingStart, setIsPressingStart] = useState(false);
   const [isPressingPause, setIsPressingPause] = useState(false);
@@ -78,7 +81,7 @@ export function DashboardV2() {
   const [editing] = useState(false); // setEditing DESACTIVADO TEMPORALMENTE
   const [dragging, setDragging] = useState<DraggingState>(null);
   const [exportVisible, setExportVisible] = useState(false);
-  const [clipboardState] = useState<'idle' | 'copied' | 'error'>('idle'); // setClipboardState DESACTIVADO TEMPORALMENTE
+  const [clipboardState] = useState<"idle" | "copied" | "error">("idle"); // setClipboardState DESACTIVADO TEMPORALMENTE
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [shouldRenderMenu, setShouldRenderMenu] = useState(false);
@@ -150,7 +153,11 @@ export function DashboardV2() {
     if (!img) {
       return;
     }
-    setImageDimensions({ width: img.naturalWidth, height: img.naturalHeight, ready: true });
+    setImageDimensions({
+      width: img.naturalWidth,
+      height: img.naturalHeight,
+      ready: true,
+    });
   }, []);
 
   const projectPosition = useCallback(
@@ -173,15 +180,22 @@ export function DashboardV2() {
       const rect = stageRef.current.getBoundingClientRect();
       const localX = clientX - rect.left;
       const localY = clientY - rect.top;
-      const normalizedX = clamp((localX + metrics.offsetX) / metrics.scaledWidth);
-      const normalizedY = clamp((localY + metrics.offsetY) / metrics.scaledHeight);
+      const normalizedX = clamp(
+        (localX + metrics.offsetX) / metrics.scaledWidth,
+      );
+      const normalizedY = clamp(
+        (localY + metrics.offsetY) / metrics.scaledHeight,
+      );
 
       setMarkers((prev) =>
         prev.map((marker) =>
           marker.id === markerId
             ? {
                 ...marker,
-                position: { x: Number(normalizedX.toFixed(4)), y: Number(normalizedY.toFixed(4)) },
+                position: {
+                  x: Number(normalizedX.toFixed(4)),
+                  y: Number(normalizedY.toFixed(4)),
+                },
               }
             : marker,
         ),
@@ -212,14 +226,14 @@ export function DashboardV2() {
       }
     };
 
-    window.addEventListener('pointermove', handleMove, { passive: false });
-    window.addEventListener('pointerup', handleUp);
-    window.addEventListener('pointercancel', handleCancel);
+    window.addEventListener("pointermove", handleMove, { passive: false });
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleCancel);
 
     return () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerup', handleUp);
-      window.removeEventListener('pointercancel', handleCancel);
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleCancel);
     };
   }, [dragging, updateMarkerPosition]);
 
@@ -250,7 +264,11 @@ export function DashboardV2() {
     const mapDetails: Record<string, MarkerDetails> = {};
 
     markers.forEach((marker) => {
-      const details = deriveMarkerDetails(marker, modules as ModuleMap, arduinos as ArduinoState[]);
+      const details = deriveMarkerDetails(
+        marker,
+        modules as ModuleMap,
+        arduinos as ArduinoState[],
+      );
       mapStatus[marker.id] = details.status;
       mapDetails[marker.id] = details;
     });
@@ -263,7 +281,9 @@ export function DashboardV2() {
     [markers, selectedMarkerId],
   );
 
-  const selectedDetails = selectedMarker ? detailMap[selectedMarker.id] ?? null : null;
+  const selectedDetails = selectedMarker
+    ? (detailMap[selectedMarker.id] ?? null)
+    : null;
 
   /* DESACTIVADO TEMPORALMENTE - Función para editar marcadores
   const handleToggleEditing = () => {
@@ -304,61 +324,62 @@ export function DashboardV2() {
 
     const actions: DrawerAction[] = [];
 
-    if (selectedMarker.type === 'arduino' && selectedMarker.deviceId) {
+    if (selectedMarker.type === "arduino" && selectedMarker.deviceId) {
       actions.push({
-        id: 'restart-arduino',
-        label: 'Reiniciar Arduino',
-        description: 'Envía el comando de reinicio inmediato al dispositivo.',
-        tone: 'primary',
+        id: "restart-arduino",
+        label: "Reiniciar Arduino",
+        description: "Envía el comando de reinicio inmediato al dispositivo.",
+        tone: "primary",
         requireHold: true,
         onClick: () => restartArduino(selectedMarker.deviceId!),
       });
     }
 
-    if (selectedMarker.type === 'module' && selectedMarker.moduleId) {
+    if (selectedMarker.type === "module" && selectedMarker.moduleId) {
       actions.push({
-        id: 'reset-module',
-        label: 'Resetear módulo',
-        description: 'Restablece el flujo completo del módulo seleccionado.',
-        tone: 'primary',
+        id: "reset-module",
+        label: "Resetear módulo",
+        description: "Restablece el flujo completo del módulo seleccionado.",
+        tone: "primary",
         requireHold: true,
         onClick: () => resetModule(selectedMarker.moduleId!),
       });
 
       // Acciones específicas por módulo
-      if (selectedMarker.moduleId === 'buttons') {
+      if (selectedMarker.moduleId === "buttons") {
         actions.push({
-          id: 'trigger-buttons-start',
-          label: 'Iniciar juego de botones',
-          description: 'Activa el juego en la pantalla de botones.',
-          tone: 'neutral',
+          id: "trigger-buttons-start",
+          label: "Iniciar juego de botones",
+          description: "Activa el juego en la pantalla de botones.",
+          tone: "neutral",
           requireHold: true,
           onClick: () => triggerButtonsGameStart(),
         });
         actions.push({
-          id: 'trigger-buttons-complete',
-          label: 'Marcar como completado',
-          description: 'Marca el módulo de botones como completado con código 1234.',
-          tone: 'neutral',
+          id: "trigger-buttons-complete",
+          label: "Marcar como completado",
+          description:
+            "Marca el módulo de botones como completado con código 1234.",
+          tone: "neutral",
           requireHold: true,
-          onClick: () => triggerButtonsCompleted('1234'),
+          onClick: () => triggerButtonsCompleted("1234"),
         });
       }
 
-      if (selectedMarker.moduleId === 'totem') {
+      if (selectedMarker.moduleId === "totem") {
         actions.push({
-          id: 'trigger-totem-match',
-          label: 'Activar juego del Match',
-          description: 'Lleva al totem a la pantalla del juego del match.',
-          tone: 'neutral',
+          id: "trigger-totem-match",
+          label: "Activar juego del Match",
+          description: "Lleva al totem a la pantalla del juego del match.",
+          tone: "neutral",
           requireHold: true,
           onClick: () => triggerTotemMatchActivation(),
         });
         actions.push({
-          id: 'trigger-totem-sixth-badge',
-          label: 'Mostrar sexta insignia',
-          description: 'Muestra la pantalla de la sexta insignia en el totem.',
-          tone: 'neutral',
+          id: "trigger-totem-sixth-badge",
+          label: "Mostrar sexta insignia",
+          description: "Muestra la pantalla de la sexta insignia en el totem.",
+          tone: "neutral",
           requireHold: true,
           onClick: () => triggerTotemShowSixthBadge(),
         });
@@ -393,9 +414,9 @@ export function DashboardV2() {
   const handlePauseMouseDown = useCallback(() => {
     pressPauseTimerRef.current = setTimeout(() => {
       setIsPressingPause(true);
-      if (timer.status === 'active') {
+      if (timer.status === "active") {
         pauseTimer();
-      } else if (timer.status === 'paused') {
+      } else if (timer.status === "paused") {
         resumeTimer();
       }
     }, 500); // 500ms para activar
@@ -413,16 +434,23 @@ export function DashboardV2() {
   const formatTime = useCallback((seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed top-0 left-0 h-full w-full overflow-hidden bg-slate-950 text-white"
-      style={{ touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
+      style={{
+        touchAction: "none",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+      }}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <div ref={stageRef} className="relative flex h-screen w-full items-stretch justify-center">
+      <div
+        ref={stageRef}
+        className="relative flex h-screen w-full items-stretch justify-center"
+      >
         <img
           ref={imageRef}
           src={BACKGROUND_SRC}
@@ -441,11 +469,13 @@ export function DashboardV2() {
                 <span
                   className={`inline-flex h-2.5 w-2.5 rounded-full ${
                     connected
-                      ? 'bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]'
-                      : 'bg-rose-400 shadow-[0_0_16px_rgba(248,113,113,0.8)]'
-                  } ${connected ? 'animate-pulse' : ''}`}
+                      ? "bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]"
+                      : "bg-rose-400 shadow-[0_0_16px_rgba(248,113,113,0.8)]"
+                  } ${connected ? "animate-pulse" : ""}`}
                 />
-                {connected ? 'Conectado al servidor' : 'Sin conexión con el servidor'}
+                {connected
+                  ? "Conectado al servidor"
+                  : "Sin conexión con el servidor"}
               </div>
             </div>
 
@@ -462,7 +492,8 @@ export function DashboardV2() {
 
           {editing && (
             <div className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 rounded-2xl border border-amber-400/30 bg-amber-500/10 px-6 py-3 text-center text-sm text-amber-50 shadow-[0_20px_60px_-30px_rgba(251,191,36,0.8)] backdrop-blur">
-              Arrastra los marcadores para ajustar su posición. Recuerda copiar el layout actualizado.
+              Arrastra los marcadores para ajustar su posición. Recuerda copiar
+              el layout actualizado.
             </div>
           )}
 
@@ -471,15 +502,17 @@ export function DashboardV2() {
             {/* Timer Display */}
             <div className="rounded-3xl border border-white/15 bg-white/10 px-6 py-4 backdrop-blur">
               <div className="text-center">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">Tiempo</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">
+                  Tiempo
+                </p>
                 <p className="text-4xl font-bold tracking-tight text-white">
                   {formatTime(timer.remainingTime)}
                 </p>
                 <p className="text-xs text-white/50 mt-1">
-                  {timer.status === 'active' && 'En curso'}
-                  {timer.status === 'paused' && 'Pausado'}
-                  {timer.status === 'waiting' && 'En espera'}
-                  {timer.status === 'completed' && 'Completado'}
+                  {timer.status === "active" && "En curso"}
+                  {timer.status === "paused" && "Pausado"}
+                  {timer.status === "waiting" && "En espera"}
+                  {timer.status === "completed" && "Completado"}
                 </p>
               </div>
             </div>
@@ -491,15 +524,19 @@ export function DashboardV2() {
               onPointerUp={handleStartStopMouseUp}
               onPointerLeave={handleStartStopMouseUp}
               onContextMenu={(e) => e.preventDefault()}
-              style={{ touchAction: 'none', WebkitTouchCallout: 'none', userSelect: 'none' }}
+              style={{
+                touchAction: "none",
+                WebkitTouchCallout: "none",
+                userSelect: "none",
+              }}
               className={`relative rounded-2xl border-2 px-6 py-5 text-white transition-all duration-300 backdrop-blur ${
                 isPressingStart
-                  ? 'scale-95 shadow-[0_0_30px_rgba(52,211,153,0.6)]'
-                  : 'scale-100 shadow-[0_4px_20px_rgba(0,0,0,0.3)]'
+                  ? "scale-95 shadow-[0_0_30px_rgba(52,211,153,0.6)]"
+                  : "scale-100 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
               } ${
                 timer.isRunning
-                  ? 'border-rose-400/40 bg-rose-500/20 hover:border-rose-400/60 hover:bg-rose-500/30'
-                  : 'border-emerald-400/40 bg-emerald-500/20 hover:border-emerald-400/60 hover:bg-emerald-500/30'
+                  ? "border-rose-400/40 bg-rose-500/20 hover:border-rose-400/60 hover:bg-rose-500/30"
+                  : "border-emerald-400/40 bg-emerald-500/20 hover:border-emerald-400/60 hover:bg-emerald-500/30"
               }`}
             >
               <div className="flex flex-col items-center gap-2">
@@ -509,7 +546,9 @@ export function DashboardV2() {
                   <Play className="h-8 w-8" strokeWidth={2} />
                 )}
                 <span className="text-sm font-semibold">
-                  {timer.isRunning ? 'Mantén para Detener' : 'Mantén para Iniciar'}
+                  {timer.isRunning
+                    ? "Mantén para Detener"
+                    : "Mantén para Iniciar"}
                 </span>
                 {isPressingStart && (
                   <div className="absolute inset-0 rounded-2xl border-2 border-white/50 animate-ping" />
@@ -524,22 +563,28 @@ export function DashboardV2() {
               onPointerUp={handlePauseMouseUp}
               onPointerLeave={handlePauseMouseUp}
               onContextMenu={(e) => e.preventDefault()}
-              style={{ touchAction: 'none', WebkitTouchCallout: 'none', userSelect: 'none' }}
-              disabled={!timer.isRunning && timer.status !== 'paused'}
+              style={{
+                touchAction: "none",
+                WebkitTouchCallout: "none",
+                userSelect: "none",
+              }}
+              disabled={!timer.isRunning && timer.status !== "paused"}
               className={`relative rounded-2xl border-2 px-4 py-3 text-white transition-all duration-300 backdrop-blur ${
                 isPressingPause
-                  ? 'scale-95 shadow-[0_0_20px_rgba(59,130,246,0.6)]'
-                  : 'scale-100 shadow-[0_2px_12px_rgba(0,0,0,0.2)]'
+                  ? "scale-95 shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+                  : "scale-100 shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
               } ${
-                !timer.isRunning && timer.status !== 'paused'
-                  ? 'opacity-40 cursor-not-allowed border-slate-400/20 bg-slate-500/10'
-                  : 'border-blue-400/40 bg-blue-500/20 hover:border-blue-400/60 hover:bg-blue-500/30'
+                !timer.isRunning && timer.status !== "paused"
+                  ? "opacity-40 cursor-not-allowed border-slate-400/20 bg-slate-500/10"
+                  : "border-blue-400/40 bg-blue-500/20 hover:border-blue-400/60 hover:bg-blue-500/30"
               }`}
             >
               <div className="flex items-center justify-center gap-2">
                 <Pause className="h-5 w-5" strokeWidth={2} />
                 <span className="text-xs font-semibold">
-                  {timer.status === 'paused' ? 'Mantén para Reanudar' : 'Mantén para Pausar'}
+                  {timer.status === "paused"
+                    ? "Mantén para Reanudar"
+                    : "Mantén para Pausar"}
                 </span>
                 {isPressingPause && (
                   <div className="absolute inset-0 rounded-2xl border-2 border-white/50 animate-ping" />
@@ -571,23 +616,23 @@ export function DashboardV2() {
           <div className="pointer-events-none absolute inset-0">
             <div
               className={`pointer-events-auto absolute inset-0 bg-slate-900/20 backdrop-blur-sm transition-opacity duration-500 ${
-                menuVisible ? 'opacity-100' : 'opacity-0'
+                menuVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{
-                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
               }}
               onClick={() => setMenuOpen(false)}
             />
             <div
               className={`pointer-events-auto absolute right-6 top-20 w-80 rounded-3xl border border-slate-300/40 bg-white/80 backdrop-blur-3xl transition-all duration-500 ${
                 menuVisible
-                  ? 'translate-y-0 scale-100 opacity-100 blur-0'
-                  : '-translate-y-4 scale-95 opacity-0 blur-sm'
+                  ? "translate-y-0 scale-100 opacity-100 blur-0"
+                  : "-translate-y-4 scale-95 opacity-0 blur-sm"
               }`}
               style={{
                 boxShadow:
-                  '0 25px 80px -20px rgba(0, 0, 0, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.5)',
-                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                  "0 25px 80px -20px rgba(0, 0, 0, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.5)",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               <div className="p-5">
@@ -657,7 +702,9 @@ export function DashboardV2() {
                     </div>
                     <div className="flex-1">
                       <div>Reiniciar todos los arduinos</div>
-                      <div className="text-[10px] opacity-70">Reinicia todos los dispositivos</div>
+                      <div className="text-[10px] opacity-70">
+                        Reinicia todos los dispositivos
+                      </div>
                     </div>
                   </button>
                   <button
@@ -673,7 +720,9 @@ export function DashboardV2() {
                     </div>
                     <div className="flex-1">
                       <div>Mostrar victoria</div>
-                      <div className="text-[10px] opacity-70">Dispara el evento de ganar</div>
+                      <div className="text-[10px] opacity-70">
+                        Dispara el evento de ganar
+                      </div>
                     </div>
                   </button>
                   <button
@@ -689,14 +738,16 @@ export function DashboardV2() {
                     </div>
                     <div className="flex-1">
                       <div>Reset completo</div>
-                      <div className="text-[10px] opacity-70">Reinicia toda la sesión</div>
+                      <div className="text-[10px] opacity-70">
+                        Reinicia toda la sesión
+                      </div>
                     </div>
                   </button>
                   <div className="my-3 h-px bg-gradient-to-r from-transparent via-slate-300/40 to-transparent" />
                   <button
                     type="button"
                     onClick={() => {
-                      window.location.hash = '#v1';
+                      window.location.hash = "#v1";
                       setMenuOpen(false);
                     }}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all duration-300 hover:scale-[1.02] hover:border-slate-400/60"
@@ -706,7 +757,9 @@ export function DashboardV2() {
                     </div>
                     <div className="flex-1">
                       <div>Cambiar a V1</div>
-                      <div className="text-[10px] opacity-70">Interfaz clásica</div>
+                      <div className="text-[10px] opacity-70">
+                        Interfaz clásica
+                      </div>
                     </div>
                   </button>
                 </div>
@@ -719,7 +772,9 @@ export function DashboardV2() {
           <div className="pointer-events-none absolute right-6 top-28 w-96 max-w-full">
             <div className="pointer-events-auto rounded-3xl border border-white/15 bg-slate-950/90 p-4 backdrop-blur">
               <div className="flex items-center justify-between">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/40">Layout JSON</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+                  Layout JSON
+                </p>
                 <button
                   type="button"
                   onClick={() => setExportVisible(false)}
@@ -733,19 +788,20 @@ export function DashboardV2() {
                 value={exportJson}
                 className="mt-3 h-56 w-full resize-none rounded-2xl border border-white/10 bg-black/50 p-3 text-xs leading-relaxed text-white/80"
               />
-              <p className={`mt-2 text-xs ${
-                clipboardState === 'copied'
-                  ? 'text-emerald-300'
-                  : clipboardState === 'error'
-                    ? 'text-rose-300'
-                    : 'text-white/50'
-              }`}
+              <p
+                className={`mt-2 text-xs ${
+                  clipboardState === "copied"
+                    ? "text-emerald-300"
+                    : clipboardState === "error"
+                      ? "text-rose-300"
+                      : "text-white/50"
+                }`}
               >
-                {clipboardState === 'copied'
-                  ? 'Copiado al portapapeles'
-                  : clipboardState === 'error'
-                    ? 'No se pudo copiar automáticamente. Copia el contenido manualmente.'
-                    : 'Pega este JSON en markerConfig.ts para persistir cambios.'}
+                {clipboardState === "copied"
+                  ? "Copiado al portapapeles"
+                  : clipboardState === "error"
+                    ? "No se pudo copiar automáticamente. Copia el contenido manualmente."
+                    : "Pega este JSON en markerConfig.ts para persistir cambios."}
               </p>
             </div>
           </div>
@@ -753,10 +809,7 @@ export function DashboardV2() {
 
         {/* Victory Modal */}
         {gameCompleted && completionTime !== undefined && (
-          <VictoryModal
-            completionTime={completionTime}
-            onReset={resetGame}
-          />
+          <VictoryModal completionTime={completionTime} onReset={resetGame} />
         )}
       </div>
     </div>

@@ -29,7 +29,7 @@ export const Timer: React.FC = () => {
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex items-start gap-3">
+      <div className="flex justify-center gap-3">
         <div className="timer-digits">
           {digits.map((character, index) => (
             <span

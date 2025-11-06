@@ -1,14 +1,16 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-type TimerStatus = 'waiting' | 'active' | 'paused' | 'completed';
+type TimerStatus = "waiting" | "active" | "paused" | "completed";
 
 interface TimerState {
   total: number;
   elapsed: number;
   remaining: number;
   status: TimerStatus;
-  hydrate: (snapshot: Partial<Omit<TimerState, 'hydrate' | 'markCompleted'>>) => void;
+  hydrate: (
+    snapshot: Partial<Omit<TimerState, "hydrate" | "markCompleted">>,
+  ) => void;
   markCompleted: (finalTime?: number) => void;
 }
 
@@ -16,7 +18,7 @@ export const useTimerStore = create<TimerState>((set) => ({
   total: 0,
   elapsed: 0,
   remaining: 0,
-  status: 'waiting',
+  status: "waiting",
   hydrate: (snapshot) =>
     set((state) => ({
       total: snapshot.total ?? state.total,
@@ -26,8 +28,8 @@ export const useTimerStore = create<TimerState>((set) => ({
     })),
   markCompleted: (finalTime) =>
     set((state) => ({
-      status: 'completed',
-      elapsed: typeof finalTime === 'number' ? finalTime : state.elapsed,
+      status: "completed",
+      elapsed: typeof finalTime === "number" ? finalTime : state.elapsed,
       remaining: 0,
       total: state.total,
     })),
@@ -43,17 +45,19 @@ interface MessageState {
 export const useMessageStore = create<MessageState>()(
   persist(
     (set) => ({
-      previousMessage: '',
-      teamName: '',
-      setMessage: (message, team) => set({ previousMessage: message, teamName: team }),
+      previousMessage: "",
+      teamName: "",
+      setMessage: (message, team) =>
+        set({ previousMessage: message, teamName: team }),
       hydrate: (message, team) =>
         set((state) => ({
-          previousMessage: typeof message === 'string' ? message : state.previousMessage,
-          teamName: typeof team === 'string' ? team : state.teamName,
+          previousMessage:
+            typeof message === "string" ? message : state.previousMessage,
+          teamName: typeof team === "string" ? team : state.teamName,
         })),
     }),
     {
-      name: 'main-screen-previous-message',
+      name: "main-screen-previous-message",
       version: 1,
     },
   ),
@@ -61,16 +65,19 @@ export const useMessageStore = create<MessageState>()(
 
 interface FeedbackState {
   message: string;
-  type: 'success' | 'info' | 'warning' | 'error' | '';
-  setFeedback: (message: string, type: 'success' | 'info' | 'warning' | 'error') => void;
+  type: "success" | "info" | "warning" | "error" | "";
+  setFeedback: (
+    message: string,
+    type: "success" | "info" | "warning" | "error",
+  ) => void;
   clear: () => void;
 }
 
 export const useFeedbackStore = create<FeedbackState>((set) => ({
-  message: '',
-  type: '',
+  message: "",
+  type: "",
   setFeedback: (message, type) => set({ message, type }),
-  clear: () => set({ message: '', type: '' }),
+  clear: () => set({ message: "", type: "" }),
 }));
 
 interface VictoryState {
@@ -87,7 +94,7 @@ export const useVictoryStore = create<VictoryState>((set) => ({
   reset: () => set({ isVictory: false, finalTime: 0 }),
 }));
 
-export type WinOverlayVariant = 'message' | 'final';
+export type WinOverlayVariant = "message" | "final";
 
 interface WinOverlayState {
   imageSrc: string | null;
@@ -98,9 +105,9 @@ interface WinOverlayState {
 
 export const useWinOverlayStore = create<WinOverlayState>((set) => ({
   imageSrc: null,
-  variant: 'message',
-  show: (imageSrc, variant = 'message') => set({ imageSrc, variant }),
-  hide: () => set({ imageSrc: null, variant: 'message' }),
+  variant: "message",
+  show: (imageSrc, variant = "message") => set({ imageSrc, variant }),
+  hide: () => set({ imageSrc: null, variant: "message" }),
 }));
 
 interface ConnectionState {
@@ -113,46 +120,91 @@ export const useConnectionStore = create<ConnectionState>((set) => ({
   setConnected: (connected) => set({ isConnected: connected }),
 }));
 
-export type TabletStep = 'qr-scan' | 'message-select' | 'feedback' | 'photo' | 'frame-message' | 'final-code';
+export type TabletStep =
+  | "qr-scan"
+  | "message-select"
+  | "feedback"
+  | "photo"
+  | "frame-message"
+  | "final-code";
 
 interface TabletSyncState {
   sessionId: string;
   currentView: string;
-  currentStep: TabletStep | '';
+  currentStep: TabletStep | "";
   selectedMessage: string;
   feedbackText: string;
   frameMessage: string;
   photoData: string | null;
-  hydrate: (snapshot: Partial<Omit<TabletSyncState, 'hydrate' | 'reset'>>) => void;
+  composedImage: string | null;
+  composedImagePath: string | null;
+  composedImageUrl: string | null;
+  hydrate: (
+    snapshot: Partial<Omit<TabletSyncState, "hydrate" | "reset">>,
+  ) => void;
   reset: () => void;
 }
 
-const createInitialTabletSyncState = (): Omit<TabletSyncState, 'hydrate' | 'reset'> => ({
-  sessionId: '',
-  currentView: 'camera-preview',
-  currentStep: '',
-  selectedMessage: '',
-  feedbackText: '',
-  frameMessage: '',
+const createInitialTabletSyncState = (): Omit<
+  TabletSyncState,
+  "hydrate" | "reset"
+> => ({
+  sessionId: "",
+  currentView: "camera-preview",
+  currentStep: "",
+  selectedMessage: "",
+  feedbackText: "",
+  frameMessage: "",
   photoData: null,
+  composedImage: null,
+  composedImagePath: null,
+  composedImageUrl: null,
 });
 
 export const useTabletSyncStore = create<TabletSyncState>((set) => ({
   ...createInitialTabletSyncState(),
   hydrate: (snapshot) =>
     set((state) => ({
-      sessionId: typeof snapshot.sessionId === 'string' ? snapshot.sessionId : state.sessionId,
-      currentView: typeof snapshot.currentView === 'string' ? snapshot.currentView : state.currentView,
+      sessionId:
+        typeof snapshot.sessionId === "string"
+          ? snapshot.sessionId
+          : state.sessionId,
+      currentView:
+        typeof snapshot.currentView === "string"
+          ? snapshot.currentView
+          : state.currentView,
       currentStep:
-        typeof snapshot.currentStep === 'string' ? (snapshot.currentStep as TabletStep | '') : state.currentStep,
+        typeof snapshot.currentStep === "string"
+          ? (snapshot.currentStep as TabletStep | "")
+          : state.currentStep,
       selectedMessage:
-        typeof snapshot.selectedMessage === 'string' ? snapshot.selectedMessage : state.selectedMessage,
+        typeof snapshot.selectedMessage === "string"
+          ? snapshot.selectedMessage
+          : state.selectedMessage,
       feedbackText:
-        typeof snapshot.feedbackText === 'string' ? snapshot.feedbackText : state.feedbackText,
+        typeof snapshot.feedbackText === "string"
+          ? snapshot.feedbackText
+          : state.feedbackText,
       frameMessage:
-        typeof snapshot.frameMessage === 'string' ? snapshot.frameMessage : state.frameMessage,
+        typeof snapshot.frameMessage === "string"
+          ? snapshot.frameMessage
+          : state.frameMessage,
       photoData:
-        typeof snapshot.photoData === 'undefined' ? state.photoData : snapshot.photoData ?? null,
+        typeof snapshot.photoData === "undefined"
+          ? state.photoData
+          : (snapshot.photoData ?? null),
+      composedImage:
+        typeof snapshot.composedImage === "undefined"
+          ? state.composedImage
+          : (snapshot.composedImage ?? null),
+      composedImagePath:
+        typeof snapshot.composedImagePath === "undefined"
+          ? state.composedImagePath
+          : (snapshot.composedImagePath ?? null),
+      composedImageUrl:
+        typeof snapshot.composedImageUrl === "undefined"
+          ? state.composedImageUrl
+          : (snapshot.composedImageUrl ?? null),
     })),
   reset: () => set(createInitialTabletSyncState()),
 }));
@@ -162,28 +214,49 @@ interface TabletMirrorState {
   step: number;
   content: Record<string, unknown>;
   updatedAt: string;
-  hydrate: (snapshot: Partial<Omit<TabletMirrorState, 'hydrate' | 'reset'>>) => void;
+  hydrate: (
+    snapshot: Partial<Omit<TabletMirrorState, "hydrate" | "reset">>,
+  ) => void;
   reset: () => void;
 }
 
-const createInitialTabletMirrorState = (): Omit<TabletMirrorState, 'hydrate' | 'reset'> => ({
-  screen: '',
+const createInitialTabletMirrorState = (): Omit<
+  TabletMirrorState,
+  "hydrate" | "reset"
+> => ({
+  screen: "",
   step: 0,
   content: {},
-  updatedAt: '',
+  updatedAt: "",
 });
 
 export const useTabletMirrorStore = create<TabletMirrorState>((set) => ({
   ...createInitialTabletMirrorState(),
   hydrate: (snapshot) =>
     set((state) => ({
-      screen: typeof snapshot.screen === 'string' ? snapshot.screen : state.screen,
-      step: typeof snapshot.step === 'number' ? snapshot.step : state.step,
+      screen:
+        typeof snapshot.screen === "string" ? snapshot.screen : state.screen,
+      step: typeof snapshot.step === "number" ? snapshot.step : state.step,
       content:
-        typeof snapshot.content === 'object' && snapshot.content !== null
+        typeof snapshot.content === "object" && snapshot.content !== null
           ? { ...snapshot.content }
           : state.content,
-      updatedAt: typeof snapshot.updatedAt === 'string' ? snapshot.updatedAt : state.updatedAt,
+      updatedAt:
+        typeof snapshot.updatedAt === "string"
+          ? snapshot.updatedAt
+          : state.updatedAt,
     })),
   reset: () => set(createInitialTabletMirrorState()),
+}));
+
+interface TotemState {
+  currentView: string;
+  setView: (view: string) => void;
+  reset: () => void;
+}
+
+export const useTotemStore = create<TotemState>((set) => ({
+  currentView: "idle",
+  setView: (view) => set({ currentView: view }),
+  reset: () => set({ currentView: "idle" }),
 }));

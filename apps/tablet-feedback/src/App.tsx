@@ -17,7 +17,7 @@ function App() {
   useTabletFlowSync();
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-black">
+    <div className="fixed h-full w-full top-0 left-0 overflow-hidden bg-black">
       <CameraPreview />
       <MessageSelect />
       <MessageDisplay />

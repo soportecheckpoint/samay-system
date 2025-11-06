@@ -21,6 +21,9 @@ export interface TabletState {
   feedbackText: string;
   photoData: string | null;
   frameMessage: string;
+  composedImage: string | null;
+  composedImagePath: string | null;
+  composedImageUrl: string | null;
   mirror: TabletMirrorState;
 }
 
@@ -39,6 +42,9 @@ const createInitialTabletState = (): TabletState => ({
   feedbackText: '',
   photoData: null,
   frameMessage: '',
+  composedImage: null,
+  composedImagePath: null,
+  composedImageUrl: null,
   mirror: createInitialMirror(),
 });
 
@@ -58,7 +64,13 @@ export const updateTabletState = (
   const { mirror, ...stateData } = data;
 
   if (Object.keys(stateData).length > 0) {
-    Object.assign(tabletState, stateData);
+    const sanitizedStateData = Object.fromEntries(
+      Object.entries(stateData).filter(([, value]) => typeof value !== 'undefined'),
+    ) as Partial<Omit<TabletState, 'mirror'>>;
+
+    if (Object.keys(sanitizedStateData).length > 0) {
+      Object.assign(tabletState, sanitizedStateData);
+    }
   }
 
   if (mirror) {
@@ -78,6 +90,9 @@ export const getTabletState = (): TabletState => ({
   feedbackText: tabletState.feedbackText,
   photoData: tabletState.photoData,
   frameMessage: tabletState.frameMessage,
+  composedImage: tabletState.composedImage,
+  composedImagePath: tabletState.composedImagePath,
+  composedImageUrl: tabletState.composedImageUrl,
   mirror: {
     screen: tabletState.mirror.screen,
     step: tabletState.mirror.step,

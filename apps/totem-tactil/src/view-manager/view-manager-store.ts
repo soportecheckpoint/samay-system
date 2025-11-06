@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { emitViewChange } from "../socket";
 
 export interface ViewState {
   currentView: string | null;
@@ -24,8 +25,8 @@ export interface ViewState {
 }
 
 const useViewStore = create<ViewState>((set: any) => ({
-  currentView: 'idle',
-  viewHistory: ['idle'],
+  currentView: "idle",
+  viewHistory: ["idle"],
   capturedImage: null,
   generatedImages: [],
   selectedImage: null,
@@ -37,12 +38,13 @@ const useViewStore = create<ViewState>((set: any) => ({
   setView: (viewId: string) =>
     set((state: ViewState) => {
       const newViewHistory = [...state.viewHistory, viewId];
+      emitViewChange(viewId);
 
       return {
         currentView: viewId,
         viewHistory: newViewHistory,
         // If we are going back to start, clear the previously selected frame/background
-        selectedImage: viewId === 'start' ? null : state.selectedImage,
+        selectedImage: viewId === "start" ? null : state.selectedImage,
       };
     }),
 
@@ -76,7 +78,8 @@ const useViewStore = create<ViewState>((set: any) => ({
   setSelectedImage: (img: string) => set({ selectedImage: img }),
 
   clearCapturedImage: () => set({ capturedImage: null }),
-  setSelectedAnswerVideo: (src: string | null) => set({ selectedAnswerVideo: src }),
+  setSelectedAnswerVideo: (src: string | null) =>
+    set({ selectedAnswerVideo: src }),
   setResultDataUrl: (dataUrl: string | null) => set({ resultDataUrl: dataUrl }),
   setUploadedUrl: (url: string | null) => set({ uploadedUrl: url }),
   setVideoMuted: (muted: boolean) => set({ videoMuted: muted }),

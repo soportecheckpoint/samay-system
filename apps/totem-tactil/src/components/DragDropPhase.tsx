@@ -1,63 +1,84 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import View from '../view-manager/View';
-import useViewStore from '../view-manager/view-manager-store';
-import { emitMessagesOrdered } from '../socket';
-import { useTotemStore } from '../store';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import View from "../view-manager/View";
+import useViewStore from "../view-manager/view-manager-store";
+import { emitMessagesOrdered } from "../socket";
+import { useTotemStore } from "../store";
 
-type GroupId = 'traditional' | 'push' | 'mail';
-type MovableCardId = 'traditional-card' | 'push-card' | 'mail-card';
+type GroupId = "traditional" | "push" | "mail";
+type MovableCardId = "traditional-card" | "push-card" | "mail-card";
 
 type Group = {
   id: GroupId;
   title: string;
   targetCard: MovableCardId;
+  staticImages: string[];
 };
 
 type MovableCard = {
   id: MovableCardId;
-  label: string;
+  image: string;
 };
 
-const CARD_TEXT = 'falta\ngraficar\nviñetas';
-
 const GROUPS: Group[] = [
-  { id: 'traditional', title: 'Mensajería Tradicional', targetCard: 'traditional-card' },
-  { id: 'push', title: 'Notificación Push', targetCard: 'push-card' },
-  { id: 'mail', title: 'Bandeja de Correo', targetCard: 'mail-card' },
+  {
+    id: "traditional",
+    title: "Mensajería Tradicional",
+    targetCard: "traditional-card",
+    staticImages: ["/match/mt-1.png", "/match/mt-2.png"],
+  },
+  {
+    id: "push",
+    title: "Notificación Push",
+    targetCard: "push-card",
+    staticImages: ["/match/np-1.png", "/match/np-2.png"],
+  },
+  {
+    id: "mail",
+    title: "Bandeja de Correo",
+    targetCard: "mail-card",
+    staticImages: ["/match/bc-1.png", "/match/bc-2.png"],
+  },
 ];
 
 const MOVABLE_CARDS: Record<MovableCardId, MovableCard> = {
-  'traditional-card': { id: 'traditional-card', label: CARD_TEXT },
-  'push-card': { id: 'push-card', label: CARD_TEXT },
-  'mail-card': { id: 'mail-card', label: CARD_TEXT },
+  "traditional-card": { id: "traditional-card", image: "/match/mt-3.png" },
+  "push-card": { id: "push-card", image: "/match/np-3.png" },
+  "mail-card": { id: "mail-card", image: "/match/bc-3.png" },
 };
 
 const INITIAL_ASSIGNMENTS: Record<GroupId, MovableCardId> = {
-  traditional: 'push-card',
-  push: 'mail-card',
-  mail: 'traditional-card',
+  traditional: "push-card",
+  push: "mail-card",
+  mail: "traditional-card",
 };
 
 const TARGET_ASSIGNMENTS: Record<GroupId, MovableCardId> = {
-  traditional: 'traditional-card',
-  push: 'push-card',
-  mail: 'mail-card',
+  traditional: "traditional-card",
+  push: "push-card",
+  mail: "mail-card",
 };
 
-const SLOT_BASE_CLASSES = 'flex h-28 items-center justify-center rounded-3xl border border-white/35 bg-white/10 px-4 text-sm font-medium text-white text-center leading-tight whitespace-pre-line select-none';
+const SLOT_BASE_CLASSES =
+  "flex h-28 items-center justify-center rounded-3xl overflow-hidden select-none";
 
 export function DragDropPhase() {
-  const [assignments, setAssignments] = useState<Record<GroupId, MovableCardId>>(INITIAL_ASSIGNMENTS);
+  const [assignments, setAssignments] =
+    useState<Record<GroupId, MovableCardId>>(INITIAL_ASSIGNMENTS);
   const [draggingCard, setDraggingCard] = useState<MovableCardId | null>(null);
   const [dragOriginGroup, setDragOriginGroup] = useState<GroupId | null>(null);
   const solvedRef = useRef(false);
   const setView = useViewStore((state) => state.setView);
-  const { markMatchCompleted } = useTotemStore((state) => ({ markMatchCompleted: state.markMatchCompleted }));
+  const { markMatchCompleted } = useTotemStore((state) => ({
+    markMatchCompleted: state.markMatchCompleted,
+  }));
 
   const solved = useMemo(
-    () => GROUPS.every((group) => assignments[group.id] === TARGET_ASSIGNMENTS[group.id]),
-    [assignments]
+    () =>
+      GROUPS.every(
+        (group) => assignments[group.id] === TARGET_ASSIGNMENTS[group.id],
+      ),
+    [assignments],
   );
 
   useEffect(() => {
@@ -67,7 +88,7 @@ export function DragDropPhase() {
     emitMessagesOrdered(GROUPS.map((group) => assignments[group.id]));
     markMatchCompleted();
 
-    const timeout = setTimeout(() => setView('message-code'), 1200);
+    const timeout = setTimeout(() => setView("message-code"), 1200);
     return () => clearTimeout(timeout);
   }, [assignments, markMatchCompleted, setView, solved]);
 
@@ -76,7 +97,7 @@ export function DragDropPhase() {
       setDraggingCard(cardId);
       setDragOriginGroup(origin);
     },
-    []
+    [],
   );
 
   const handleDragEnd = useCallback(
@@ -88,7 +109,9 @@ export function DragDropPhase() {
       if (!origin) return;
 
       const element = document.elementFromPoint(point.x, point.y);
-      const targetGroup = element?.closest('[data-group-slot]')?.getAttribute('data-group-slot') as GroupId | null;
+      const targetGroup = element
+        ?.closest("[data-group-slot]")
+        ?.getAttribute("data-group-slot") as GroupId | null;
       if (!targetGroup || targetGroup === origin) {
         return; // return to original place
       }
@@ -101,14 +124,14 @@ export function DragDropPhase() {
         return next;
       });
     },
-    [dragOriginGroup]
+    [dragOriginGroup],
   );
 
   return (
     <View viewId="match">
       <div
         className="h-full w-full bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/match1.png)' }}
+        style={{ backgroundImage: "url(/match1.png)" }}
       >
         <div className="flex h-full w-full items-center justify-center px-8 py-12">
           <div className="w-full max-w-4xl space-y-10">
@@ -119,13 +142,25 @@ export function DragDropPhase() {
                 <div key={group.id} className="space-y-5">
                   <h2
                     className="text-center text-xl font-semibold text-white"
-                    style={{ fontFamily: 'Georgia, serif' }}
+                    style={{ fontFamily: "Georgia, serif" }}
                   >
                     {group.title}
                   </h2>
                   <div className="grid grid-cols-3 gap-6">
-                    <div className={SLOT_BASE_CLASSES}>{CARD_TEXT}</div>
-                    <div className={SLOT_BASE_CLASSES}>{CARD_TEXT}</div>
+                    <div className={SLOT_BASE_CLASSES}>
+                      <img
+                        src={group.staticImages[0]}
+                        alt=""
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                    <div className={SLOT_BASE_CLASSES}>
+                      <img
+                        src={group.staticImages[1]}
+                        alt=""
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
                     <div
                       data-group-slot={group.id}
                       className={`${SLOT_BASE_CLASSES} relative overflow-visible`}
@@ -148,15 +183,21 @@ export function DragDropPhase() {
                           if (solved) return;
                           handleDragEnd(info.point);
                         }}
-                        className={`absolute inset-0 flex h-full w-full items-center justify-center rounded-3xl border border-white/35 bg-white/10 px-4 text-sm font-medium text-white text-center leading-tight whitespace-pre-line ${
-                          solved ? 'cursor-default' : 'cursor-grab active:cursor-grabbing'
+                        className={`absolute inset-0 flex h-full w-full items-center justify-center rounded-3xl overflow-hidden ${
+                          solved
+                            ? "cursor-default"
+                            : "cursor-grab active:cursor-grabbing"
                         }`}
                         style={{
-                          touchAction: 'none',
-                          zIndex: isDragging ? 20 : 'auto',
+                          touchAction: "none",
+                          zIndex: isDragging ? 20 : "auto",
                         }}
                       >
-                        {movableCard.label}
+                        <img
+                          src={movableCard.image}
+                          alt=""
+                          className="h-full w-full object-contain"
+                        />
                       </motion.div>
                     </div>
                   </div>

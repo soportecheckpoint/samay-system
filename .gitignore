@@ -39,3 +39,4 @@ yarn-error.log*
 
 # Runtime data
 apps/server/data/
+apps/server/to-print/recognition-images/

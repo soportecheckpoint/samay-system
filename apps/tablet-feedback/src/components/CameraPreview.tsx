@@ -1,48 +1,66 @@
-import { useEffect, useRef } from 'react';
-import View from '../view-manager/View';
-import useViewStore from '../view-manager/view-manager-store';
-import { emitMirror, emitTabletReset } from '../socket';
-import { useTabletStore } from '../store';
+import { useEffect, useRef } from "react";
+import View from "../view-manager/View";
+import useViewStore from "../view-manager/view-manager-store";
+import { emitMirror, emitTabletReset } from "../socket";
+import { useTabletStore } from "../store";
 
 export function CameraPreview() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const setView = useViewStore((state) => state.setView);
   const currentView = useViewStore((state) => state.currentView);
   const resetTablet = useTabletStore((state) => state.reset);
 
+  // Start camera when view becomes active
   useEffect(() => {
     const startCamera = async () => {
+      // Stop any existing stream first
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user' },
+          video: { facingMode: "environment" },
         });
+        streamRef.current = stream;
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
+        console.log("[CAMERA-PREVIEW] Camera started successfully");
       } catch (error) {
-        console.error('Error accessing camera:', error);
+        console.error("[CAMERA-PREVIEW] Error accessing camera:", error);
       }
     };
 
-    startCamera();
+    if (currentView === "camera-preview") {
+      console.log("[CAMERA-PREVIEW] View active, starting camera");
+      startCamera();
+    }
 
     return () => {
-      if (videoRef.current?.srcObject) {
-        const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
-        tracks.forEach((track) => track.stop());
+      // Clean up camera stream when leaving view
+      if (streamRef.current) {
+        console.log("[CAMERA-PREVIEW] Stopping camera stream");
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
       }
     };
-  }, []);
+  }, [currentView]);
 
   const handleScreenTap = () => {
-    setView('message-select');
+    setView("message-select");
   };
 
   useEffect(() => {
-    if (currentView === 'camera-preview') {
+    if (currentView === "camera-preview") {
       resetTablet();
       emitTabletReset();
-      emitMirror('qr_scan', 1, {});
+      emitMirror("qr_scan", 1, {});
     }
   }, [currentView, resetTablet]);
 
@@ -50,7 +68,7 @@ export function CameraPreview() {
     <View viewId="camera-preview">
       <div
         className="w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: 'url(/images/fb_bg1.png)' }}
+        style={{ backgroundImage: "url(/images/fb_bg1.png)" }}
         onClick={handleScreenTap}
       >
         {/* Camera preview in center */}

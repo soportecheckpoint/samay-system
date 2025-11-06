@@ -1,17 +1,28 @@
-import { Server, Socket } from 'socket.io';
-import { logger } from '../utils/logger.js';
-import { gameState, addClient, removeClient, updateGameModule, updateArduino } from '../state/gameState.js';
-import { sendCommandToArduino, restartArduino, restartAllArduinos } from '../services/arduino.js';
+import { Server, Socket } from "socket.io";
+import { join } from "path";
+import { logger } from "../utils/logger.js";
+import {
+  gameState,
+  addClient,
+  removeClient,
+  updateGameModule,
+  updateArduino,
+} from "../state/gameState.js";
+import {
+  sendCommandToArduino,
+  restartArduino,
+  restartAllArduinos,
+} from "../services/arduino.js";
 import {
   getTabletState,
   resetTabletState,
   updateTabletState,
   TabletStep,
-} from '../state/uiState.js';
+} from "../state/uiState.js";
 import {
   getPreviousMessage,
   setPreviousMessage,
-} from '../state/previousMessage.js';
+} from "../state/previousMessage.js";
 import {
   getTimerSnapshot,
   pauseTimer,
@@ -21,18 +32,20 @@ import {
   stopTimer as stopTimerService,
   subscribeToTimer,
   subscribeToTimerStop,
-} from '../services/timer.js';
+} from "../services/timer.js";
+import { printPDF } from "../services/printer.js";
+import { saveRecognitionImage } from "../services/recognitionImage.js";
 
 const ADMIN_MODULES = [
-  { id: 'buttons', key: 'MODULE_BUTTONS' },
-  { id: 'tablet', key: 'MODULE_TABLET' },
-  { id: 'totem', key: 'MODULE_TOTEM' },
-  { id: 'printer', key: 'MODULE_PRINTER' },
-  { id: 'main-screen', key: 'MODULE_MAIN_SCREEN' },
+  { id: "buttons", key: "MODULE_BUTTONS" },
+  { id: "tablet", key: "MODULE_TABLET" },
+  { id: "totem", key: "MODULE_TOTEM" },
+  { id: "printer", key: "MODULE_PRINTER" },
+  { id: "main-screen", key: "MODULE_MAIN_SCREEN" },
 ] as const;
 
-type AdminModuleId = (typeof ADMIN_MODULES)[number]['id'];
-type WinOverlayVariant = 'message' | 'final';
+type AdminModuleId = (typeof ADMIN_MODULES)[number]["id"];
+type WinOverlayVariant = "message" | "final";
 
 function createAdminState() {
   const modulesSnapshot = ADMIN_MODULES.reduce(
@@ -49,12 +62,15 @@ function createAdminState() {
 
       return acc;
     },
-    {} as Record<AdminModuleId, {
-      status: string;
-      lastEventTime?: string;
-      progress?: number;
-      data?: unknown;
-    }>
+    {} as Record<
+      AdminModuleId,
+      {
+        status: string;
+        lastEventTime?: string;
+        progress?: number;
+        data?: unknown;
+      }
+    >,
   );
 
   const arduinosList = Object.values(gameState.arduinos)
@@ -71,7 +87,7 @@ function createAdminState() {
   return {
     timer: {
       status: gameState.session.status,
-      isRunning: gameState.session.status === 'active',
+      isRunning: gameState.session.status === "active",
       elapsedTime: gameState.session.elapsedTime,
       remainingTime: gameState.session.remainingTime,
       totalTime: gameState.session.totalTime,
@@ -83,8 +99,8 @@ function createAdminState() {
 
 function broadcastAdminState(io: Server) {
   const adminState = createAdminState();
-  io.emit('admin:state-update', adminState);
-  io.emit('admin:arduinos-list', adminState.arduinos);
+  io.emit("admin:state-update", adminState);
+  io.emit("admin:arduinos-list", adminState.arduinos);
 }
 
 function createClientState() {
@@ -95,25 +111,25 @@ function createClientState() {
 }
 
 function broadcastTabletState(io: Server) {
-  io.emit('tablet:state', getTabletState());
+  io.emit("tablet:state", getTabletState());
 }
 
 function broadcastClientState(io: Server) {
-  io.emit('state:update', createClientState());
+  io.emit("state:update", createClientState());
 }
 
 export const setupSocketHandlers = (io: Server) => {
   subscribeToTimer((snapshot) => {
-    io.emit('timer:update', snapshot);
+    io.emit("timer:update", snapshot);
     broadcastAdminState(io);
     broadcastClientState(io);
   });
 
   subscribeToTimerStop((reason, snapshot) => {
-    if (reason === 'reset') {
-      io.emit('timer:reset', snapshot);
+    if (reason === "reset") {
+      io.emit("timer:reset", snapshot);
     } else {
-      io.emit('timer:stop', {
+      io.emit("timer:stop", {
         reason,
         finalTime: snapshot.elapsed,
       });
@@ -122,113 +138,126 @@ export const setupSocketHandlers = (io: Server) => {
     broadcastClientState(io);
   });
 
-  io.on('connection', (socket: Socket) => {
+  io.on("connection", (socket: Socket) => {
     logger.info(`Client connected: ${socket.id}`);
 
     // Cliente se registra con su tipo de app
-    socket.on('register', (data: { appType: string; sessionId: string }) => {
+    socket.on("register", (data: { appType: string; sessionId: string }) => {
       addClient(socket.id, data.appType, data.sessionId);
       logger.info(`Client registered: ${data.appType} (${socket.id})`);
 
       // Inicializar módulo si es necesario
-      if (data.appType === 'main-screen') {
-        updateGameModule('MODULE_MAIN_SCREEN', {
-          status: 'active',
+      if (data.appType === "main-screen") {
+        updateGameModule("MODULE_MAIN_SCREEN", {
+          status: "active",
           lastEventTime: new Date().toISOString(),
         });
         broadcastAdminState(io);
-      } else if (data.appType === 'tablet-feedback') {
-        updateGameModule('MODULE_TABLET', {
-          status: 'active',
+      } else if (data.appType === "tablet-feedback") {
+        updateGameModule("MODULE_TABLET", {
+          status: "active",
           lastEventTime: new Date().toISOString(),
         });
         broadcastAdminState(io);
-      } else if (data.appType === 'totem-tactil') {
-        updateGameModule('MODULE_TOTEM', {
-          status: 'active',
+      } else if (data.appType === "totem-tactil") {
+        updateGameModule("MODULE_TOTEM", {
+          status: "active",
           lastEventTime: new Date().toISOString(),
         });
         broadcastAdminState(io);
-      } else if (data.appType === 'buttons-game') {
-        updateGameModule('MODULE_BUTTONS', {
-          status: 'active',
+      } else if (data.appType === "buttons-game") {
+        updateGameModule("MODULE_BUTTONS", {
+          status: "active",
           lastEventTime: new Date().toISOString(),
         });
         broadcastAdminState(io);
-      } else if (data.appType === 'ai-app') {
-        updateGameModule('MODULE_PRINTER', {
-          status: 'active',
+      } else if (data.appType === "ai-app") {
+        updateGameModule("MODULE_PRINTER", {
+          status: "active",
           lastEventTime: new Date().toISOString(),
         });
         broadcastAdminState(io);
       }
 
       // Enviar estado actual
-      socket.emit('state:update', createClientState());
-      socket.emit('tablet:state', getTabletState());
-      socket.emit('timer:update', getTimerSnapshot());
+      socket.emit("state:update", createClientState());
+      socket.emit("tablet:state", getTabletState());
+      socket.emit("timer:update", getTimerSnapshot());
 
-      if (data.appType === 'main-screen') {
-        socket.emit('main-screen:previous-message', getPreviousMessage());
+      if (data.appType === "main-screen") {
+        socket.emit("main-screen:previous-message", getPreviousMessage());
       }
     });
 
     // Código ingresado en algún juego (ej: botones)
-    socket.on('buttons:code-entered', async (data: { code: string }) => {
-      logger.info('Code entered for buttons game:', data);
+    socket.on("buttons:code-entered", async (data: { code: string }) => {
+      logger.info("Code entered for buttons game:", data);
 
       // Validar código (hardcoded por ahora)
-      if (data.code === '1606') {
+      if (data.code === "1606") {
         // Enviar comando START al Arduino de botones
-        await sendCommandToArduino('buttons-arduino', 'start', io);
-        
-        updateGameModule('MODULE_BUTTONS', {
-          status: 'active',
-          lastEventTime: new Date().toISOString()
+        await sendCommandToArduino("buttons-arduino", "start", io);
+
+        updateGameModule("MODULE_BUTTONS", {
+          status: "active",
+          lastEventTime: new Date().toISOString(),
         });
 
-        io.emit('buttons:game-started', { status: 'active' });
+        io.emit("buttons:game-started", { status: "active" });
         broadcastAdminState(io);
       } else {
-        socket.emit('buttons:invalid-code', { message: 'Código incorrecto' });
+        socket.emit("buttons:invalid-code", { message: "Código incorrecto" });
       }
     });
 
     // Eventos de la tablet
-    socket.on('tablet:message-selected', async (data: { messageText: string; teamName?: string }) => {
-      logger.info('Tablet message selected:', data);
-      const rawMessage = typeof data?.messageText === 'string' ? data.messageText : '';
-      const trimmedMessage = rawMessage.trim();
+    socket.on(
+      "tablet:message-selected",
+      async (data: { messageText: string; teamName?: string }) => {
+        logger.info("Tablet message selected:", data);
+        const rawMessage =
+          typeof data?.messageText === "string" ? data.messageText : "";
+        const trimmedMessage = rawMessage.trim();
 
-      updateTabletState({
-        currentStep: 'message-select',
-        selectedMessage: rawMessage,
-      });
-      io.emit('tablet:message-selected', { messageText: rawMessage });
+        updateTabletState({
+          currentStep: "message-select",
+          selectedMessage: rawMessage,
+        });
+        io.emit("tablet:message-selected", { messageText: rawMessage });
 
-      if (trimmedMessage) {
-        const teamNameSource =
-          typeof data?.teamName === 'string' ? data.teamName : gameState.session.teamName;
-        const trimmedTeamName = teamNameSource ? teamNameSource.trim() : '';
-        const currentSnapshot = getPreviousMessage();
+        if (trimmedMessage) {
+          const teamNameSource =
+            typeof data?.teamName === "string"
+              ? data.teamName
+              : gameState.session.teamName;
+          const trimmedTeamName = teamNameSource ? teamNameSource.trim() : "";
+          const currentSnapshot = getPreviousMessage();
 
-        if (
-          currentSnapshot.message !== trimmedMessage ||
-          currentSnapshot.teamName !== trimmedTeamName
-        ) {
-          const snapshot = await setPreviousMessage(trimmedMessage, trimmedTeamName);
-          io.emit('main-screen:previous-message', snapshot);
+          if (
+            currentSnapshot.message !== trimmedMessage ||
+            currentSnapshot.teamName !== trimmedTeamName
+          ) {
+            const snapshot = await setPreviousMessage(
+              trimmedMessage,
+              trimmedTeamName,
+            );
+            io.emit("main-screen:previous-message", snapshot);
+          }
         }
-      }
-      broadcastTabletState(io);
-      broadcastClientState(io);
-    });
+        broadcastTabletState(io);
+        broadcastClientState(io);
+      },
+    );
 
     socket.on(
-      'tablet:mirror',
-      async (data: { screen: string; step: number; content?: Record<string, unknown> }) => {
+      "tablet:mirror",
+      async (data: {
+        screen: string;
+        step: number;
+        content?: Record<string, unknown>;
+      }) => {
         const mirrorContent = {
-          screen: data?.screen ?? '',
+          screen: data?.screen ?? "",
           step: Number(data?.step) || 0,
           content: data?.content ?? {},
         };
@@ -239,13 +268,17 @@ export const setupSocketHandlers = (io: Server) => {
 
         let pendingPreviousMessage: string | null = null;
 
-        if (mirrorContent.screen === 'feedback_form') {
-          const feedbackText = String((mirrorContent.content as any)?.feedbackText ?? '');
+        if (mirrorContent.screen === "feedback_form") {
+          const feedbackText = String(
+            (mirrorContent.content as any)?.feedbackText ?? "",
+          );
           nextState.feedbackText = feedbackText;
         }
 
-        if (mirrorContent.screen === 'message_selected') {
-          const messageText = String((mirrorContent.content as any)?.messageText ?? '');
+        if (mirrorContent.screen === "message_selected") {
+          const messageText = String(
+            (mirrorContent.content as any)?.messageText ?? "",
+          );
           nextState.selectedMessage = messageText;
           const trimmedMessage = messageText.trim();
           if (trimmedMessage) {
@@ -253,287 +286,502 @@ export const setupSocketHandlers = (io: Server) => {
           }
         }
 
-        if (mirrorContent.screen === 'frame_message') {
-          const frameMessage = String((mirrorContent.content as any)?.frameMessage ?? '');
+        if (mirrorContent.screen === "frame_message") {
+          const frameMessage = String(
+            (mirrorContent.content as any)?.frameMessage ?? "",
+          );
           nextState.frameMessage = frameMessage;
         }
 
         updateTabletState(nextState);
-        io.emit('tablet:mirror', data);
+        io.emit("tablet:mirror", data);
         broadcastTabletState(io);
         broadcastClientState(io);
 
         if (pendingPreviousMessage) {
           const currentSnapshot = getPreviousMessage();
-          const trimmedTeamName = gameState.session.teamName?.trim() ?? '';
+          const trimmedTeamName = gameState.session.teamName?.trim() ?? "";
           if (
             currentSnapshot.message !== pendingPreviousMessage ||
             currentSnapshot.teamName !== trimmedTeamName
           ) {
-            const snapshot = await setPreviousMessage(pendingPreviousMessage, trimmedTeamName);
-            io.emit('main-screen:previous-message', snapshot);
+            const snapshot = await setPreviousMessage(
+              pendingPreviousMessage,
+              trimmedTeamName,
+            );
+            io.emit("main-screen:previous-message", snapshot);
           }
         }
-      }
+      },
     );
 
-    socket.on('tablet:frame-message', (data: { message: string; photoData?: string }) => {
-      logger.info('Tablet frame message:', data);
-      updateTabletState({
-        frameMessage: data?.message ?? '',
-        photoData: data?.photoData ?? null,
-      });
-      io.emit('tablet:frame-message', data);
-      broadcastTabletState(io);
-      broadcastClientState(io);
-    });
+    socket.on(
+      "tablet:frame-message",
+      async (data: {
+        message: string;
+        photoData?: string | null;
+        composedImage?: string | null;
+      }) => {
+        logger.info("Tablet frame message:", {
+          hasPhoto: typeof data?.photoData === "string",
+          hasComposedImage: typeof data?.composedImage === "string",
+        });
 
-    socket.on('tablet:step-change', (data: { step: TabletStep }) => {
+        let savedPath: string | null = null;
+        let relativePath: string | null = null;
+        let cloudinaryUrl: string | null = null;
+
+        if (typeof data?.composedImage === "string" && data.composedImage) {
+          try {
+            const result = await saveRecognitionImage(data.composedImage, {
+              kind: "recognition",
+            });
+            savedPath = result.filePath;
+            relativePath = result.relativePath;
+            cloudinaryUrl = result.cloudinaryUrl;
+            logger.info(
+              `[TABLET] Recognition image stored at ${relativePath}`,
+            );
+            if (cloudinaryUrl) {
+              logger.info(
+                `[CLOUDINARY] Recognition image uploaded: ${cloudinaryUrl}`,
+              );
+            }
+          } catch (error) {
+            logger.error(
+              `[TABLET] Failed to persist recognition image: ${(error as Error).message}`,
+            );
+          }
+        } else if (
+          typeof data?.photoData === "string" &&
+          data.photoData.startsWith("data:image/")
+        ) {
+          try {
+            const result = await saveRecognitionImage(data.photoData, {
+              kind: "photo",
+            });
+            savedPath = result.filePath;
+            relativePath = result.relativePath;
+            cloudinaryUrl = result.cloudinaryUrl;
+            logger.info(
+              `[TABLET] Photo image stored at ${relativePath}`,
+            );
+            if (cloudinaryUrl) {
+              logger.info(
+                `[CLOUDINARY] Photo image uploaded: ${cloudinaryUrl}`,
+              );
+            }
+          } catch (error) {
+            logger.error(
+              `[TABLET] Failed to persist photo image: ${(error as Error).message}`,
+            );
+          }
+        }
+
+        const stateUpdate: Parameters<typeof updateTabletState>[0] = {
+          frameMessage: data?.message ?? "",
+        };
+
+        if (typeof data?.photoData !== "undefined") {
+          stateUpdate.photoData = data.photoData ?? null;
+        }
+
+        if (typeof data?.composedImage !== "undefined") {
+          stateUpdate.composedImage = data.composedImage ?? null;
+          stateUpdate.composedImagePath = data.composedImage
+            ? relativePath ?? null
+            : null;
+          stateUpdate.composedImageUrl = data.composedImage
+            ? cloudinaryUrl ?? null
+            : null;
+        } else if (typeof data?.photoData !== "undefined") {
+          stateUpdate.composedImagePath = relativePath ?? null;
+          stateUpdate.composedImageUrl = cloudinaryUrl ?? null;
+        }
+
+        updateTabletState(stateUpdate);
+
+        const payload: {
+          message: string;
+          photoData?: string | null;
+          composedImage?: string | null;
+          composedImagePath?: string | null;
+          composedImageUrl?: string | null;
+        } = {
+          message: data?.message ?? "",
+        };
+
+        if (typeof data?.photoData !== "undefined") {
+          payload.photoData = data.photoData ?? null;
+        }
+
+        if (typeof data?.composedImage !== "undefined") {
+          payload.composedImage = data.composedImage ?? null;
+          payload.composedImagePath = data.composedImage
+            ? relativePath ?? null
+            : null;
+          payload.composedImageUrl = data.composedImage
+            ? cloudinaryUrl ?? null
+            : null;
+        } else if (typeof data?.photoData !== "undefined") {
+          payload.composedImagePath = relativePath ?? null;
+          payload.composedImageUrl = cloudinaryUrl ?? null;
+        }
+
+        io.emit("tablet:frame-message", payload);
+        broadcastTabletState(io);
+        broadcastClientState(io);
+      },
+    );
+
+    socket.on("tablet:step-change", (data: { step: TabletStep }) => {
       const step = data?.step;
       if (!step) {
         return;
       }
 
       updateTabletState({ currentStep: step });
-      io.emit('tablet:step-change', { step });
+      io.emit("tablet:step-change", { step });
       broadcastTabletState(io);
       broadcastClientState(io);
     });
 
-    socket.on('tablet:view-change', (data: { viewId?: string }) => {
-      const viewId = typeof data?.viewId === 'string' ? data.viewId : '';
+    socket.on("tablet:view-change", (data: { viewId?: string }) => {
+      const viewId = typeof data?.viewId === "string" ? data.viewId : "";
       updateTabletState({ currentView: viewId });
-      io.emit('tablet:view-change', { viewId });
+      io.emit("tablet:view-change", { viewId });
       broadcastTabletState(io);
       broadcastClientState(io);
     });
 
-    socket.on('tablet:reset', () => {
+    socket.on("tablet:reset", () => {
       const snapshot = resetTabletState();
-      io.emit('tablet:reset');
-      io.emit('tablet:state', snapshot);
-      io.emit('tablet-feedback:reset');
-      io.emit('main-screen:previous-message', getPreviousMessage());
+      io.emit("tablet:reset");
+      io.emit("tablet:state", snapshot);
+      io.emit("tablet-feedback:reset");
+      io.emit("main-screen:previous-message", getPreviousMessage());
       broadcastClientState(io);
       broadcastAdminState(io);
     });
 
     // Completación de módulos
-    socket.on('completion', (data: { moduleId: string; code?: string; status: string }) => {
-      logger.info(`Module ${data.moduleId} completed`, data);
-      
-      updateGameModule(data.moduleId, {
-        status: 'completed',
-        lastEventTime: new Date().toISOString(),
-        data
-      });
+    socket.on(
+      "completion",
+      (data: { moduleId: string; code?: string; status: string }) => {
+        logger.info(`Module ${data.moduleId} completed`, data);
 
-      io.emit('module:completed', data);
-      broadcastAdminState(io);
-    });
+        updateGameModule(data.moduleId, {
+          status: "completed",
+          lastEventTime: new Date().toISOString(),
+          data,
+        });
+
+        io.emit("module:completed", data);
+        broadcastAdminState(io);
+      },
+    );
 
     // Errores de módulos
-    socket.on('module:error', (data: { moduleId: string; errorMessage: string }) => {
-      logger.error(`Error in module ${data.moduleId}: ${data.errorMessage}`);
-      updateGameModule(data.moduleId, {
-        status: 'error',
-        lastEventTime: new Date().toISOString(),
-        data,
-      });
-      io.emit('module:error', data);
-      broadcastAdminState(io);
-    });
+    socket.on(
+      "module:error",
+      (data: { moduleId: string; errorMessage: string }) => {
+        logger.error(`Error in module ${data.moduleId}: ${data.errorMessage}`);
+        updateGameModule(data.moduleId, {
+          status: "error",
+          lastEventTime: new Date().toISOString(),
+          data,
+        });
+        io.emit("module:error", data);
+        broadcastAdminState(io);
+      },
+    );
 
     // Contrato aceptado (totem tactil)
-    socket.on('contract:accepted', (data) => {
-      logger.info('Contract accepted - stopping timer and showing victory');
-      
-      stopTimerService('forced');
+    socket.on("contract:accepted", (data) => {
+      logger.info("Contract accepted - stopping timer and showing victory");
+
+      stopTimerService("forced");
 
       const snapshot = getTimerSnapshot();
-      io.emit('game:victory', {
-        message: '¡GANARON!',
+      io.emit("game:victory", {
+        message: "¡GANARON!",
         finalTime: snapshot.elapsed,
       });
     });
 
     // Totem: mensajes ordenados
-    socket.on('totem:messages-ordered', (data: { messages: string[] }) => {
-      logger.info('Totem messages ordered:', data);
-      io.emit('totem:messages-ordered', data);
+    socket.on("totem:messages-ordered", (data: { messages: string[] }) => {
+      logger.info("Totem messages ordered:", data);
+      io.emit("totem:messages-ordered", data);
     });
 
     // Totem: contrato aceptado
-    socket.on('totem:contract-accepted', () => {
-      logger.info('Totem contract accepted');
-      io.emit('totem:contract-accepted');
-      
+    socket.on("totem:contract-accepted", () => {
+      logger.info("Totem contract accepted");
+      io.emit("totem:contract-accepted");
+
       // Detener timer y mostrar victoria
-      stopTimerService('forced');
+      stopTimerService("forced");
       const snapshot = getTimerSnapshot();
-      io.emit('game:victory', {
-        message: '¡GANARON!',
+      io.emit("game:victory", {
+        message: "¡GANARON!",
         finalTime: snapshot.elapsed,
       });
     });
 
-    socket.on('main-screen:show-win', (data: { image?: string; variant?: WinOverlayVariant }) => {
-      const image = typeof data?.image === 'string' ? data.image.trim() : '';
-      if (!image) {
-        return;
+    // Totem: cambio de vista
+    socket.on("totem:view-change", (data: { view: string }) => {
+      const view = typeof data?.view === "string" ? data.view : "idle";
+      logger.info(`Totem view change: ${view}`);
+      io.emit("totem:view-change", { view });
+    });
+
+    // AI App: Imprimir PDF
+    socket.on("ai:print-pdf", async (data: { timestamp?: string }) => {
+      logger.info("AI App: Solicitando impresión de PDF", data);
+
+      try {
+        // Obtener configuración de impresora desde variables de entorno
+        const printerName = process.env.PRINTER_NAME || undefined;
+        const pdfPath =
+          process.env.PDF_PATH ||
+          join(process.cwd(), "to-print", "to-print.pdf");
+
+        logger.info(`[AI-APP] Imprimiendo PDF: ${pdfPath}`);
+        if (printerName) {
+          logger.info(`[AI-APP] Usando impresora: ${printerName}`);
+        }
+
+        // Imprimir el PDF
+        await printPDF(pdfPath, printerName);
+
+        // Actualizar estado del módulo
+        updateGameModule("MODULE_PRINTER", {
+          status: "completed",
+          lastEventTime: new Date().toISOString(),
+          data: { printed: true, timestamp: new Date().toISOString() },
+        });
+
+        // Notificar éxito
+        io.emit("ai:print-success", {
+          message: "PDF impreso exitosamente",
+          timestamp: new Date().toISOString(),
+        });
+
+        broadcastAdminState(io);
+      } catch (error: any) {
+        logger.error(`[AI-APP] Error al imprimir PDF: ${error.message}`);
+
+        // Actualizar estado del módulo con error
+        updateGameModule("MODULE_PRINTER", {
+          status: "error",
+          lastEventTime: new Date().toISOString(),
+          data: { error: error.message },
+        });
+
+        // Notificar error
+        socket.emit("ai:print-error", {
+          message: error.message,
+          timestamp: new Date().toISOString(),
+        });
+
+        broadcastAdminState(io);
       }
-
-      const variant: WinOverlayVariant = data?.variant === 'final' ? 'final' : 'message';
-      io.emit('main-screen:show-win', { image, variant });
     });
 
-    socket.on('main-screen:hide-win', () => {
-      io.emit('main-screen:hide-win');
+    // AI App: Código correcto
+    socket.on("ai:code-correct", (data: { timestamp?: string }) => {
+      logger.info("AI App: Código correcto ingresado", data);
+      io.emit("ai:code-correct", data);
     });
 
-    // Admin: solicitar estado
-    socket.on('admin:get-state', () => {
-      const adminState = createAdminState();
-      socket.emit('admin:state-update', adminState);
-      socket.emit('admin:arduinos-list', adminState.arduinos);
-    });
-
-    // Admin: comandos de control
-    socket.on('admin:command', async (data: { command: string; data?: any }) => {
-      logger.info(`Admin command: ${data.command}`, data.data);
-
-      switch (data.command) {
-        case 'start-timer': {
-          const duration = Number(data.data?.duration) || 3600;
-          startTimer(duration);
-          broadcastClientState(io);
-          break;
-        }
-
-        case 'pause-timer':
-          pauseTimer();
-          broadcastClientState(io);
-          break;
-
-        case 'resume-timer':
-          resumeTimer();
-          broadcastClientState(io);
-          break;
-
-        case 'reset-timer':
-          resetTimerService();
-          broadcastClientState(io);
-          break;
-
-        case 'reset-module': {
-          const moduleId = String(data.data?.module ?? '').toLowerCase();
-          const moduleDefinition = ADMIN_MODULES.find((module) => module.id === moduleId);
-          if (moduleDefinition) {
-            // Verificar si hay un cliente conectado de este tipo
-            const hasConnectedClient = Object.values(gameState.clients).some((client) => {
-              if (moduleDefinition.id === 'buttons') return client.appType === 'buttons-game';
-              if (moduleDefinition.id === 'tablet') return client.appType === 'tablet-feedback';
-              if (moduleDefinition.id === 'totem') return client.appType === 'totem-tactil';
-              if (moduleDefinition.id === 'main-screen') return client.appType === 'main-screen';
-              if (moduleDefinition.id === 'printer') return client.appType === 'ai-app';
-              return false;
-            });
-
-            updateGameModule(moduleDefinition.key, {
-              status: hasConnectedClient ? 'active' : 'waiting',
-              progress: 0,
-              lastEventTime: new Date().toISOString(),
-              data: {},
-            });
-            io.emit(`${moduleDefinition.id}:reset`);
-            if (moduleDefinition.id === 'tablet') {
-              const snapshot = resetTabletState();
-              io.emit('tablet:reset');
-              io.emit('tablet:state', snapshot);
-              broadcastClientState(io);
-            }
-            broadcastAdminState(io);
-          } else {
-            logger.warn(`Unknown module reset: ${data.data?.module}`);
-          }
-          break;
-        }
-
-        case 'trigger-victory':
-          stopTimerService('forced');
-          {
-            const snapshot = getTimerSnapshot();
-            io.emit('game:victory', {
-              message: '¡GANARON!',
-              finalTime: snapshot.elapsed,
-            });
-          }
-          break;
-
-        case 'reset-game': {
-          resetTimerService();
-          gameState.session.teamName = '';
-          
-          // Resetear módulos pero mantener active si están conectados
-          ADMIN_MODULES.forEach((module) => {
-            const hasConnectedClient = Object.values(gameState.clients).some((client) => {
-              if (module.id === 'buttons') return client.appType === 'buttons-game';
-              if (module.id === 'tablet') return client.appType === 'tablet-feedback';
-              if (module.id === 'totem') return client.appType === 'totem-tactil';
-              if (module.id === 'main-screen') return client.appType === 'main-screen';
-              if (module.id === 'printer') return client.appType === 'ai-app';
-              return false;
-            });
-
-            updateGameModule(module.key, {
-              status: hasConnectedClient ? 'active' : 'waiting',
-              progress: 0,
-              lastEventTime: new Date().toISOString(),
-              data: {},
-            });
-          });
-
-          const tabletSnapshot = resetTabletState();
-          io.emit('tablet:reset');
-          io.emit('tablet:state', tabletSnapshot);
-          io.emit('tablet-feedback:reset');
-          io.emit('main-screen:previous-message', getPreviousMessage());
-
-          const arduinoIds = Object.keys(gameState.arduinos);
-          arduinoIds.forEach((arduinoId) => {
-            updateArduino(arduinoId, {
-              status: 'disconnected',
-              lastHeartbeat: new Date().toISOString(),
-              lastCommand: null,
-              lastCommandTime: null,
-            });
-          });
-          if (arduinoIds.length > 0) {
-            io.emit('arduinos:reset', { deviceIds: arduinoIds });
-          }
-          io.emit('game:reset');
-          broadcastClientState(io);
-          broadcastAdminState(io);
-          break;
-        }
-
-        default:
-          logger.warn(`Unknown admin command: ${data.command}`);
-      }
+    // AI App: Selector correcto
+    socket.on("ai:selector-correct", (data: { timestamp?: string }) => {
+      logger.info("AI App: Selector correcto elegido", data);
+      io.emit("ai:selector-correct", data);
     });
 
     socket.on(
-      'admin:custom-event',
+      "main-screen:show-win",
+      (data: { image?: string; variant?: WinOverlayVariant }) => {
+        const image = typeof data?.image === "string" ? data.image.trim() : "";
+        if (!image) {
+          return;
+        }
+
+        const variant: WinOverlayVariant =
+          data?.variant === "final" ? "final" : "message";
+        io.emit("main-screen:show-win", { image, variant });
+      },
+    );
+
+    socket.on("main-screen:hide-win", () => {
+      io.emit("main-screen:hide-win");
+    });
+
+    // Admin: solicitar estado
+    socket.on("admin:get-state", () => {
+      const adminState = createAdminState();
+      socket.emit("admin:state-update", adminState);
+      socket.emit("admin:arduinos-list", adminState.arduinos);
+    });
+
+    // Admin: comandos de control
+    socket.on(
+      "admin:command",
+      async (data: { command: string; data?: any }) => {
+        logger.info(`Admin command: ${data.command}`, data.data);
+
+        switch (data.command) {
+          case "start-timer": {
+            const duration = Number(data.data?.duration) || 3600;
+            startTimer(duration);
+            broadcastClientState(io);
+            break;
+          }
+
+          case "pause-timer":
+            pauseTimer();
+            broadcastClientState(io);
+            break;
+
+          case "resume-timer":
+            resumeTimer();
+            broadcastClientState(io);
+            break;
+
+          case "reset-timer":
+            resetTimerService();
+            broadcastClientState(io);
+            break;
+
+          case "reset-module": {
+            const moduleId = String(data.data?.module ?? "").toLowerCase();
+            const moduleDefinition = ADMIN_MODULES.find(
+              (module) => module.id === moduleId,
+            );
+            if (moduleDefinition) {
+              // Verificar si hay un cliente conectado de este tipo
+              const hasConnectedClient = Object.values(gameState.clients).some(
+                (client) => {
+                  if (moduleDefinition.id === "buttons")
+                    return client.appType === "buttons-game";
+                  if (moduleDefinition.id === "tablet")
+                    return client.appType === "tablet-feedback";
+                  if (moduleDefinition.id === "totem")
+                    return client.appType === "totem-tactil";
+                  if (moduleDefinition.id === "main-screen")
+                    return client.appType === "main-screen";
+                  if (moduleDefinition.id === "printer")
+                    return client.appType === "ai-app";
+                  return false;
+                },
+              );
+
+              updateGameModule(moduleDefinition.key, {
+                status: hasConnectedClient ? "active" : "waiting",
+                progress: 0,
+                lastEventTime: new Date().toISOString(),
+                data: {},
+              });
+              io.emit(`${moduleDefinition.id}:reset`);
+              if (moduleDefinition.id === "tablet") {
+                const snapshot = resetTabletState();
+                io.emit("tablet:reset");
+                io.emit("tablet:state", snapshot);
+                broadcastClientState(io);
+              }
+              broadcastAdminState(io);
+            } else {
+              logger.warn(`Unknown module reset: ${data.data?.module}`);
+            }
+            break;
+          }
+
+          case "trigger-victory":
+            stopTimerService("forced");
+            {
+              const snapshot = getTimerSnapshot();
+              io.emit("game:victory", {
+                message: "¡GANARON!",
+                finalTime: snapshot.elapsed,
+              });
+            }
+            break;
+
+          case "reset-game": {
+            resetTimerService();
+            gameState.session.teamName = "";
+
+            // Resetear módulos pero mantener active si están conectados
+            ADMIN_MODULES.forEach((module) => {
+              const hasConnectedClient = Object.values(gameState.clients).some(
+                (client) => {
+                  if (module.id === "buttons")
+                    return client.appType === "buttons-game";
+                  if (module.id === "tablet")
+                    return client.appType === "tablet-feedback";
+                  if (module.id === "totem")
+                    return client.appType === "totem-tactil";
+                  if (module.id === "main-screen")
+                    return client.appType === "main-screen";
+                  if (module.id === "printer")
+                    return client.appType === "ai-app";
+                  return false;
+                },
+              );
+
+              updateGameModule(module.key, {
+                status: hasConnectedClient ? "active" : "waiting",
+                progress: 0,
+                lastEventTime: new Date().toISOString(),
+                data: {},
+              });
+            });
+
+            const tabletSnapshot = resetTabletState();
+            io.emit("tablet:reset");
+            io.emit("tablet:state", tabletSnapshot);
+            io.emit("tablet-feedback:reset");
+            io.emit("main-screen:previous-message", getPreviousMessage());
+
+            const arduinoIds = Object.keys(gameState.arduinos);
+            arduinoIds.forEach((arduinoId) => {
+              updateArduino(arduinoId, {
+                status: "disconnected",
+                lastHeartbeat: new Date().toISOString(),
+                lastCommand: null,
+                lastCommandTime: null,
+              });
+            });
+            if (arduinoIds.length > 0) {
+              io.emit("arduinos:reset", { deviceIds: arduinoIds });
+            }
+            io.emit("game:reset");
+            broadcastClientState(io);
+            broadcastAdminState(io);
+            break;
+          }
+
+          default:
+            logger.warn(`Unknown admin command: ${data.command}`);
+        }
+      },
+    );
+
+    socket.on(
+      "admin:custom-event",
       (
         data: { eventName?: string; payload?: unknown },
-        ack?: (response: { ok: boolean; error?: string }) => void
+        ack?: (response: { ok: boolean; error?: string }) => void,
       ) => {
-        const eventName = typeof data?.eventName === 'string' ? data.eventName.trim() : '';
+        const eventName =
+          typeof data?.eventName === "string" ? data.eventName.trim() : "";
 
         if (!eventName) {
-          logger.warn('Admin custom event ignored: invalid event name');
+          logger.warn("Admin custom event ignored: invalid event name");
           if (ack) {
-            ack({ ok: false, error: 'Nombre de evento inválido' });
+            ack({ ok: false, error: "Nombre de evento inválido" });
           }
           return;
         }
@@ -544,14 +792,14 @@ export const setupSocketHandlers = (io: Server) => {
         if (ack) {
           ack({ ok: true });
         }
-      }
+      },
     );
 
     // Comandos de Arduino - Controles individuales
-    socket.on('arduino:restart', async (data: { arduinoId: string }) => {
+    socket.on("arduino:restart", async (data: { arduinoId: string }) => {
       const arduinoId = data?.arduinoId;
       if (!arduinoId) {
-        logger.warn('Arduino restart command with invalid ID');
+        logger.warn("Arduino restart command with invalid ID");
         return;
       }
       logger.info(`Restarting Arduino: ${arduinoId}`);
@@ -560,50 +808,50 @@ export const setupSocketHandlers = (io: Server) => {
     });
 
     // Comandos de Arduino - Controles globales
-    socket.on('arduinos:restart-all', async () => {
-      logger.info('Restarting all Arduinos');
+    socket.on("arduinos:restart-all", async () => {
+      logger.info("Restarting all Arduinos");
       await restartAllArduinos(io);
       broadcastAdminState(io);
     });
 
     // Desconexión
-    socket.on('disconnect', () => {
-      logger.info(`Client disconnected: ${socket.id}`);
-      
+    socket.on("disconnect", (reason) => {
+      logger.info(`Client disconnected: ${socket.id} (${reason})`);
+
       // Obtener el tipo de cliente antes de removerlo
       const client = gameState.clients[socket.id];
-      
+
       removeClient(socket.id);
-      
+
       // Actualizar estado del módulo si es necesario
       if (client) {
-        if (client.appType === 'main-screen') {
-          updateGameModule('MODULE_MAIN_SCREEN', {
-            status: 'waiting',
+        if (client.appType === "main-screen") {
+          updateGameModule("MODULE_MAIN_SCREEN", {
+            status: "waiting",
             lastEventTime: new Date().toISOString(),
           });
           broadcastAdminState(io);
-        } else if (client.appType === 'tablet-feedback') {
-          updateGameModule('MODULE_TABLET', {
-            status: 'waiting',
+        } else if (client.appType === "tablet-feedback") {
+          updateGameModule("MODULE_TABLET", {
+            status: "waiting",
             lastEventTime: new Date().toISOString(),
           });
           broadcastAdminState(io);
-        } else if (client.appType === 'totem-tactil') {
-          updateGameModule('MODULE_TOTEM', {
-            status: 'waiting',
+        } else if (client.appType === "totem-tactil") {
+          updateGameModule("MODULE_TOTEM", {
+            status: "waiting",
             lastEventTime: new Date().toISOString(),
           });
           broadcastAdminState(io);
-        } else if (client.appType === 'buttons-game') {
-          updateGameModule('MODULE_BUTTONS', {
-            status: 'waiting',
+        } else if (client.appType === "buttons-game") {
+          updateGameModule("MODULE_BUTTONS", {
+            status: "waiting",
             lastEventTime: new Date().toISOString(),
           });
           broadcastAdminState(io);
-        } else if (client.appType === 'ai-app') {
-          updateGameModule('MODULE_PRINTER', {
-            status: 'waiting',
+        } else if (client.appType === "ai-app") {
+          updateGameModule("MODULE_PRINTER", {
+            status: "waiting",
             lastEventTime: new Date().toISOString(),
           });
           broadcastAdminState(io);

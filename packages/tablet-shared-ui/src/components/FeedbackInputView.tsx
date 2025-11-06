@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent } from "react";
 
 export type FeedbackInputViewProps = {
   value: string;
@@ -32,21 +32,19 @@ export function FeedbackInputView({
   return (
     <div
       className="flex h-full w-full flex-col items-center justify-center bg-cover bg-center px-8"
-      style={{ backgroundImage: 'url(/images/fb_bg3.png)' }}
+      style={{ backgroundImage: "url(/images/fb_bg4.png)" }}
     >
       <div className="mb-10 text-center">
-        <p className="text-3xl font-semibold italic leading-tight text-white">
-          Para potenciar nuestra
+        <p className="text-3xl italic leading-tight text-white">
+          Para 
           <br />
-          mejor versión compartimos
+          <span className="font-semibold">Potenciar nuestra mejor versión</span>
           <br />
-          nuestro feedback
+          compartimos nuestro feedback con 
           <br />
-          con seguridad e intención
+          seguridad e intención genuina de
           <br />
-          genuina de aportar.
-          <br />
-          Envíen su feedback.
+          aportar. Envíen su feedback.
         </p>
       </div>
 
