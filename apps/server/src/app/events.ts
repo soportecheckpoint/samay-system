@@ -12,17 +12,33 @@ import type {
 export const SERVER_EVENTS = {
   DEVICE_REGISTERED: "device:registered",
   DEVICE_UNREGISTERED: "device:unregistered",
+  DEVICE_DISCONNECTED: "device:disconnected",
   DEVICE_LIST_CHANGED: "device:list",
   DEVICE_HEARTBEAT: "device:heartbeat",
   DIRECT_EXECUTED: "direct:executed",
   MONITOR_EVENT: "monitor:event",
   MONITOR_HEARTBEAT: "monitor:heartbeat",
-  STORAGE_UPDATED: "storage:updated"
+  STORAGE_UPDATED: "storage:updated",
+  HARDWARE_HEARTBEAT: "hardware:heartbeat",
+  HARDWARE_EVENT: "hardware:event"
 } as const;
 
 type ServerEventMap = {
   [SERVER_EVENTS.DEVICE_REGISTERED]: DeviceConnectionSnapshot;
   [SERVER_EVENTS.DEVICE_UNREGISTERED]: DeviceConnectionSnapshot;
+  [SERVER_EVENTS.DEVICE_DISCONNECTED]: {
+    id: DeviceId;
+    instanceId: string;
+    disconnectedAt: number;
+    ip?: string;
+    transport: string;
+    metadata?: Record<string, unknown>;
+    connectionHistory: Array<{
+      connectedAt: number;
+      disconnectedAt?: number;
+      duration?: number;
+    }>;
+  };
   [SERVER_EVENTS.DEVICE_LIST_CHANGED]: DeviceConnectionSnapshot[];
   [SERVER_EVENTS.DEVICE_HEARTBEAT]: DeviceLatencyPayload & {
     at: number;
@@ -35,6 +51,23 @@ type ServerEventMap = {
   [SERVER_EVENTS.MONITOR_EVENT]: MonitorEventPayload;
   [SERVER_EVENTS.MONITOR_HEARTBEAT]: MonitorHeartbeatPayload;
   [SERVER_EVENTS.STORAGE_UPDATED]: StorageUpdatePayload;
+  [SERVER_EVENTS.HARDWARE_HEARTBEAT]: {
+    device: DeviceId;
+    instanceId: string;
+    at: number;
+    ip?: string;
+    metadata?: Record<string, unknown>;
+    latencyMs?: number;
+  };
+  [SERVER_EVENTS.HARDWARE_EVENT]: {
+    device: DeviceId;
+    instanceId: string;
+    at: number;
+    event: string;
+    payload?: unknown;
+    ip?: string;
+    metadata?: Record<string, unknown>;
+  };
 };
 
 type EventMapEntry = ServerEventMap[keyof ServerEventMap];

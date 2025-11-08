@@ -2,37 +2,23 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import {
   Menu,
-  // Edit3, // DESACTIVADO TEMPORALMENTE
-  // Download, // DESACTIVADO TEMPORALMENTE
   RotateCw,
   Trophy,
-  Wifi,
   X,
   Play,
   StopCircle,
   Pause,
+  LineChart,
 } from "lucide-react";
-import {
-  restartAllArduinos,
-  restartArduino,
-  resetModule,
-  resetGame,
-  triggerVictory,
-  startTimer,
-  pauseTimer,
-  resumeTimer,
-  triggerButtonsGameStart,
-  triggerButtonsCompleted,
-  triggerTotemShowSixthBadge,
-  triggerTotemMatchActivation,
-  sendFeedbackMessage,
-  resetTabletFeedback,
-} from "../../socket.ts";
-import { useAdminStore } from "../../store.ts";
-import type { ArduinoState, ModuleId, ModuleState } from "../../store.ts";
+
+import { useAdminStore } from "../store.ts";
+import type { ArduinoState, ModuleId, ModuleState } from "../store.ts";
+import { useDeviceCommands } from "../hooks/useDeviceCommands.ts";
+import { resolveModuleDeviceId } from "../utils/moduleDevices.ts";
 import { MarkerLayer } from "./MarkerLayer.tsx";
 import { HardwareDrawer, type DrawerAction } from "./HardwareDrawer.tsx";
 import { VictoryModal } from "./VictoryModal.tsx";
+import { MonitorModal } from "./MonitorModal.tsx";
 import { DEFAULT_MARKERS } from "./markerConfig.ts";
 import { deriveMarkerDetails, type MarkerDetails } from "./status.ts";
 import type { MarkerStatus, StageMarker } from "./types.ts";
@@ -78,13 +64,13 @@ export function DashboardV2() {
 
   const [markers, setMarkers] = useState<StageMarker[]>(DEFAULT_MARKERS);
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
-  const [editing] = useState(false); // setEditing DESACTIVADO TEMPORALMENTE
+  const [editing] = useState(false);
   const [dragging, setDragging] = useState<DraggingState>(null);
   const [exportVisible, setExportVisible] = useState(false);
-  const [clipboardState] = useState<"idle" | "copied" | "error">("idle"); // setClipboardState DESACTIVADO TEMPORALMENTE
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [shouldRenderMenu, setShouldRenderMenu] = useState(false);
+  const [monitorOpen, setMonitorOpen] = useState(false);
 
   const [imageDimensions, setImageDimensions] = useState({
     width: 1,
@@ -130,7 +116,6 @@ export function DashboardV2() {
     return () => observer.disconnect();
   }, [updateMetrics]);
 
-  // Animation control for menu mount/unmount
   useEffect(() => {
     if (menuOpen) {
       setShouldRenderMenu(true);
@@ -285,121 +270,83 @@ export function DashboardV2() {
     ? (detailMap[selectedMarker.id] ?? null)
     : null;
 
-  /* DESACTIVADO TEMPORALMENTE - Función para editar marcadores
-  const handleToggleEditing = () => {
-    setEditing((prev) => {
-      if (prev) {
-        setDragging(null);
-      }
-      return !prev;
-    });
-  };
-  */
-
   const exportJson = useMemo(() => JSON.stringify(markers, null, 2), [markers]);
-
-  /* DESACTIVADO TEMPORALMENTE - Función para exportar layout
-  const handleExportLayout = useCallback(async () => {
-    setExportVisible(true);
-    try {
-      await navigator.clipboard.writeText(exportJson);
-      setClipboardState('copied');
-      setTimeout(() => setClipboardState('idle'), 2500);
-    } catch (error) {
-      console.error('No se pudo copiar el layout al portapapeles', error);
-      setClipboardState('error');
-      setTimeout(() => setClipboardState('idle'), 3000);
-    }
-  }, [exportJson]);
-  */
 
   const handleCloseDrawer = useCallback(() => {
     setSelectedMarkerId(null);
   }, []);
 
-  const drawerActions: DrawerAction[] = useMemo(() => {
+  const { getCommands } = useDeviceCommands();
+
+  const targetDevice = useMemo(() => {
     if (!selectedMarker) {
+      return null;
+    }
+
+    if (selectedMarker.type === "module") {
+      const deviceId = resolveModuleDeviceId(selectedMarker.moduleId);
+      if (!deviceId) {
+        return null;
+      }
+
+      return {
+        deviceId,
+        instanceId: selectedDetails?.module?.instanceId ?? undefined,
+      };
+    }
+
+    if (selectedMarker.type === "arduino") {
+      const deviceId =
+        selectedMarker.deviceId ?? selectedDetails?.arduino?.id ?? undefined;
+      if (!deviceId) {
+        return null;
+      }
+
+      return {
+        deviceId,
+        instanceId: selectedDetails?.arduino?.instanceId ?? undefined,
+      };
+    }
+
+    return null;
+  }, [selectedMarker, selectedDetails]);
+
+  const targetDeviceId = targetDevice?.deviceId;
+  const targetInstanceId = targetDevice?.instanceId;
+
+  const deviceCommands = useMemo(
+    () => getCommands(targetDeviceId, { instanceId: targetInstanceId }),
+    [getCommands, targetDeviceId, targetInstanceId],
+  );
+
+  const { reset: resetSelectedDevice, isReady: canTriggerReset } = deviceCommands;
+
+  const drawerActions: DrawerAction[] = useMemo(() => {
+    if (!selectedMarker || !targetDeviceId) {
       return [];
     }
 
-    const actions: DrawerAction[] = [];
-
-    if (selectedMarker.type === "arduino" && selectedMarker.deviceId) {
-      actions.push({
-        id: "restart-arduino",
-        label: "Reiniciar Arduino",
-        description: "Envía el comando de reinicio inmediato al dispositivo.",
-        tone: "primary",
+    return [
+      {
+        id: "reset-device",
+        label: "Reset dispositivo",
+        description: "Envía un reset al equipo seleccionado.",
+        tone: "danger",
         requireHold: true,
-        onClick: () => restartArduino(selectedMarker.deviceId!),
-      });
-    }
+        disabled: !canTriggerReset,
+        onClick: () => {
+          resetSelectedDevice();
+        },
+      },
+    ];
+  }, [selectedMarker, targetDeviceId, canTriggerReset, resetSelectedDevice]);
 
-    if (selectedMarker.type === "module" && selectedMarker.moduleId) {
-      actions.push({
-        id: "reset-module",
-        label: "Resetear módulo",
-        description: "Restablece el flujo completo del módulo seleccionado.",
-        tone: "primary",
-        requireHold: true,
-        onClick: () => resetModule(selectedMarker.moduleId!),
-      });
-
-      // Acciones específicas por módulo
-      if (selectedMarker.moduleId === "buttons") {
-        actions.push({
-          id: "trigger-buttons-start",
-          label: "Iniciar juego de botones",
-          description: "Activa el juego en la pantalla de botones.",
-          tone: "neutral",
-          requireHold: true,
-          onClick: () => triggerButtonsGameStart(),
-        });
-        actions.push({
-          id: "trigger-buttons-complete",
-          label: "Marcar como completado",
-          description:
-            "Marca el módulo de botones como completado con código 1234.",
-          tone: "neutral",
-          requireHold: true,
-          onClick: () => triggerButtonsCompleted("1234"),
-        });
-      }
-
-      if (selectedMarker.moduleId === "totem") {
-        actions.push({
-          id: "trigger-totem-match",
-          label: "Activar juego del Match",
-          description: "Lleva al totem a la pantalla del juego del match.",
-          tone: "neutral",
-          requireHold: true,
-          onClick: () => triggerTotemMatchActivation(),
-        });
-        actions.push({
-          id: "trigger-totem-sixth-badge",
-          label: "Mostrar sexta insignia",
-          description: "Muestra la pantalla de la sexta insignia en el totem.",
-          tone: "neutral",
-          requireHold: true,
-          onClick: () => triggerTotemShowSixthBadge(),
-        });
-      }
-    }
-
-    return actions;
-  }, [selectedMarker]);
-
-  // Timer Controls - Start/Stop button (mantener presionado)
   const handleStartStopMouseDown = useCallback(() => {
     pressStartTimerRef.current = setTimeout(() => {
       setIsPressingStart(true);
-      if (timer.isRunning) {
-        resetGame();
-      } else {
-        // Iniciar con 60 minutos por defecto
-        startTimer(60 * 60);
-      }
-    }, 500); // 500ms para activar
+      // TODO: Implementar con scape-sdk
+      console.log("Start/Stop timer - TODO con scape-sdk");
+    }, 500);
   }, [timer.isRunning]);
 
   const handleStartStopMouseUp = useCallback(() => {
@@ -410,16 +357,12 @@ export function DashboardV2() {
     setIsPressingStart(false);
   }, []);
 
-  // Timer Controls - Pause button (mantener presionado)
   const handlePauseMouseDown = useCallback(() => {
     pressPauseTimerRef.current = setTimeout(() => {
       setIsPressingPause(true);
-      if (timer.status === "active") {
-        pauseTimer();
-      } else if (timer.status === "paused") {
-        resumeTimer();
-      }
-    }, 500); // 500ms para activar
+      // TODO: Implementar con scape-sdk
+      console.log("Pause/Resume timer - TODO con scape-sdk");
+    }, 500);
   }, [timer.status]);
 
   const handlePauseMouseUp = useCallback(() => {
@@ -430,7 +373,6 @@ export function DashboardV2() {
     setIsPressingPause(false);
   }, []);
 
-  // Formato del tiempo
   const formatTime = useCallback((seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -482,6 +424,13 @@ export function DashboardV2() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
+                onClick={() => setMonitorOpen(true)}
+                className="rounded-2xl border border-white/15 bg-white/10 p-3 text-white transition hover:border-white/30 hover:bg-white/15 backdrop-blur"
+              >
+                <LineChart className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="rounded-2xl border border-white/15 bg-white/10 p-3 text-white transition hover:border-white/30 hover:bg-white/15 backdrop-blur"
               >
@@ -490,22 +439,13 @@ export function DashboardV2() {
             </div>
           </div>
 
-          {editing && (
-            <div className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 rounded-2xl border border-amber-400/30 bg-amber-500/10 px-6 py-3 text-center text-sm text-amber-50 shadow-[0_20px_60px_-30px_rgba(251,191,36,0.8)] backdrop-blur">
-              Arrastra los marcadores para ajustar su posición. Recuerda copiar
-              el layout actualizado.
-            </div>
-          )}
-
-          {/* Timer Controls - Left Side */}
           <div className="pointer-events-auto absolute left-6 top-20 flex flex-col gap-3">
-            {/* Timer Display */}
             <div className="rounded-3xl border border-white/15 bg-white/10 px-6 py-4 backdrop-blur">
               <div className="text-center">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">
                   Tiempo
                 </p>
-                <p className="text-4xl font-bold tracking-tight text-white">
+                <p className="text-4xl font-semibold italic tracking-tight text-white">
                   {formatTime(timer.remainingTime)}
                 </p>
                 <p className="text-xs text-white/50 mt-1">
@@ -517,7 +457,6 @@ export function DashboardV2() {
               </div>
             </div>
 
-            {/* Start/Stop Button */}
             <button
               type="button"
               onPointerDown={handleStartStopMouseDown}
@@ -556,7 +495,6 @@ export function DashboardV2() {
               </div>
             </button>
 
-            {/* Pause Button */}
             <button
               type="button"
               onPointerDown={handlePauseMouseDown}
@@ -649,50 +587,11 @@ export function DashboardV2() {
                   </button>
                 </div>
                 <div className="space-y-2.5">
-                  {/* DESACTIVADO TEMPORALMENTE - Botón de edición */}
-                  {/* <button
-                    type="button"
-                    onClick={() => {
-                      handleToggleEditing();
-                      setMenuOpen(false);
-                    }}
-                    className={`flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-3 text-left text-sm font-semibold transition-all duration-300 hover:scale-[1.02] ${
-                      editing
-                        ? 'border-amber-400/40 bg-gradient-to-br from-amber-50 to-amber-100/50 text-amber-700 shadow-[0_2px_12px_-2px_rgba(251,191,36,0.3)]'
-                        : 'border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 text-slate-700 hover:border-slate-400/60'
-                    }`}
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
-                      <Edit3 className="h-4 w-4" />
-                    </div>
-                    <div className="flex-1">
-                      <div>{editing ? 'Salir de edición' : 'Modo edición'}</div>
-                      <div className="text-[10px] opacity-70">
-                        {editing ? 'Volver al modo normal' : 'Ajusta posición de marcadores'}
-                      </div>
-                    </div>
-                  </button> */}
-                  {/* DESACTIVADO TEMPORALMENTE - Botón de exportar */}
-                  {/* <button
-                    type="button"
-                    onClick={() => {
-                      handleExportLayout();
-                      setMenuOpen(false);
-                    }}
-                    className="flex w-full items-center gap-3 rounded-2xl border-2 border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all duration-300 hover:scale-[1.02] hover:border-slate-400/60"
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
-                      <Download className="h-4 w-4" />
-                    </div>
-                    <div className="flex-1">
-                      <div>Exportar layout</div>
-                      <div className="text-[10px] opacity-70">Copiar configuración al portapapeles</div>
-                    </div>
-                  </button> */}
                   <button
                     type="button"
                     onClick={() => {
-                      restartAllArduinos();
+                      // TODO: Implementar con scape-sdk
+                      console.log("Restart all arduinos - TODO con scape-sdk");
                       setMenuOpen(false);
                     }}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all duration-300 hover:scale-[1.02] hover:border-slate-400/60"
@@ -710,7 +609,8 @@ export function DashboardV2() {
                   <button
                     type="button"
                     onClick={() => {
-                      triggerVictory();
+                      // TODO: Implementar con scape-sdk
+                      console.log("Trigger victory - TODO con scape-sdk");
                       setMenuOpen(false);
                     }}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-emerald-400/40 bg-gradient-to-br from-emerald-50 to-emerald-100/50 px-4 py-3 text-left text-sm font-semibold text-emerald-700 transition-all duration-300 hover:scale-[1.02] hover:border-emerald-400/60 shadow-[0_2px_12px_-2px_rgba(16,185,129,0.2)]"
@@ -728,7 +628,8 @@ export function DashboardV2() {
                   <button
                     type="button"
                     onClick={() => {
-                      resetGame();
+                      // TODO: Implementar con scape-sdk
+                      console.log("Reset game - TODO con scape-sdk");
                       setMenuOpen(false);
                     }}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-rose-400/40 bg-gradient-to-br from-rose-50 to-rose-100/50 px-4 py-3 text-left text-sm font-semibold text-rose-700 transition-all duration-300 hover:scale-[1.02] hover:border-rose-400/60 shadow-[0_2px_12px_-2px_rgba(244,63,94,0.2)]"
@@ -740,25 +641,6 @@ export function DashboardV2() {
                       <div>Reset completo</div>
                       <div className="text-[10px] opacity-70">
                         Reinicia toda la sesión
-                      </div>
-                    </div>
-                  </button>
-                  <div className="my-3 h-px bg-gradient-to-r from-transparent via-slate-300/40 to-transparent" />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      window.location.hash = "#v1";
-                      setMenuOpen(false);
-                    }}
-                    className="flex w-full items-center gap-3 rounded-2xl border-2 border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all duration-300 hover:scale-[1.02] hover:border-slate-400/60"
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
-                      <Wifi className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <div>Cambiar a V1</div>
-                      <div className="text-[10px] opacity-70">
-                        Interfaz clásica
                       </div>
                     </div>
                   </button>
@@ -788,29 +670,15 @@ export function DashboardV2() {
                 value={exportJson}
                 className="mt-3 h-56 w-full resize-none rounded-2xl border border-white/10 bg-black/50 p-3 text-xs leading-relaxed text-white/80"
               />
-              <p
-                className={`mt-2 text-xs ${
-                  clipboardState === "copied"
-                    ? "text-emerald-300"
-                    : clipboardState === "error"
-                      ? "text-rose-300"
-                      : "text-white/50"
-                }`}
-              >
-                {clipboardState === "copied"
-                  ? "Copiado al portapapeles"
-                  : clipboardState === "error"
-                    ? "No se pudo copiar automáticamente. Copia el contenido manualmente."
-                    : "Pega este JSON en markerConfig.ts para persistir cambios."}
-              </p>
             </div>
           </div>
         )}
 
-        {/* Victory Modal */}
         {gameCompleted && completionTime !== undefined && (
-          <VictoryModal completionTime={completionTime} onReset={resetGame} />
+          <VictoryModal completionTime={completionTime} onReset={() => console.log("Reset game - TODO con scape-sdk")} />
         )}
+
+        <MonitorModal open={monitorOpen} onClose={() => setMonitorOpen(false)} />
       </div>
     </div>
   );

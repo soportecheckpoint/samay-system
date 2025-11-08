@@ -1,5 +1,5 @@
-import type { ArduinoState, ModuleId, ModuleState } from '../../store';
-import { formatRelativeTime } from '../../utils/time';
+import type { ArduinoState, ModuleId, ModuleState } from '../store';
+import { formatRelativeTime } from '../utils/time';
 import type { MarkerMetaField, MarkerStatus, StageMarker } from './types.ts';
 
 export type CommunicationType = 'socket' | 'http';

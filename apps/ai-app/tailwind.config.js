@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["'Plus Jakarta Sans'", '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['Flexo', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

@@ -13,15 +13,19 @@ export interface TabletActivityPayload {
   recognitionPath?: string | null;
 }
 
-export type DirectCommandPayloads = {
+export interface ArduinoCommandPayload {
+  metadata?: Record<string, unknown>;
+}
+
+type DeviceSpecificPayloads = {
   [DEVICE.MAIN_SCREEN]: {
     tabletActivity: TabletActivityPayload;
     showImage: {
       image: "notification" | "accept";
     };
   };
-  [DEVICE.FEEDBACK]: {};
-  [DEVICE.ADMIN]: {};
+  [DEVICE.FEEDBACK]: Record<string, never>;
+  [DEVICE.ADMIN]: Record<string, never>;
   [DEVICE.TOTEM]: {
     start: {
       phase: 1 | 2;
@@ -37,12 +41,13 @@ export type DirectCommandPayloads = {
     start: void;
   };
   [DEVICE.BUTTONS_ARDUINO]: {
-    start: void;
-    setState: {
-      buttons: ButtonState[];
-    };
+    start: ArduinoCommandPayload;
+    reset: ArduinoCommandPayload;
   };
 };
+
+
+export type DirectCommandPayloads = DeviceSpecificPayloads & Record<string, Record<string, never>>;
 
 export type DeviceCommandName<TTarget extends DeviceId> = keyof DirectCommandPayloads[TTarget];
 
@@ -51,7 +56,7 @@ export type DirectCommandPayload<
   TCommand extends DeviceCommandName<TTarget>
 > = DirectCommandPayloads[TTarget][TCommand];
 
-export const DEVICE_COMMAND_EVENTS = {
+export const DEVICE_COMMAND_EVENTS: Record<string, Record<string, string>> = {
   [DEVICE.MAIN_SCREEN]: {
     tabletActivity: "tablet-activity",
     showImage: "show-image"
@@ -69,9 +74,9 @@ export const DEVICE_COMMAND_EVENTS = {
   },
   [DEVICE.BUTTONS_ARDUINO]: {
     start: "start",
-    setState: "set-state"
+    reset: "reset"
   }
-} as const satisfies Record<DeviceId, Record<string, string>>;
+};
 
 export type CommandPayloadArgs<TPayload> = TPayload extends void ? [] : [payload: TPayload];
 

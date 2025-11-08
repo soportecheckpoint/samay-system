@@ -5,21 +5,50 @@ import { logger } from "../utils/logger.js";
 
 interface TimerState {
   durationMs: number;
-  startedAt?: number;
+  startedAt?: number | null;
   remainingMs: number;
   phase: "idle" | "running" | "paused" | "won";
 }
 
+const DEFAULT_DURATION_MS = 40 * 60 * 1000;
+
 export class StatusManager {
   private state: TimerState = {
-    durationMs: 60 * 60 * 1000,
-    remainingMs: 60 * 60 * 1000,
+    durationMs: DEFAULT_DURATION_MS,
+    remainingMs: DEFAULT_DURATION_MS,
     phase: "idle"
   };
 
   private ticker: NodeJS.Timeout | null = null;
 
-  constructor(private readonly storage: StorageManager) {}
+  constructor(private readonly storage: StorageManager) {
+    this.bootstrap();
+  }
+
+  private bootstrap(): void {
+    const snapshot = this.storage.getState();
+    const patch: Record<string, unknown> = {};
+
+    if (!snapshot.status) {
+      patch.status = {
+        phase: "idle",
+        updatedAt: Date.now()
+      };
+    }
+
+    if (!snapshot.timer) {
+      patch.timer = {
+        totalMs: this.state.durationMs,
+        remainingMs: this.state.remainingMs,
+        startedAt: null,
+        phase: "idle"
+      };
+    }
+
+    if (Object.keys(patch).length > 0) {
+      this.storage.patch(patch);
+    }
+  }
 
   attach(socket: Socket): void {
     socket.on(STATUS_EVENTS.START, (payload?: StatusPayload & { durationSeconds?: number }) => {
@@ -37,6 +66,21 @@ export class StatusManager {
     socket.on(STATUS_EVENTS.WIN, (payload?: StatusPayload) => {
       this.win(payload);
     });
+  }
+
+  reset(): void {
+    this.stopTicker();
+    const durationMs = this.state.durationMs || DEFAULT_DURATION_MS;
+
+    this.state = {
+      durationMs,
+      remainingMs: durationMs,
+      startedAt: null,
+      phase: "idle"
+    };
+
+    this.pushState();
+    logger.info(`[StatusManager] State reset`);
   }
 
   private start(payload?: StatusPayload & { durationSeconds?: number }): void {
@@ -150,7 +194,7 @@ export class StatusManager {
     if (typeof durationSeconds === "number" && durationSeconds > 0) {
       return durationSeconds * 1000;
     }
-    return this.state.durationMs || 60 * 60 * 1000;
+    return this.state.durationMs || DEFAULT_DURATION_MS;
   }
 
   private pushState(extra?: { operator?: string; note?: string }): void {
@@ -164,7 +208,7 @@ export class StatusManager {
       timer: {
         totalMs: this.state.durationMs,
         remainingMs: this.state.remainingMs,
-        startedAt: this.state.startedAt,
+        startedAt: this.state.startedAt ?? null,
         phase: this.state.phase
       }
     });

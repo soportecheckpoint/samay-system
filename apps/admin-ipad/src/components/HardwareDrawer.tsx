@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   X,
   RotateCw,
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import type { MarkerDetails } from "./status.ts";
 import type { MarkerStatus, StageMarker } from "./types.ts";
+import { LatencySparkline } from "./LatencySparkline.tsx";
+import { resolveModuleDeviceId } from "../utils/moduleDevices.ts";
 
 export interface DrawerAction {
   id: string;
@@ -94,14 +96,47 @@ export function HardwareDrawer({
   const [pressingButton, setPressingButton] = useState<string | null>(null);
   const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleButtonPress = useCallback((action: DrawerAction) => {
+  const { deviceId, instanceId } = useMemo(() => {
+    if (!marker) {
+      return { deviceId: undefined as string | undefined, instanceId: undefined as string | undefined };
+    }
+
+    if (marker.type === "arduino") {
+      return {
+        deviceId: marker.deviceId ?? details?.arduino?.id,
+        instanceId: details?.arduino?.instanceId ?? undefined,
+      };
+    }
+
+    if (marker.type === "module") {
+      return {
+        deviceId: resolveModuleDeviceId(marker.moduleId),
+        instanceId: details?.module?.instanceId ?? undefined,
+      };
+    }
+
+    return { deviceId: undefined as string | undefined, instanceId: undefined as string | undefined };
+  }, [marker, details]);
+
+  const handleButtonPress = useCallback((action: DrawerAction, event: React.PointerEvent) => {
     if (action.disabled) return;
 
+    // Solo activar hold si el pointer no se mueve (no es scroll)
     if (action.requireHold) {
+      const startX = event.clientX;
+      const startY = event.clientY;
+      
       pressTimerRef.current = setTimeout(() => {
-        setPressingButton(action.id);
-        action.onClick();
-        setTimeout(() => setPressingButton(null), 500);
+        // Solo ejecutar si no hubo movimiento significativo
+        const moveThreshold = 10;
+        if (
+          Math.abs(event.clientX - startX) < moveThreshold &&
+          Math.abs(event.clientY - startY) < moveThreshold
+        ) {
+          setPressingButton(action.id);
+          action.onClick();
+          setTimeout(() => setPressingButton(null), 500);
+        }
       }, 500);
     } else {
       action.onClick();
@@ -183,7 +218,11 @@ export function HardwareDrawer({
 
           <div
             className="flex-1 overflow-y-auto px-5 py-5 scrollbar-thin scrollbar-thumb-slate-300/40 scrollbar-track-transparent"
-            style={{ touchAction: "pan-y" }}
+            style={{ 
+              touchAction: "pan-y",
+              WebkitOverflowScrolling: "touch",
+              overscrollBehavior: "contain",
+            }}
           >
             <section
               className={`rounded-2xl border-2 p-4 transition-all duration-300 ${statusStyle}`}
@@ -207,6 +246,14 @@ export function HardwareDrawer({
                 </p>
               )}
             </section>
+
+            <Divider>Métricas</Divider>
+
+            <LatencySparkline
+              deviceId={deviceId}
+              instanceId={instanceId}
+              communicationType={details?.communicationType}
+            />
 
             <Divider>Información</Divider>
 
@@ -242,12 +289,12 @@ export function HardwareDrawer({
                 <button
                   key={action.id}
                   type="button"
-                  onPointerDown={() => handleButtonPress(action)}
+                  onPointerDown={(e) => handleButtonPress(action, e)}
                   onPointerUp={handleButtonRelease}
                   onPointerLeave={handleButtonRelease}
                   onContextMenu={(e) => e.preventDefault()}
                   style={{
-                    touchAction: "none",
+                    touchAction: "manipulation",
                     WebkitTouchCallout: "none",
                     userSelect: "none",
                   }}

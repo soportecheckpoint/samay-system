@@ -1,110 +1,118 @@
 import type { Express, Request, Response } from "express";
-import { DEVICE, type DeviceId } from "@samay/scape-protocol";
+import type { DeviceId } from "@samay/scape-protocol";
+import type { Server } from "socket.io";
 import { ServerEventBus, SERVER_EVENTS } from "../app/events.js";
-import type { DirectRouter } from "./directRouter.js";
 import { logger } from "../utils/logger.js";
 
 interface ArduinoSession {
-  device: DeviceId;
-  instanceId: string;
-  lastHeartbeat: number;
-  metadata?: Record<string, unknown>;
+  id: string;
+  ip: string;
+  port: number;
+  connectedAt: string;
+  lastHeartbeat: string;
+  status: "connected" | "disconnected";
 }
 
-const DEFAULT_INSTANCE = "hardware";
-
 export class ArduinoBridge {
-  private readonly sessions = new Map<DeviceId, ArduinoSession>();
+  private readonly sessions = new Map<string, ArduinoSession>();
 
   constructor(
     private readonly app: Express,
-    private readonly directRouter: DirectRouter,
+    private readonly io: Server,
     private readonly bus: ServerEventBus
   ) {}
 
   register(): void {
-    this.app.post("/api/arduino/:device/heartbeat", (req: Request, res: Response) => {
-      const device = this.resolveDevice(req.params.device);
-      if (!device) {
-        res.status(400).json({ error: "Unknown device" });
-        return;
+    // POST /connect - Arduino se registra
+    this.app.post("/connect", (req: Request, res: Response) => {
+      const { id, ip, port } = req.body;
+
+      if (!id || !ip) {
+        return res.status(400).json({ error: "Missing id or ip" });
       }
 
-      const instanceId = this.resolveInstanceId(req.body?.instanceId);
-      const now = Date.now();
+      const now = new Date().toISOString();
       const session: ArduinoSession = {
-        device,
-        instanceId,
+        id,
+        ip,
+        port: port || 8080,
+        connectedAt: now,
         lastHeartbeat: now,
-        metadata: typeof req.body?.metadata === "object" ? req.body.metadata : undefined
+        status: "connected"
       };
 
-      this.sessions.set(device, session);
-      logger.info(`[ArduinoBridge] Heartbeat from ${device} (${instanceId})`);
+      this.sessions.set(id, session);
+      logger.info(`[ArduinoBridge] Arduino connected: ${id} (${ip}:${port})`);
 
-      this.bus.emit(SERVER_EVENTS.MONITOR_HEARTBEAT, {
-        device,
-        instanceId,
-        latencyMs: req.body?.latencyMs,
-        at: now
+      this.bus.emit(SERVER_EVENTS.HARDWARE_HEARTBEAT, {
+        device: id as DeviceId,
+        instanceId: id,
+        at: Date.now(),
+        ip,
+        metadata: { port }
       });
 
-      res.json({ ok: true, at: now });
+      res.json({
+        status: "registered",
+        arduinoId: id,
+        message: "Arduino registrado exitosamente"
+      });
     });
 
-    this.app.post("/api/arduino/:device/event", async (req: Request, res: Response) => {
-      const device = this.resolveDevice(req.params.device);
-      if (!device) {
-        res.status(400).json({ error: "Unknown device" });
-        return;
+    // POST /dispatch - Arduino envía eventos
+    this.app.post("/dispatch", (req: Request, res: Response) => {
+      const { arduinoId, event, data } = req.body;
+
+      if (!arduinoId || !event) {
+        return res.status(400).json({ error: "Missing arduinoId or event" });
       }
 
-      const { target, command, payload } = req.body ?? {};
-      if (!target || !command) {
-        res.status(400).json({ error: "Missing target or command" });
-        return;
+      logger.info(`[ArduinoBridge] Event from Arduino ${arduinoId}: ${event}`, data);
+
+      // Distribuir evento a todas las apps React conectadas vía Socket.io
+      this.io.emit(event, data);
+
+      this.bus.emit(SERVER_EVENTS.HARDWARE_EVENT, {
+        device: arduinoId as DeviceId,
+        instanceId: arduinoId,
+        at: Date.now(),
+        event,
+        payload: data,
+        ip: this.sessions.get(arduinoId)?.ip
+      });
+
+      res.json({
+        status: "received",
+        message: "Evento procesado"
+      });
+    });
+
+    // POST /heartbeat - Monitoreo de salud del Arduino
+    this.app.post("/heartbeat", (req: Request, res: Response) => {
+      const { arduinoId, timestamp } = req.body;
+
+      if (!arduinoId) {
+        return res.status(400).json({ error: "Missing arduinoId" });
       }
 
-      const targetDevice = this.isDeviceId(target) ? target : null;
-      if (!targetDevice) {
-        res.status(400).json({ error: "Unknown target" });
-        return;
-      }
+      const session = this.sessions.get(arduinoId);
+      if (session) {
+        session.lastHeartbeat = new Date().toISOString();
+        session.status = "connected";
+        this.sessions.set(arduinoId, session);
 
-      try {
-        const delivered = this.directRouter.send(targetDevice, command, payload, {
-          source: device,
-          sourceInstanceId: this.resolveInstanceId(req.body?.instanceId ?? DEFAULT_INSTANCE)
+        this.bus.emit(SERVER_EVENTS.HARDWARE_HEARTBEAT, {
+          device: arduinoId as DeviceId,
+          instanceId: arduinoId,
+          at: Date.now(),
+          ip: session.ip
         });
-
-        res.json({ ok: true, delivered });
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        logger.error(`[ArduinoBridge] Failed to forward event from ${device}: ${message}`);
-        res.status(500).json({ ok: false, error: message });
       }
+
+      res.json({
+        status: "alive",
+        timestamp: new Date().toISOString()
+      });
     });
-  }
-
-  private resolveDevice(value: string | undefined): DeviceId | null {
-    if (!value) {
-      return null;
-    }
-
-    return Object.values(DEVICE).find((id) => id === value) ?? null;
-  }
-
-  private resolveInstanceId(value: unknown): string {
-    if (typeof value === "string" && value.trim()) {
-      return value.trim();
-    }
-    return DEFAULT_INSTANCE;
-  }
-
-  private isDeviceId(value: unknown): value is DeviceId {
-    if (typeof value !== "string") {
-      return false;
-    }
-    return Object.values(DEVICE).includes(value as DeviceId);
   }
 }

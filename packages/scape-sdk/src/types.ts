@@ -44,6 +44,7 @@ export interface CreateSdkOptions<TDevice extends DeviceId = DeviceId> {
   autoConnect?: boolean;
   transport?: "socket" | "http";
   socketOptions?: Partial<ManagerOptions & SocketOptions>;
+  heartbeatIntervalMs?: number;
 }
 
 export interface DirectModule<TDevice extends DeviceId> {
@@ -55,6 +56,12 @@ export interface DirectModule<TDevice extends DeviceId> {
   off<TCommand extends DeviceCommandName<TDevice>>(
     command: TCommand,
     handler: (...args: CommandPayloadArgs<DirectCommandPayload<TDevice, TCommand>>) => void
+  ): void;
+  send<TTarget extends DeviceId>(
+    target: TTarget,
+    command: string,
+    payload?: unknown,
+    options?: { targetInstanceId?: string }
   ): void;
 }
 

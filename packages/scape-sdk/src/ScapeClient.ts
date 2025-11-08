@@ -74,10 +74,14 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
 
   private readonly metadata?: Record<string, unknown>;
   private readonly transport: "socket" | "http";
+  private readonly heartbeatIntervalMs: number;
   private connectionState: ConnectionState;
   private readonly connectionListeners = new Set<(state: ConnectionState) => void>();
   private readonly resetListeners = new Set<ResetHandler>();
+  private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
   private readonly handleResetEvent = (payload?: ResetPayload) => {
+
+    console.log("reset")
     const normalized = this.normalizeResetPayload(payload, { includeSourceDefaults: false });
     if (normalized.sourceInstanceId && normalized.sourceInstanceId === this.instanceId) {
       return;
@@ -96,13 +100,17 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       instanceId,
       autoConnect = true,
       transport = "socket",
-      socketOptions = {}
+      socketOptions = {},
+      heartbeatIntervalMs
     } = options;
 
     this.device = device;
     this.instanceId = instanceId ?? generateInstanceId();
     this.metadata = metadata;
     this.transport = transport;
+    this.heartbeatIntervalMs = typeof heartbeatIntervalMs === "number" && heartbeatIntervalMs > 0
+      ? heartbeatIntervalMs
+      : 2_000;
 
     const factory: SocketFactory = dependencies.factory ?? defaultSocketFactory;
     this.socket = factory(url, {
@@ -139,6 +147,7 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       this.register();
     });
     this.socket.on("disconnect", (reason) => {
+      this.stopHeartbeatLoop();
       this.setConnectionState((prev) => ({
         status: "connecting",
         attempt: prev.attempt,
@@ -147,6 +156,9 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       }));
     });
     this.socket.on("connect_error", (error) => {
+      if (!this.socket.connected) {
+        this.stopHeartbeatLoop();
+      }
       this.setConnectionState((prev) => ({
         status: "error",
         attempt: prev.attempt,
@@ -155,6 +167,9 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       }));
     });
     this.socket.on("error", (error) => {
+      if (!this.socket.connected) {
+        this.stopHeartbeatLoop();
+      }
       this.setConnectionState((prev) => ({
         status: "error",
         attempt: prev.attempt,
@@ -247,9 +262,14 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       metadata: this.metadata,
       transport: this.transport
     });
+    this.startHeartbeatLoop();
   }
 
   private heartbeat(): void {
+    if (!this.socket.connected) {
+      return;
+    }
+
     const payload: HeartbeatPayload = {
       device: this.device,
       instanceId: this.instanceId,
@@ -320,6 +340,31 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
     }));
 
     this.socket.connect();
+  }
+
+  private startHeartbeatLoop(): void {
+    if (this.transport !== "socket") {
+      return;
+    }
+
+    this.stopHeartbeatLoop();
+    this.heartbeat();
+    this.heartbeatTimer = setInterval(() => {
+      try {
+        this.heartbeat();
+      } catch {
+        // Ignore heartbeat failures to avoid interrupting the SDK flow
+      }
+    }, this.heartbeatIntervalMs);
+  }
+
+  private stopHeartbeatLoop(): void {
+    if (!this.heartbeatTimer) {
+      return;
+    }
+
+    clearInterval(this.heartbeatTimer);
+    this.heartbeatTimer = null;
   }
 }
 

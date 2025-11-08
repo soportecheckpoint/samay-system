@@ -1,10 +1,15 @@
-import { useSocket } from './socket';
-import { Dashboard } from './components/Dashboard';
+import { SdkConnectionOverlay } from '@samay/tablet-shared-ui';
+import { DashboardV2 } from './components/DashboardV2';
+import { useScapeStorage } from './hooks/useScapeStorage';
 
 function App() {
-  useSocket();
+  const { connectionState, retry } = useScapeStorage();
 
-  return <Dashboard />;
+  return (
+    <SdkConnectionOverlay state={connectionState} onRetry={retry}>
+      <DashboardV2 />
+    </SdkConnectionOverlay>
+  );
 }
 
 export default App;

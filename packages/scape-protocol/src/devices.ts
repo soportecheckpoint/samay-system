@@ -8,7 +8,9 @@ export const DEVICE = {
   BUTTONS_ARDUINO: "buttons-arduino"
 } as const;
 
-export type DeviceId = (typeof DEVICE)[keyof typeof DEVICE];
+export type KnownDeviceId = (typeof DEVICE)[keyof typeof DEVICE];
+
+export type DeviceId = string;
 
 export const DEVICE_KIND = {
   APP: "app",
@@ -21,13 +23,13 @@ export type DeviceKind = (typeof DEVICE_KIND)[keyof typeof DEVICE_KIND];
 export type DeviceTransport = "socket" | "http";
 
 export interface DeviceDescriptor {
-  id: DeviceId;
+  id: KnownDeviceId;
   kind: DeviceKind;
   transport: DeviceTransport;
   label: string;
 }
 
-export const DEVICE_CATALOG: Record<DeviceId, DeviceDescriptor> = {
+export const DEVICE_CATALOG: Record<KnownDeviceId, DeviceDescriptor> = {
   [DEVICE.ADMIN]: {
     id: DEVICE.ADMIN,
     kind: DEVICE_KIND.APP,
@@ -89,4 +91,5 @@ export interface DeviceConnectionSnapshot {
   metadata?: DeviceMetadata;
   registered: boolean;
   latencyMs?: number;
+  ip?: string;
 }

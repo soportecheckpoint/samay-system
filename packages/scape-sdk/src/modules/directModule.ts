@@ -19,12 +19,7 @@ const getEventName = <TTarget extends DeviceId, TCommand extends DeviceCommandNa
 ) => {
   const events = registry[target] as Record<string, string> | undefined;
   const eventName = events?.[String(command)];
-
-  if (!eventName) {
-    throw new Error(`Unknown command "${String(command)}" for device "${target}"`);
-  }
-
-  return eventName;
+  return eventName ?? String(command);
 };
 
 const wrapHandler = <TDevice extends DeviceId, TCommand extends DeviceCommandName<TDevice>>(
@@ -62,23 +57,15 @@ export class DirectModuleImpl<TDevice extends DeviceId> implements DirectModuleA
   }
 
   execute<TTarget extends DeviceId>(target: TTarget): ExecuteTarget<TTarget> {
-    const events = this.events[target];
-    if (!events || Object.keys(events).length === 0) {
-      return {} as ExecuteTarget<TTarget>;
-    }
-
     const commands = {} as ExecuteTarget<TTarget>;
-    const eventEntries = Object.keys(events) as Array<DeviceCommandName<TTarget>>;
+    const events = this.events[target];
+    const eventEntries = events ? (Object.keys(events) as Array<DeviceCommandName<TTarget>>) : [];
+    const uniqueCommands = new Set<DeviceCommandName<TTarget>>(eventEntries);
+    uniqueCommands.add("command" as DeviceCommandName<TTarget>);
 
-    for (const commandKey of eventEntries) {
+    for (const commandKey of uniqueCommands) {
       commands[commandKey] = ((payload?: unknown) => {
-        this.socket.emit(ROUTER_EVENTS.EXECUTE, {
-          target,
-          command: commandKey,
-          payload,
-          source: this.device,
-          sourceInstanceId: this.instanceId
-        });
+        this.send(target, String(commandKey), payload);
       }) as ExecuteTarget<TTarget>[typeof commandKey];
     }
 
@@ -111,6 +98,22 @@ export class DirectModuleImpl<TDevice extends DeviceId> implements DirectModuleA
       this.socket.off(eventName, wrapped);
       this.registry.unregister(key, handler as (...args: unknown[]) => void);
     }
+  }
+
+  send<TTarget extends DeviceId>(
+    target: TTarget,
+    command: string,
+    payload?: unknown,
+    options?: { targetInstanceId?: string }
+  ): void {
+    this.socket.emit(ROUTER_EVENTS.EXECUTE, {
+      target,
+      command,
+      payload,
+      targetInstanceId: options?.targetInstanceId,
+      source: this.device,
+      sourceInstanceId: this.instanceId
+    });
   }
 
   private keyFor(command: DeviceCommandName<TDevice>) {

@@ -1,4 +1,4 @@
-import type { ModuleId } from '../../store';
+import type { ModuleId } from '../store';
 
 export type MarkerType = 'arduino' | 'module';
 

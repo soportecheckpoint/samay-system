@@ -50,9 +50,10 @@
 	height: 112px;
 	border-radius: 20px;
 	background: #0b0b0e;
-	font-family: 'Share Tech Mono', 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-family: 'Flexo', system-ui, -apple-system, sans-serif;
 	font-size: clamp(3rem, 6vw, 5.5rem);
-	font-weight: 700;
+	font-weight: 600;
+	font-style: italic;
 	color: #ffffff;
 	letter-spacing: -0.05em;
 }
@@ -63,9 +64,10 @@
 	justify-content: center;
 	min-width: 32px;
 	height: 112px;
-	font-family: 'Share Tech Mono', 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-family: 'Flexo', system-ui, -apple-system, sans-serif;
 	font-size: clamp(3rem, 6vw, 5.5rem);
 	font-weight: 600;
+	font-style: italic;
 	color: rgba(255, 255, 255, 0.92);
 }
 

@@ -95,10 +95,25 @@ export interface DeviceConnectionSummary {
   registered: boolean;
   metadata?: DeviceMetadata;
   latencyMs?: number;
+  ip?: string;
+}
+
+export interface DisconnectedDeviceSummary {
+  device: DeviceId;
+  instanceId: string;
+  transport: DeviceTransport;
+  connectedAt: number;
+  disconnectedAt: number;
+  registered: false;
+  metadata?: DeviceMetadata;
+  ip?: string;
+  connectionCount: number;
+  totalConnectionTime: number;
 }
 
 export interface DeviceListPayload {
   devices: DeviceConnectionSummary[];
+  disconnected?: DisconnectedDeviceSummary[];
 }
 
 export interface UnregisteredDevicePayload {

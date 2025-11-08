@@ -178,3 +178,300 @@ TypeError: this.loadPersistentState is not a function
     }
   ]
 }
+2025-11-08T07:32:36.912Z [[31merror[39m]: uncaughtException: this.getOrCreateInstanceId is not a function
+TypeError: this.getOrCreateInstanceId is not a function
+    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:64:29)
+    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:32:12)
+    at Socket.emit (node:events:518:28)
+    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11) {
+  "error": {},
+  "stack": "TypeError: this.getOrCreateInstanceId is not a function\n    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:64:29)\n    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:32:12)\n    at Socket.emit (node:events:518:28)\n    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)\n    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)",
+  "exception": true,
+  "date": "Sat Nov 08 2025 02:32:36 GMT-0500 (hora estándar de Perú)",
+  "process": {
+    "pid": 44148,
+    "uid": 1000,
+    "gid": 1001,
+    "cwd": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server",
+    "execPath": "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+    "version": "v22.18.0",
+    "argv": [
+      "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+      "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts"
+    ],
+    "memoryUsage": {
+      "rss": 148697088,
+      "heapTotal": 37683200,
+      "heapUsed": 21294168,
+      "external": 6073937,
+      "arrayBuffers": 113748
+    }
+  },
+  "os": {
+    "loadavg": [
+      1.49,
+      1.52,
+      1.4
+    ],
+    "uptime": 59295.34
+  },
+  "trace": [
+    {
+      "column": 29,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": "DeviceManager.handleRegister",
+      "line": 64,
+      "method": "handleRegister",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": null,
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "node:events",
+      "function": "Socket.emit",
+      "line": 518,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 22,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js",
+      "function": "Socket.emitUntyped",
+      "line": 69,
+      "method": "emitUntyped",
+      "native": false
+    },
+    {
+      "column": 39,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js",
+      "function": null,
+      "line": 697,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "node:internal/process/task_queues",
+      "function": "process.processTicksAndRejections",
+      "line": 85,
+      "method": "processTicksAndRejections",
+      "native": false
+    }
+  ]
+}
+2025-11-08T10:06:08.805Z [[31merror[39m]: uncaughtException: this.cleanupOfflineDevices is not a function
+TypeError: this.cleanupOfflineDevices is not a function
+    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:112:10)
+    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:55:12)
+    at Socket.emit (node:events:518:28)
+    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11) {
+  "error": {},
+  "stack": "TypeError: this.cleanupOfflineDevices is not a function\n    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:112:10)\n    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:55:12)\n    at Socket.emit (node:events:518:28)\n    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)\n    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)",
+  "exception": true,
+  "date": "Sat Nov 08 2025 05:06:08 GMT-0500 (hora estándar de Perú)",
+  "process": {
+    "pid": 58690,
+    "uid": 1000,
+    "gid": 1001,
+    "cwd": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server",
+    "execPath": "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+    "version": "v22.18.0",
+    "argv": [
+      "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+      "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts"
+    ],
+    "memoryUsage": {
+      "rss": 151678976,
+      "heapTotal": 37421056,
+      "heapUsed": 21158608,
+      "external": 6073969,
+      "arrayBuffers": 113780
+    }
+  },
+  "os": {
+    "loadavg": [
+      1.28,
+      1.14,
+      1.41
+    ],
+    "uptime": 68507.23
+  },
+  "trace": [
+    {
+      "column": 10,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": "DeviceManager.handleRegister",
+      "line": 112,
+      "method": "handleRegister",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": null,
+      "line": 55,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "node:events",
+      "function": "Socket.emit",
+      "line": 518,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 22,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js",
+      "function": "Socket.emitUntyped",
+      "line": 69,
+      "method": "emitUntyped",
+      "native": false
+    },
+    {
+      "column": 39,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js",
+      "function": null,
+      "line": 697,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "node:internal/process/task_queues",
+      "function": "process.processTicksAndRejections",
+      "line": 85,
+      "method": "processTicksAndRejections",
+      "native": false
+    }
+  ]
+}
+2025-11-08T10:06:31.333Z [[31merror[39m]: uncaughtException: this.applyDeviceRegistered is not a function
+TypeError: this.applyDeviceRegistered is not a function
+    at EventEmitter.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/adminStateManager.ts:81:12)
+    at EventEmitter.emit (node:events:518:28)
+    at ServerEventBus.emit (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/events.ts:95:18)
+    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:137:14)
+    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:55:12)
+    at Socket.emit (node:events:518:28)
+    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11) {
+  "error": {},
+  "stack": "TypeError: this.applyDeviceRegistered is not a function\n    at EventEmitter.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/adminStateManager.ts:81:12)\n    at EventEmitter.emit (node:events:518:28)\n    at ServerEventBus.emit (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/events.ts:95:18)\n    at DeviceManager.handleRegister (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:137:14)\n    at Socket.<anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts:55:12)\n    at Socket.emit (node:events:518:28)\n    at Socket.emitUntyped (/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js:69:22)\n    at /home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js:697:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)",
+  "exception": true,
+  "date": "Sat Nov 08 2025 05:06:31 GMT-0500 (hora estándar de Perú)",
+  "process": {
+    "pid": 58778,
+    "uid": 1000,
+    "gid": 1001,
+    "cwd": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server",
+    "execPath": "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+    "version": "v22.18.0",
+    "argv": [
+      "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+      "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts"
+    ],
+    "memoryUsage": {
+      "rss": 153575424,
+      "heapTotal": 36896768,
+      "heapUsed": 21661776,
+      "external": 6065890,
+      "arrayBuffers": 105701
+    }
+  },
+  "os": {
+    "loadavg": [
+      1.19,
+      1.13,
+      1.4
+    ],
+    "uptime": 68529.76
+  },
+  "trace": [
+    {
+      "column": 12,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/adminStateManager.ts",
+      "function": null,
+      "line": 81,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "node:events",
+      "function": "EventEmitter.emit",
+      "line": 518,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 18,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/events.ts",
+      "function": "ServerEventBus.emit",
+      "line": 95,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": "DeviceManager.handleRegister",
+      "line": 137,
+      "method": "handleRegister",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/deviceManager.ts",
+      "function": null,
+      "line": 55,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "node:events",
+      "function": "Socket.emit",
+      "line": 518,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 22,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/typed-events.js",
+      "function": "Socket.emitUntyped",
+      "line": 69,
+      "method": "emitUntyped",
+      "native": false
+    },
+    {
+      "column": 39,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/node_modules/.pnpm/socket.io@4.8.1/node_modules/socket.io/dist/socket.js",
+      "function": null,
+      "line": 697,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "node:internal/process/task_queues",
+      "function": "process.processTicksAndRejections",
+      "line": 85,
+      "method": "processTicksAndRejections",
+      "native": false
+    }
+  ]
+}
