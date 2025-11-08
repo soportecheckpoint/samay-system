@@ -15,6 +15,7 @@ import { useAdminStore } from "../store.ts";
 import type { ArduinoState, ModuleId, ModuleState } from "../store.ts";
 import { useDeviceCommands } from "../hooks/useDeviceCommands.ts";
 import { resolveModuleDeviceId } from "../utils/moduleDevices.ts";
+import { DEVICE } from "@samay/scape-protocol";
 import { MarkerLayer } from "./MarkerLayer.tsx";
 import { HardwareDrawer, type DrawerAction } from "./HardwareDrawer.tsx";
 import { VictoryModal } from "./VictoryModal.tsx";
@@ -276,7 +277,7 @@ export function DashboardV2() {
     setSelectedMarkerId(null);
   }, []);
 
-  const { getCommands } = useDeviceCommands();
+  const { getCommands, sendCommand, resetAll, statusStart, statusPause, statusRestart } = useDeviceCommands();
 
   const targetDevice = useMemo(() => {
     if (!selectedMarker) {
@@ -319,14 +320,140 @@ export function DashboardV2() {
     [getCommands, targetDeviceId, targetInstanceId],
   );
 
-  const { reset: resetSelectedDevice, isReady: canTriggerReset } = deviceCommands;
+  const {
+    reset: resetSelectedDevice,
+    execute: executeCommand,
+    isReady: isDeviceReady,
+  } = deviceCommands;
+
+  const canTriggerReset = isDeviceReady;
 
   const drawerActions: DrawerAction[] = useMemo(() => {
     if (!selectedMarker || !targetDeviceId) {
       return [];
     }
 
-    return [
+    const actions: DrawerAction[] = [];
+
+    const baseMetadata = {
+      origin: "admin-ipad",
+      markerId: selectedMarker.id,
+    } as Record<string, unknown>;
+
+    if (selectedMarker.type === "module") {
+      if (selectedMarker.moduleId === "printer") {
+        actions.push({
+          id: "start-ai-app",
+          label: "Iniciar IA",
+          description: "Envía el comando de inicio al módulo de IA.",
+          tone: "primary",
+          requireHold: true,
+          disabled: !isDeviceReady,
+          onClick: () => {
+            executeCommand("start", {
+              payload: {
+                ...baseMetadata,
+              },
+            });
+          },
+        });
+      }
+
+      if (selectedMarker.moduleId === "buttons") {
+        actions.push(
+          {
+            id: "buttons-skip-code",
+            label: "Saltar código",
+            description: "Avanza al siguiente paso sin validar el código.",
+            tone: "neutral",
+            requireHold: true,
+            disabled: !isDeviceReady,
+            onClick: () => {
+              executeCommand("command", {
+                payload: {
+                  ...baseMetadata,
+                  action: "skip-code",
+                },
+              });
+            },
+          },
+          {
+            id: "buttons-force-complete",
+            label: "Completar juego",
+            description: "Marca el módulo como completado manualmente.",
+            tone: "danger",
+            requireHold: true,
+            disabled: !isDeviceReady,
+            onClick: () => {
+              executeCommand("command", {
+                payload: {
+                  ...baseMetadata,
+                  action: "force-complete",
+                },
+              });
+            },
+          },
+        );
+      }
+
+      if (selectedMarker.moduleId === "totem") {
+        actions.push(
+          {
+            id: "totem-start-phase-1",
+            label: "Iniciar juego 1",
+            description: "Inicia la primera fase del totem.",
+            tone: "primary",
+            requireHold: true,
+            disabled: !isDeviceReady,
+            onClick: () => {
+              executeCommand("start", {
+                payload: {
+                  ...baseMetadata,
+                  phase: 1,
+                },
+              });
+            },
+          },
+          {
+            id: "totem-start-phase-2",
+            label: "Iniciar juego 2",
+            description: "Lanza la segunda fase del totem.",
+            tone: "primary",
+            requireHold: true,
+            disabled: !isDeviceReady,
+            onClick: () => {
+              executeCommand("start", {
+                payload: {
+                  ...baseMetadata,
+                  phase: 2,
+                },
+              });
+            },
+          },
+        );
+      }
+    }
+
+    if (selectedMarker.type === "arduino" && targetDeviceId === DEVICE.BUTTONS_ARDUINO) {
+      actions.push({
+        id: "start-buttons-arduino",
+        label: "Iniciar Buttons Arduino",
+        description: "Envía el comando de inicio al Arduino de botones.",
+        tone: "primary",
+        requireHold: true,
+        onClick: () => {
+          sendCommand(DEVICE.BUTTONS_ARDUINO, "start", {
+            targetInstanceId: targetDevice?.instanceId,
+            payload: {
+              ...baseMetadata,
+            },
+          });
+        },
+        disabled: !isDeviceReady,
+      });
+    }
+
+    actions.push(
       {
         id: "reset-device",
         label: "Reset dispositivo",
@@ -336,23 +463,36 @@ export function DashboardV2() {
         disabled: !canTriggerReset,
         onClick: () => {
           resetSelectedDevice({
-            metadata: {
-              origin: "admin-ipad",
-              markerId: selectedMarker.id,
-            },
+            metadata: baseMetadata,
           });
         },
       },
-    ];
-  }, [selectedMarker, targetDeviceId, canTriggerReset, resetSelectedDevice]);
+    );
+
+    return actions;
+  }, [
+    selectedMarker,
+    targetDeviceId,
+    targetInstanceId,
+    canTriggerReset,
+    resetSelectedDevice,
+    isDeviceReady,
+    executeCommand,
+    sendCommand,
+  ]);
 
   const handleStartStopMouseDown = useCallback(() => {
     pressStartTimerRef.current = setTimeout(() => {
       setIsPressingStart(true);
-      // TODO: Implementar con scape-sdk
-      console.log("Start/Stop timer - TODO con scape-sdk");
+      if (timer.isRunning) {
+        resetAll({ reason: "admin-stop-reset", metadata: { source: "dashboard" } });
+      } else if (timer.status === "paused") {
+        statusRestart({ durationSeconds: Math.max(timer.remainingTime, 0) });
+      } else {
+        statusStart();
+      }
     }, 500);
-  }, [timer.isRunning]);
+  }, [timer.isRunning, timer.status, timer.remainingTime, resetAll, statusStart, statusRestart]);
 
   const handleStartStopMouseUp = useCallback(() => {
     if (pressStartTimerRef.current) {
@@ -365,10 +505,13 @@ export function DashboardV2() {
   const handlePauseMouseDown = useCallback(() => {
     pressPauseTimerRef.current = setTimeout(() => {
       setIsPressingPause(true);
-      // TODO: Implementar con scape-sdk
-      console.log("Pause/Resume timer - TODO con scape-sdk");
+      if (timer.status === "paused") {
+        statusRestart({ durationSeconds: Math.max(timer.remainingTime, 0) });
+      } else if (timer.isRunning) {
+        statusPause();
+      }
     }, 500);
-  }, [timer.status]);
+  }, [timer.status, timer.isRunning, timer.remainingTime, statusPause, statusRestart]);
 
   const handlePauseMouseUp = useCallback(() => {
     if (pressPauseTimerRef.current) {
@@ -383,6 +526,10 @@ export function DashboardV2() {
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   }, []);
+
+  const handleVictoryReset = useCallback(() => {
+    resetAll({ reason: "admin-victory-reset", metadata: { source: "dashboard" } });
+  }, [resetAll]);
 
   return (
     <div
@@ -680,7 +827,7 @@ export function DashboardV2() {
         )}
 
         {gameCompleted && completionTime !== undefined && (
-          <VictoryModal completionTime={completionTime} onReset={() => console.log("Reset game - TODO con scape-sdk")} />
+          <VictoryModal completionTime={completionTime} onReset={handleVictoryReset} />
         )}
 
         <MonitorModal open={monitorOpen} onClose={() => setMonitorOpen(false)} />

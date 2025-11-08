@@ -23,6 +23,29 @@ const resetModuleState = () => {
   viewStore.resetCode();
 };
 
+const skipCodeStep = () => {
+  const viewStore = useViewStore.getState();
+  viewStore.resetFlow("mesa");
+  viewStore.resetCode();
+
+  const gameStore = useGameStore.getState();
+  gameStore.setError("");
+};
+
+const forceCompleteGame = () => {
+  const gameStore = useGameStore.getState();
+  const completedButtons = gameStore.buttons.map((button) => ({
+    ...button,
+    pressed: true,
+    completed: true,
+  }));
+  gameStore.updateButtons(completedButtons);
+  gameStore.setError("");
+
+  const viewStore = useViewStore.getState();
+  viewStore.resetFlow("message");
+};
+
 const mapButtonStates = (buttons: ButtonState[]) => {
   return buttons.map((button, index) => {
     const parsedId = Number.parseInt(String(button.id), 10);
@@ -85,6 +108,20 @@ export const useSocket = () => {
   }, [sdk]);
 
   useEffect(() => {
+    const unsubscribe = sdk.direct.on("command", (payload) => {
+      if (payload.action === "skip-code") {
+        skipCodeStep();
+      } else if (payload.action === "force-complete") {
+        forceCompleteGame();
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [sdk]);
+
+  useEffect(() => {
     if (!lastResetPayload) {
       return;
     }
@@ -101,5 +138,5 @@ export const requestButtonsStart = () => {
     return;
   }
 
-  client.direct.execute(DEVICE.BUTTONS_ARDUINO).start();
+  client.direct.execute(DEVICE.BUTTONS_ARDUINO).start({ metadata: {} });
 };

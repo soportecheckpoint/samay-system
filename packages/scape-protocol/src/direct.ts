@@ -36,6 +36,12 @@ type DeviceSpecificPayloads = {
       buttons: ButtonState[];
       completed?: boolean;
     };
+    command: {
+      action: "skip-code" | "force-complete";
+      origin?: string;
+      markerId?: string;
+      [key: string]: unknown;
+    };
   };
   [DEVICE.AI_APP]: {
     start: void;
@@ -67,7 +73,8 @@ export const DEVICE_COMMAND_EVENTS: Record<string, Record<string, string>> = {
     start: "start"
   },
   [DEVICE.BUTTONS_APP]: {
-    setState: "set-state"
+    setState: "set-state",
+    command: "command"
   },
   [DEVICE.AI_APP]: {
     start: "start"

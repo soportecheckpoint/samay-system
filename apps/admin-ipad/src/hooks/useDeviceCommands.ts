@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 import { useScapeSdk } from "@samay/scape-sdk";
-import { DEVICE, type DeviceId } from "@samay/scape-protocol";
+import { DEVICE, type DeviceId, type StatusPayload } from "@samay/scape-protocol";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 
 interface CommandOptions {
-  payload?: unknown;
+  payload?: Record<string, unknown> | undefined;
   targetInstanceId?: string;
 }
 
@@ -14,6 +14,13 @@ interface ResetOptions {
   metadata?: Record<string, unknown>;
   targetInstanceId?: string;
 }
+
+interface BroadcastResetOptions {
+  reason?: string;
+  metadata?: Record<string, unknown>;
+}
+
+type StatusCommandOptions = StatusPayload & { durationSeconds?: number };
 
 interface BuildOptions {
   instanceId?: string;
@@ -75,6 +82,51 @@ export function useDeviceCommands() {
     [sdk, isConnected],
   );
 
+  const resetAll = useCallback(
+    (options?: BroadcastResetOptions) => {
+      if (!isConnected) {
+        return;
+      }
+
+      sdk.reset(
+        {
+          reason: options?.reason ?? "admin-global-reset",
+          metadata: options?.metadata,
+        },
+        { broadcast: true },
+      );
+    },
+    [sdk, isConnected],
+  );
+
+  const statusStart = useCallback((options?: StatusCommandOptions) => {
+    if (!isConnected) {
+      return;
+    }
+    sdk.status.start(options);
+  }, [sdk, isConnected]);
+
+  const statusPause = useCallback((options?: StatusCommandOptions) => {
+    if (!isConnected) {
+      return;
+    }
+    sdk.status.pause(options);
+  }, [sdk, isConnected]);
+
+  const statusRestart = useCallback((options?: StatusCommandOptions) => {
+    if (!isConnected) {
+      return;
+    }
+    sdk.status.restart(options);
+  }, [sdk, isConnected]);
+
+  const statusWin = useCallback((options?: StatusCommandOptions) => {
+    if (!isConnected) {
+      return;
+    }
+    sdk.status.win(options);
+  }, [sdk, isConnected]);
+
   const getCommands = useCallback(
     (target?: DeviceId, options?: BuildOptions): DeviceCommandHandle => {
       const targetInstanceId = options?.instanceId;
@@ -108,9 +160,25 @@ export function useDeviceCommands() {
       getCommands,
       sendCommand,
       resetDevice,
+      resetAll,
+      statusStart,
+      statusPause,
+      statusRestart,
+      statusWin,
       connectionState,
       isConnected,
     }),
-    [getCommands, sendCommand, resetDevice, connectionState, isConnected],
+    [
+      getCommands,
+      sendCommand,
+      resetDevice,
+      resetAll,
+      statusStart,
+      statusPause,
+      statusRestart,
+      statusWin,
+      connectionState,
+      isConnected,
+    ],
   );
 }

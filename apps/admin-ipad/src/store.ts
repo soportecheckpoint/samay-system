@@ -88,6 +88,18 @@ export interface TimerState {
   status: "waiting" | "active" | "paused" | "completed";
 }
 
+interface StorageTimerSnapshot {
+  totalMs?: number;
+  remainingMs?: number;
+  startedAt?: number | null;
+  phase?: string;
+}
+
+interface StorageStatusSnapshot {
+  phase?: string;
+  updatedAt?: number;
+}
+
 export interface ArduinoState {
   id: string;
   status: "connected" | "disconnected" | "error";
@@ -123,6 +135,8 @@ interface AdminStore {
   setConnected: (connected: boolean) => void;
   hydrateAdminState: (snapshot: AdminStateSnapshot) => void;
   reset: () => void;
+  updateTimer: (snapshot: StorageTimerSnapshot | null | undefined) => void;
+  updateStatus: (snapshot: StorageStatusSnapshot | null | undefined) => void;
   getDevice: (deviceId: string, instanceId?: string) => AdminDeviceSnapshot | undefined;
 }
 
@@ -132,6 +146,46 @@ const DEFAULT_TIMER: TimerState = {
   totalTime: 0,
   elapsedTime: 0,
   status: "waiting"
+};
+
+const mapTimerPhase = (phase?: string): TimerState["status"] => {
+  switch (phase) {
+    case "running":
+      return "active";
+    case "paused":
+      return "paused";
+    case "won":
+      return "completed";
+    default:
+      return "waiting";
+  }
+};
+
+const toSeconds = (value?: number): number => {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return 0;
+  }
+  return Math.max(0, Math.floor(value / 1000));
+};
+
+const buildTimerStateFromSnapshot = (snapshot?: StorageTimerSnapshot | null): TimerState => {
+  if (!snapshot) {
+    return { ...DEFAULT_TIMER };
+  }
+
+  const totalSeconds = toSeconds(snapshot.totalMs);
+  const remainingSeconds = toSeconds(snapshot.remainingMs);
+  const boundedRemaining = totalSeconds > 0 ? Math.min(remainingSeconds, totalSeconds) : remainingSeconds;
+  const elapsedSeconds = totalSeconds > 0 ? Math.max(totalSeconds - boundedRemaining, 0) : 0;
+  const status = mapTimerPhase(snapshot.phase);
+
+  return {
+    isRunning: status === "active",
+    totalTime: totalSeconds,
+    remainingTime: boundedRemaining,
+    elapsedTime: elapsedSeconds,
+    status
+  };
 };
 
 const toIsoString = (value?: number | null): string | undefined => {
@@ -361,7 +415,34 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
       modules: createDefaultModules(),
       arduinos: [],
       lastUpdatedAt: null,
-      timer: { ...DEFAULT_TIMER }
+      timer: { ...DEFAULT_TIMER },
+      gameCompleted: false,
+      completionTime: undefined
+    }),
+
+  updateTimer: (snapshot) =>
+    set(() => ({
+      timer: buildTimerStateFromSnapshot(snapshot)
+    })),
+
+  updateStatus: (snapshot) =>
+    set((state) => {
+      const phase = typeof snapshot?.phase === "string" ? snapshot?.phase : undefined;
+      const status = mapTimerPhase(phase);
+      const completed = status === "completed";
+      const completionTime = completed
+        ? Math.max(state.timer.totalTime - state.timer.remainingTime, 0)
+        : undefined;
+
+      return {
+        gameCompleted: completed,
+        completionTime,
+        timer: {
+          ...state.timer,
+          status,
+          isRunning: status === "active"
+        }
+      };
     }),
 
   getDevice: (deviceId, instanceId) => {

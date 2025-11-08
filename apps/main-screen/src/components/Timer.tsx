@@ -33,7 +33,7 @@ export const Timer: React.FC = () => {
           {digits.map((character, index) => (
             <span
               key={`${character}-${index}`}
-              className={character === ':' ? 'timer-colon' : 'timer-digit'}
+              className={"pr-1 " + (character === ':' ? 'timer-colon' : 'timer-digit')}
             >
               {character}
             </span>
