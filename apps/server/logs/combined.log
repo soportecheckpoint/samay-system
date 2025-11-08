@@ -1,0 +1,1071 @@
+2025-11-07T06:43:12.184Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T06:43:12.187Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T06:43:12.187Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T06:43:12.187Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T07:44:31.819Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T07:44:31.819Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T07:44:31.819Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T07:44:32.104Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T07:44:32.105Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T07:44:32.105Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T07:44:32.105Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:13:29.877Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T08:13:29.878Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T08:13:29.878Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T08:13:30.217Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:13:30.218Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:13:30.219Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:13:30.219Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:13:42.985Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T08:13:42.986Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T08:13:42.986Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T08:13:43.307Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:13:43.309Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:13:43.309Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:13:43.309Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:28:22.878Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T08:28:22.878Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T08:28:22.879Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T08:28:23.199Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:28:23.200Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:28:23.200Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:28:23.200Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:28:23.345Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T08:28:23.345Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T08:28:23.345Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T08:28:23.658Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:28:23.659Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:28:23.659Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:28:23.659Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:31:17.669Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:31:17.670Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:31:17.671Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:31:17.671Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:31:54.908Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:31:54.909Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:31:54.909Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:31:54.910Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:34:46.367Z [[32minfo[39m]: [Socket] Connected: 9ci24THVnvAs2C5FAAAB 
+2025-11-07T08:34:46.368Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (2d829190-5201-4dcd-82d9-436148787ea8) via socket 
+2025-11-07T08:34:50.081Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T08:34:50.082Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T08:34:50.082Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T08:34:50.082Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T08:34:51.854Z [[32minfo[39m]: [Socket] Connected: TjBD5M_CIcOLUihJAAAB 
+2025-11-07T08:34:51.855Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (2d829190-5201-4dcd-82d9-436148787ea8) via socket 
+2025-11-07T08:34:56.563Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (2d829190-5201-4dcd-82d9-436148787ea8) 
+2025-11-07T08:34:57.465Z [[32minfo[39m]: [Socket] Connected: WybiUb1egypzALKrAAAD 
+2025-11-07T08:34:57.466Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (e9845348-24d6-46e4-b0a8-dc964ea2dd2f) via socket 
+2025-11-07T08:35:08.026Z [[32minfo[39m]: [Socket] Connected: KIK4gh7ML80V_itUAAAF 
+2025-11-07T08:35:08.027Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (c900456c-5470-4a4b-8916-7b570c826b25) via socket 
+2025-11-07T08:35:54.813Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T08:35:54.816Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-07T08:36:13.656Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (e9845348-24d6-46e4-b0a8-dc964ea2dd2f) 
+2025-11-07T08:36:13.856Z [[32minfo[39m]: [Socket] Connected: 7p0vTSYwDz8aoQ--AAAH 
+2025-11-07T08:36:13.857Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (20c5c59d-969a-4978-a1bb-a895bce06a82) via socket 
+2025-11-07T08:36:15.597Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (c900456c-5470-4a4b-8916-7b570c826b25) 
+2025-11-07T08:36:15.735Z [[32minfo[39m]: [Socket] Connected: EmaLIgMq_EMVLIAzAAAJ 
+2025-11-07T08:36:15.738Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (f775e8f7-86da-46a9-aba3-e920ae08f484) via socket 
+2025-11-07T08:36:23.474Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (20c5c59d-969a-4978-a1bb-a895bce06a82) 
+2025-11-07T08:36:23.627Z [[32minfo[39m]: [Socket] Connected: P_3mxconQHm8AoP4AAAL 
+2025-11-07T08:36:23.628Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (34078dcb-58c2-4f95-adb2-bc1b1654d6ed) via socket 
+2025-11-07T15:13:37.548Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:13:37.548Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:13:37.549Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:13:37.549Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:13:40.567Z [[32minfo[39m]: [Socket] Connected: 2fCDObKoMGS5BjD_AAAD 
+2025-11-07T15:13:40.569Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8b73ba0b-923c-4e71-b85b-23fadfbde4bd) via socket 
+2025-11-07T15:13:40.610Z [[32minfo[39m]: [Socket] Connected: tv2IDb-PU9dTLJU-AAAF 
+2025-11-07T15:13:40.627Z [[32minfo[39m]: [Socket] Connected: 3lkajHG2GVt_Z-sUAAAG 
+2025-11-07T15:13:40.628Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8d63485e-fb81-4f17-b66a-cbdcf622dc17) via socket 
+2025-11-07T15:13:40.631Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (323f944d-f83c-4adc-9b45-40b8cc819fce) via socket 
+2025-11-07T15:13:49.963Z [[32minfo[39m]: [Socket] Connected: NnXH4GYn35-oURAVAAAI 
+2025-11-07T15:13:49.967Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (fed33baf-c4d6-4895-bc56-ac8912d0b720) via socket 
+2025-11-07T15:13:52.268Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (fed33baf-c4d6-4895-bc56-ac8912d0b720) 
+2025-11-07T15:14:11.961Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (323f944d-f83c-4adc-9b45-40b8cc819fce) 
+2025-11-07T15:14:12.037Z [[32minfo[39m]: [Socket] Connected: acPxLAfuJpM-a6rYAAAK 
+2025-11-07T15:14:12.038Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:14:29.694Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T15:14:29.697Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-07T15:14:41.433Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8b73ba0b-923c-4e71-b85b-23fadfbde4bd) 
+2025-11-07T15:14:41.435Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8d63485e-fb81-4f17-b66a-cbdcf622dc17) 
+2025-11-07T15:14:41.436Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:14:42.701Z [[32minfo[39m]: [Socket] Connected: z-SFZFVduXQhUTY1AAAM 
+2025-11-07T15:14:42.702Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8b73ba0b-923c-4e71-b85b-23fadfbde4bd) via socket 
+2025-11-07T15:14:42.900Z [[32minfo[39m]: [Socket] Connected: G8gmkaZPoJ8US337AAAO 
+2025-11-07T15:14:42.900Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:14:43.716Z [[32minfo[39m]: [Socket] Connected: lnWSPjPL0QUKrm4RAAAQ 
+2025-11-07T15:14:43.716Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8d63485e-fb81-4f17-b66a-cbdcf622dc17) via socket 
+2025-11-07T15:17:01.955Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8d63485e-fb81-4f17-b66a-cbdcf622dc17) 
+2025-11-07T15:17:03.379Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8b73ba0b-923c-4e71-b85b-23fadfbde4bd) 
+2025-11-07T15:17:03.473Z [[32minfo[39m]: [Socket] Connected: PVgKTRUA4gjwgaNqAAAS 
+2025-11-07T15:17:03.473Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) via socket 
+2025-11-07T15:29:56.022Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:29:56.024Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) 
+2025-11-07T15:29:57.397Z [[32minfo[39m]: [Socket] Connected: qcBhNPwVYe3PontZAAAU 
+2025-11-07T15:29:57.398Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:29:57.520Z [[32minfo[39m]: [Socket] Connected: K4sAaQi89CoNEYlQAAAW 
+2025-11-07T15:29:57.520Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) via socket 
+2025-11-07T15:35:01.012Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) 
+2025-11-07T15:35:01.013Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:35:01.782Z [[32minfo[39m]: [Socket] Connected: 4iuEzllFboeeuugpAAAY 
+2025-11-07T15:35:01.783Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:35:02.278Z [[32minfo[39m]: [Socket] Connected: 6saVvsLVTsvpJhOLAAAa 
+2025-11-07T15:35:02.278Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) via socket 
+2025-11-07T15:40:06.005Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) 
+2025-11-07T15:40:06.006Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:40:06.820Z [[32minfo[39m]: [Socket] Connected: 7wUlL5G4K0L3M95wAAAc 
+2025-11-07T15:40:06.820Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:40:06.897Z [[32minfo[39m]: [Socket] Connected: OyunlFwUvX8lkIJ7AAAe 
+2025-11-07T15:40:06.898Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) via socket 
+2025-11-07T15:42:00.762Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) 
+2025-11-07T15:42:00.764Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:42:47.022Z [[32minfo[39m]: [Socket] Connected: SNlTa-ag4D8G5tzUAAAg 
+2025-11-07T15:42:47.022Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) via socket 
+2025-11-07T15:42:49.119Z [[32minfo[39m]: [Socket] Connected: 8YyM6abzUUHanLbAAAAi 
+2025-11-07T15:42:49.120Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) via socket 
+2025-11-07T15:44:24.246Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4a940c2e-7cb8-499e-8cbf-82b5eb564d81) 
+2025-11-07T15:44:27.373Z [[32minfo[39m]: [Socket] Connected: rOMKr9qCmxIw1wJ9AAAk 
+2025-11-07T15:44:27.374Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (64a9e944-6f80-4df4-9aac-97b59848bddf) via socket 
+2025-11-07T15:44:28.273Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0b9a2ddc-f229-4eb0-a809-dd06a5c5671a) 
+2025-11-07T15:44:29.648Z [[32minfo[39m]: [Socket] Connected: r-JW3X0GuAxdPaAlAAAm 
+2025-11-07T15:44:29.649Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (e30dc8d9-8a73-4ae9-ab4d-7a09c5adb436) via socket 
+2025-11-07T15:46:50.188Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (64a9e944-6f80-4df4-9aac-97b59848bddf) 
+2025-11-07T15:46:50.355Z [[32minfo[39m]: [Socket] Connected: A-3mOnX6sskcyy40AAAo 
+2025-11-07T15:46:50.356Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a6d412db-b1ff-4542-bd7e-3a866deaa602) via socket 
+2025-11-07T15:46:51.332Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a6d412db-b1ff-4542-bd7e-3a866deaa602) 
+2025-11-07T15:46:51.444Z [[32minfo[39m]: [Socket] Connected: 4qh8KvVUDacxms_dAAAq 
+2025-11-07T15:46:51.445Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (d46e1d00-4529-46db-afd4-6b00bd303919) via socket 
+2025-11-07T15:46:51.742Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (d46e1d00-4529-46db-afd4-6b00bd303919) 
+2025-11-07T15:46:51.868Z [[32minfo[39m]: [Socket] Connected: xs9JnbB-7AYaUgVqAAAs 
+2025-11-07T15:46:51.870Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (81e6a318-9ce0-4ae1-91af-c749fccb4029) via socket 
+2025-11-07T15:46:52.079Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (81e6a318-9ce0-4ae1-91af-c749fccb4029) 
+2025-11-07T15:46:52.184Z [[32minfo[39m]: [Socket] Connected: Ea8Ip7IB9pgkc2y8AAAu 
+2025-11-07T15:46:52.187Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (0505a223-8da1-4bae-8e4f-f1ee8f0d79aa) via socket 
+2025-11-07T15:46:52.427Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (0505a223-8da1-4bae-8e4f-f1ee8f0d79aa) 
+2025-11-07T15:46:52.548Z [[32minfo[39m]: [Socket] Connected: BJ-U15bwox7WXbA9AAAw 
+2025-11-07T15:46:52.552Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (20b417b4-edbe-4f12-8ed9-bac7c187b2f5) via socket 
+2025-11-07T15:46:52.751Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (20b417b4-edbe-4f12-8ed9-bac7c187b2f5) 
+2025-11-07T15:46:52.861Z [[32minfo[39m]: [Socket] Connected: M8cq6wHU21pVWY_1AAAy 
+2025-11-07T15:46:52.864Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c6181e4-dfdf-48c7-a112-6126adaa380c) via socket 
+2025-11-07T15:46:52.943Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c6181e4-dfdf-48c7-a112-6126adaa380c) 
+2025-11-07T15:46:53.066Z [[32minfo[39m]: [Socket] Connected: zM7lk3CH0Mav2hxHAAA0 
+2025-11-07T15:46:53.069Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (91d089e5-df6b-45d8-ad0f-f745f6530e5b) via socket 
+2025-11-07T15:46:53.148Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (91d089e5-df6b-45d8-ad0f-f745f6530e5b) 
+2025-11-07T15:46:53.258Z [[32minfo[39m]: [Socket] Connected: HxDFyL006Olm3we0AAA2 
+2025-11-07T15:46:53.261Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (321904e8-b3f5-4aba-b323-7d57d1e3751a) via socket 
+2025-11-07T15:46:53.340Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (321904e8-b3f5-4aba-b323-7d57d1e3751a) 
+2025-11-07T15:46:53.449Z [[32minfo[39m]: [Socket] Connected: O1ZxScuEGqpnSXtpAAA4 
+2025-11-07T15:46:53.451Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (e5bea9be-d7de-4da5-8018-6c487b5d571f) via socket 
+2025-11-07T15:46:53.519Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (e5bea9be-d7de-4da5-8018-6c487b5d571f) 
+2025-11-07T15:46:53.627Z [[32minfo[39m]: [Socket] Connected: GXgTLMGd8Tx-qBSzAAA6 
+2025-11-07T15:46:53.629Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (9df37379-5645-40ab-9808-2e3fde69f8b4) via socket 
+2025-11-07T15:46:53.962Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (9df37379-5645-40ab-9808-2e3fde69f8b4) 
+2025-11-07T15:46:54.227Z [[32minfo[39m]: [Socket] Connected: Q8o5Y0AQFy2Pd0BaAAA8 
+2025-11-07T15:46:54.228Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (fcdd24ff-1e38-4931-bd21-e66e938b550a) via socket 
+2025-11-07T15:46:55.200Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (fcdd24ff-1e38-4931-bd21-e66e938b550a) 
+2025-11-07T15:46:55.324Z [[32minfo[39m]: [Socket] Connected: 6pk-HeQHqNmCYnggAAA- 
+2025-11-07T15:46:55.328Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a723b81f-1ca2-4734-bd2d-f83a8e399138) via socket 
+2025-11-07T15:46:55.893Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a723b81f-1ca2-4734-bd2d-f83a8e399138) 
+2025-11-07T15:46:56.000Z [[32minfo[39m]: [Socket] Connected: 4a3r2S-FDaxoCdGUAABA 
+2025-11-07T15:46:56.001Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a53661a5-bc90-4733-acb9-09ce17f42225) via socket 
+2025-11-07T15:46:56.204Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a53661a5-bc90-4733-acb9-09ce17f42225) 
+2025-11-07T15:46:56.317Z [[32minfo[39m]: [Socket] Connected: pi-K8UtILcHTmf6MAABC 
+2025-11-07T15:46:56.320Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (9a2bea54-69bd-4ce1-9787-c08fde9de7a3) via socket 
+2025-11-07T15:46:56.473Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (9a2bea54-69bd-4ce1-9787-c08fde9de7a3) 
+2025-11-07T15:46:56.610Z [[32minfo[39m]: [Socket] Connected: mu6TacR4jkbS6WTFAABE 
+2025-11-07T15:46:56.613Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d63fc4a-6b84-45f3-9323-1770cefa1efb) via socket 
+2025-11-07T15:46:56.689Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (5d63fc4a-6b84-45f3-9323-1770cefa1efb) 
+2025-11-07T15:46:56.803Z [[32minfo[39m]: [Socket] Connected: yGxgJ8MgsG50XrUCAABG 
+2025-11-07T15:46:56.805Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:46:59.660Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (e30dc8d9-8a73-4ae9-ab4d-7a09c5adb436) 
+2025-11-07T15:46:59.761Z [[32minfo[39m]: [Socket] Connected: reOCO28owe1YjtaWAABI 
+2025-11-07T15:46:59.764Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d4b193d8-a6dc-445a-a493-9925cbb752c6) via socket 
+2025-11-07T15:47:03.375Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (d4b193d8-a6dc-445a-a493-9925cbb752c6) 
+2025-11-07T15:47:03.448Z [[32minfo[39m]: [Socket] Connected: 2LanVQFD_DYy9KX2AABK 
+2025-11-07T15:47:03.449Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:47:50.242Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) 
+2025-11-07T15:47:50.243Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) 
+2025-11-07T15:47:50.817Z [[32minfo[39m]: [Socket] Connected: _NDPLTXXgxLPoa_JAABM 
+2025-11-07T15:47:50.818Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:47:51.013Z [[32minfo[39m]: [Socket] Connected: RGqoyIySTydYMA8eAABO 
+2025-11-07T15:47:51.013Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:52:53.062Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:52:53.062Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:52:58.407Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:52:58.408Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:52:58.408Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:52:58.409Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:52:59.185Z [[32minfo[39m]: [Socket] Connected: a3zV-z2daRp0ZIW5AAAB 
+2025-11-07T15:52:59.186Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:52:59.543Z [[32minfo[39m]: [Socket] Connected: jQweOm-wGW4ghN-xAAAD 
+2025-11-07T15:52:59.543Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:53:02.927Z [[32minfo[39m]: [Socket] Connected: DTbsryOurdQwHKPaAAAF 
+2025-11-07T15:53:02.928Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:53:11.000Z [[32minfo[39m]: [Socket] Connected: 84VVMfo6ZYikLYuNAAAH 
+2025-11-07T15:53:11.001Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:53:29.131Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:53:29.131Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:53:34.464Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:53:34.465Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:53:34.466Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:53:34.466Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:53:35.132Z [[32minfo[39m]: [Socket] Connected: l6yi3mlF6YUkbORDAAAB 
+2025-11-07T15:53:35.133Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:53:35.410Z [[32minfo[39m]: [Socket] Connected: mmwTIgPz_w9VV01XAAAD 
+2025-11-07T15:53:35.411Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:53:35.516Z [[32minfo[39m]: [Socket] Connected: FauYjDjzuP83ZOL3AAAF 
+2025-11-07T15:53:35.517Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:53:35.540Z [[32minfo[39m]: [Socket] Connected: ScbG16Wt2GLTcY26AAAH 
+2025-11-07T15:53:35.540Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:53:38.696Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:53:38.696Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:53:44.024Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:53:44.025Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:53:44.025Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:53:44.025Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:53:44.676Z [[32minfo[39m]: [Socket] Connected: SoB4SHy1MIGEdxUtAAAB 
+2025-11-07T15:53:44.677Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:53:44.784Z [[32minfo[39m]: [Socket] Connected: Mbv--Qoqsdgq3Lk3AAAD 
+2025-11-07T15:53:44.784Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:53:44.809Z [[32minfo[39m]: [Socket] Connected: 2wuMrBcVTyo7dHozAAAF 
+2025-11-07T15:53:44.810Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:53:44.970Z [[32minfo[39m]: [Socket] Connected: VYc1QqDnKeO8rbTTAAAH 
+2025-11-07T15:53:44.971Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:53:49.153Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:53:49.153Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:55:46.320Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:55:46.321Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:55:46.321Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:55:46.321Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:55:46.670Z [[32minfo[39m]: [Socket] Connected: xVSAZcwgTl4H6VPCAAAB 
+2025-11-07T15:55:46.671Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:55:47.193Z [[32minfo[39m]: [Socket] Connected: 3vprHW7ADn9mAIQgAAAD 
+2025-11-07T15:55:47.193Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:55:49.693Z [[32minfo[39m]: [Socket] Connected: NsiS0H8yrTdr9ZhpAAAF 
+2025-11-07T15:55:49.693Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:55:50.802Z [[32minfo[39m]: [Socket] Connected: FICpxn3NYU1NqJgGAAAH 
+2025-11-07T15:55:50.803Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:01.047Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:56:01.047Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:56:06.388Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:56:06.389Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:56:06.389Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:56:06.389Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:56:07.162Z [[32minfo[39m]: [Socket] Connected: KzjscHUUJP6le0QmAAAB 
+2025-11-07T15:56:07.163Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:07.233Z [[32minfo[39m]: [Socket] Connected: MqqUBk2pYPosNaKSAAAD 
+2025-11-07T15:56:07.234Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:56:07.433Z [[32minfo[39m]: [Socket] Connected: tf3bnxok950MJDTgAAAF 
+2025-11-07T15:56:07.434Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:56:07.551Z [[32minfo[39m]: [Socket] Connected: Nl7hJov4DOtycfDuAAAH 
+2025-11-07T15:56:07.552Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:56:11.488Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:56:11.488Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:56:16.821Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:56:16.822Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:56:16.822Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:56:16.822Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:56:17.289Z [[32minfo[39m]: [Socket] Connected: rMSQLSWaU10F15xRAAAB 
+2025-11-07T15:56:17.290Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:56:17.684Z [[32minfo[39m]: [Socket] Connected: f-lbhhSemQdF3xBRAAAD 
+2025-11-07T15:56:17.684Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:17.893Z [[32minfo[39m]: [Socket] Connected: EepOK6O0Qq6d3PlzAAAF 
+2025-11-07T15:56:17.894Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:56:17.968Z [[32minfo[39m]: [Socket] Connected: F8BPCu5KzPcEuOrjAAAH 
+2025-11-07T15:56:17.969Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:56:21.446Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:56:21.446Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:56:26.778Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:56:26.779Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:56:26.779Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:56:26.779Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:56:27.363Z [[32minfo[39m]: [Socket] Connected: vkPe6Rt7KBbwaPr3AAAB 
+2025-11-07T15:56:27.364Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:56:27.526Z [[32minfo[39m]: [Socket] Connected: d9UFvVTaoUxJJKORAAAD 
+2025-11-07T15:56:27.527Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:56:27.656Z [[32minfo[39m]: [Socket] Connected: F6e_6HnC_6Ca02R4AAAF 
+2025-11-07T15:56:27.657Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:27.680Z [[32minfo[39m]: [Socket] Connected: 3NsXBbe_FpCV65AoAAAH 
+2025-11-07T15:56:27.680Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:56:42.162Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:56:42.162Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:56:47.498Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:56:47.499Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:56:47.499Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:56:47.499Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:56:47.768Z [[32minfo[39m]: [Socket] Connected: y-_DNbZOp59-N_vaAAAB 
+2025-11-07T15:56:47.770Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:48.158Z [[32minfo[39m]: [Socket] Connected: v1Ge9qRic_FoJrVJAAAD 
+2025-11-07T15:56:48.159Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:56:48.235Z [[32minfo[39m]: [Socket] Connected: MGzpmZTfQE6J1OFMAAAF 
+2025-11-07T15:56:48.236Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:56:48.327Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:56:48.327Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:56:53.663Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:56:53.664Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:56:53.664Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:56:53.664Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:56:54.018Z [[32minfo[39m]: [Socket] Connected: 3XQD9jbLpX8tsIbZAAAB 
+2025-11-07T15:56:54.019Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:56:54.040Z [[32minfo[39m]: [Socket] Connected: xou4pn2wvSWSUAW0AAAD 
+2025-11-07T15:56:54.041Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T15:56:54.509Z [[32minfo[39m]: [Socket] Connected: p9mukNbJbB-WbvMvAAAF 
+2025-11-07T15:56:54.510Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:56:55.302Z [[32minfo[39m]: [Socket] Connected: COgMmOXENKVmXHGhAAAH 
+2025-11-07T15:56:55.303Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:57:01.124Z [[32minfo[39m]: [Socket] Connected: xq80z86v4kJWAPL-AAAJ 
+2025-11-07T15:57:01.125Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (6e4ff5ca-77d6-43a3-8e9f-0ef3c5638259) via socket 
+2025-11-07T15:57:56.794Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T15:57:56.794Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T15:58:02.149Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T15:58:02.150Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T15:58:02.151Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T15:58:02.151Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T15:58:02.586Z [[32minfo[39m]: [Socket] Connected: bdUvUAkqw7ClyCthAAAB 
+2025-11-07T15:58:02.587Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T15:58:02.807Z [[32minfo[39m]: [Socket] Connected: NrVtfVBMdKqhdQmZAAAD 
+2025-11-07T15:58:02.807Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T15:58:02.981Z [[32minfo[39m]: [Socket] Connected: XTs9ERtVTmr3P3XpAAAF 
+2025-11-07T15:58:02.982Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (6e4ff5ca-77d6-43a3-8e9f-0ef3c5638259) via socket 
+2025-11-07T15:58:02.993Z [[32minfo[39m]: [Socket] Connected: 1Q6dGojE03Q221RNAAAH 
+2025-11-07T15:58:02.994Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T15:58:03.270Z [[32minfo[39m]: [Socket] Connected: WL4Ka1NDWP0NsmRDAAAJ 
+2025-11-07T15:58:03.270Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T16:01:34.167Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T16:01:34.167Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T16:01:34.168Z [[32minfo[39m]: [Socket] Connected: lJcVe8smv1b9ewlqAAAL 
+2025-11-07T16:01:34.168Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (3ae9a30c-bdb6-4aee-9f07-a993755342c2) via socket 
+2025-11-07T16:01:34.894Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T16:01:34.895Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T16:01:34.895Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T16:01:34.895Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T16:01:34.897Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T16:01:34.897Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T16:01:34.897Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T16:01:35.242Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T16:01:35.243Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T16:01:35.243Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T16:01:35.243Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T16:01:35.341Z [[32minfo[39m]: [Socket] Connected: Mny_1t72mvdl9Y7AAAAB 
+2025-11-07T16:01:35.342Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) via socket 
+2025-11-07T16:01:35.458Z [[32minfo[39m]: [Socket] Connected: ju_V873F-ZsxZtnrAAAD 
+2025-11-07T16:01:35.459Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0198fa53-40fd-43c6-b1f7-f8e4724a7101) via socket 
+2025-11-07T16:01:35.495Z [[32minfo[39m]: [Socket] Connected: SF0YtaXoMO9G9QhkAAAF 
+2025-11-07T16:01:35.496Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T16:01:35.507Z [[32minfo[39m]: [Socket] Connected: FmkCd6L6xCw0thZoAAAH 
+2025-11-07T16:01:35.507Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (72ddfa13-6a5a-4d12-a5be-6186e0048c3e) via socket 
+2025-11-07T16:01:35.553Z [[32minfo[39m]: [Socket] Connected: wXScdpOuOa0_LcyZAAAJ 
+2025-11-07T16:01:35.553Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (3ae9a30c-bdb6-4aee-9f07-a993755342c2) via socket 
+2025-11-07T16:01:35.755Z [[32minfo[39m]: [Socket] Connected: MhsiEKzBCfWrjPJKAAAL 
+2025-11-07T16:01:35.755Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (9150f267-ae57-4948-b7fd-a18b3a4f2b3d) via socket 
+2025-11-07T16:01:35.958Z [[32minfo[39m]: [Socket] Connected: 7fFyFjxF_sKOVd-hAAAN 
+2025-11-07T16:01:35.958Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (6e4ff5ca-77d6-43a3-8e9f-0ef3c5638259) via socket 
+2025-11-07T16:01:36.792Z [[32minfo[39m]: [Socket] Connected: FhUcz0SFfi6qVBDMAAAP 
+2025-11-07T16:01:36.792Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e51257-e20e-46f2-89da-8146e008f86f) via socket 
+2025-11-07T16:01:37.254Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (08e5e0d9-f214-4596-8f48-d0b460fa1fef) 
+2025-11-07T16:01:37.402Z [[32minfo[39m]: [Socket] Connected: emRePGjtPfdQO_yvAAAR 
+2025-11-07T16:01:37.405Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (e00337ad-bd61-47fa-b435-f1ab03d3b291) via socket 
+2025-11-07T16:01:38.994Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (e00337ad-bd61-47fa-b435-f1ab03d3b291) 
+2025-11-07T16:01:39.147Z [[32minfo[39m]: [Socket] Connected: th5wEqlbw_VLAf32AAAT 
+2025-11-07T16:01:39.150Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (2d78b05d-52d9-4331-971a-7d51a7ee1438) via socket 
+2025-11-07T16:01:39.472Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (2d78b05d-52d9-4331-971a-7d51a7ee1438) 
+2025-11-07T16:01:39.585Z [[32minfo[39m]: [Socket] Connected: erPVECQh_QWOdxLzAAAV 
+2025-11-07T16:01:39.589Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3e07f719-7ca5-4a0f-82ae-04fae14a9faa) via socket 
+2025-11-07T16:01:40.009Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3e07f719-7ca5-4a0f-82ae-04fae14a9faa) 
+2025-11-07T16:01:40.117Z [[32minfo[39m]: [Socket] Connected: 5oeg-9Z59yL-jS0WAAAX 
+2025-11-07T16:01:40.120Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a0eaa1b9-43a4-4540-b862-97349a38f3e7) via socket 
+2025-11-07T16:01:54.467Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T16:01:54.468Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T16:01:54.468Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T16:01:54.468Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T16:01:54.958Z [[32minfo[39m]: [Socket] Connected: kbwKNLKTs-TdGRD1AAAB 
+2025-11-07T16:01:54.959Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) via socket 
+2025-11-07T16:01:54.980Z [[32minfo[39m]: [Socket] Connected: HX_QCkBVCypGILFUAAAD 
+2025-11-07T16:01:54.980Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (72ddfa13-6a5a-4d12-a5be-6186e0048c3e) via socket 
+2025-11-07T16:01:55.169Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (72ddfa13-6a5a-4d12-a5be-6186e0048c3e) 
+2025-11-07T16:01:55.170Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (d65d6ec6-4af0-47c1-bb0c-3afb84d3744f) 
+2025-11-07T16:01:55.428Z [[32minfo[39m]: [Socket] Connected: OQKO_EJtzPfDlP6LAAAF 
+2025-11-07T16:01:55.429Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a0eaa1b9-43a4-4540-b862-97349a38f3e7) via socket 
+2025-11-07T16:01:56.046Z [[32minfo[39m]: [Socket] Connected: 0r4cXltQB7XRuSbvAAAH 
+2025-11-07T16:01:56.047Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f826f8c0-3fbe-4618-9e10-48f7f492c830) via socket 
+2025-11-07T16:01:57.204Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a0eaa1b9-43a4-4540-b862-97349a38f3e7) 
+2025-11-07T16:01:58.024Z [[32minfo[39m]: [Socket] Connected: AOChvv-YB2bm85qFAAAJ 
+2025-11-07T16:01:58.029Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (547aa0a9-f1c6-4d72-b94f-3724dafaac59) via socket 
+2025-11-07T16:20:07.170Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (547aa0a9-f1c6-4d72-b94f-3724dafaac59) 
+2025-11-07T16:20:07.172Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f826f8c0-3fbe-4618-9e10-48f7f492c830) 
+2025-11-07T16:39:18.946Z [[32minfo[39m]: [Socket] Connected: 3IOaolFqMQS1KplgAAAL 
+2025-11-07T16:39:18.947Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f826f8c0-3fbe-4618-9e10-48f7f492c830) via socket 
+2025-11-07T16:39:19.053Z [[32minfo[39m]: [Socket] Connected: 1e5GhXn6MIHSr71xAAAN 
+2025-11-07T16:39:19.054Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (547aa0a9-f1c6-4d72-b94f-3724dafaac59) via socket 
+2025-11-07T16:46:49.697Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (547aa0a9-f1c6-4d72-b94f-3724dafaac59) 
+2025-11-07T16:46:52.276Z [[32minfo[39m]: [Socket] Connected: as18ii3ISobFUGGcAAAP 
+2025-11-07T16:46:52.276Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) via socket 
+2025-11-07T16:47:04.526Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T16:47:04.528Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-07T16:53:00.000Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f826f8c0-3fbe-4618-9e10-48f7f492c830) 
+2025-11-07T16:53:01.568Z [[32minfo[39m]: [Socket] Connected: MGqOmhZuAPnpUmZjAAAR 
+2025-11-07T16:53:01.569Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d9f607c7-3904-4c00-a01a-1803ac399d4c) via socket 
+2025-11-07T16:53:23.274Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T16:56:33.490Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (d9f607c7-3904-4c00-a01a-1803ac399d4c) 
+2025-11-07T16:56:33.664Z [[32minfo[39m]: [Socket] Connected: 64RQa-XHCe2T2cf6AAAT 
+2025-11-07T16:56:33.685Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (bd382fc2-74b7-415d-b5ab-49aaf59805c0) via socket 
+2025-11-07T16:56:51.363Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T16:59:40.222Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) 
+2025-11-07T16:59:40.224Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (bd382fc2-74b7-415d-b5ab-49aaf59805c0) 
+2025-11-07T16:59:41.588Z [[32minfo[39m]: [Socket] Connected: 0nsUR4OFeBDD5i7yAAAV 
+2025-11-07T16:59:41.588Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) via socket 
+2025-11-07T16:59:41.983Z [[32minfo[39m]: [Socket] Connected: OZYUxiNArUr5M2DgAAAX 
+2025-11-07T16:59:41.983Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (bd382fc2-74b7-415d-b5ab-49aaf59805c0) via socket 
+2025-11-07T17:00:12.656Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (bd382fc2-74b7-415d-b5ab-49aaf59805c0) 
+2025-11-07T17:00:12.781Z [[32minfo[39m]: [Socket] Connected: jjwqRpBNJIXq0Y2xAAAZ 
+2025-11-07T17:00:12.781Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) via socket 
+2025-11-07T17:00:30.614Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T17:09:49.952Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) 
+2025-11-07T17:09:49.953Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) 
+2025-11-07T17:09:51.430Z [[32minfo[39m]: [Socket] Connected: rW8lPVa5pXicvm2mAAAb 
+2025-11-07T17:09:51.431Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) via socket 
+2025-11-07T17:09:51.453Z [[32minfo[39m]: [Socket] Connected: 3sEl7Z3WC3polKbIAAAd 
+2025-11-07T17:09:51.453Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) via socket 
+2025-11-07T17:24:39.042Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) 
+2025-11-07T17:24:39.042Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) 
+2025-11-07T17:31:15.836Z [[32minfo[39m]: [Socket] Connected: tI2GKwNP9s0P-RFAAAAf 
+2025-11-07T17:31:15.837Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) via socket 
+2025-11-07T17:31:19.287Z [[32minfo[39m]: [Socket] Connected: Hz2Jva7gmJLcsLB2AAAh 
+2025-11-07T17:31:19.287Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) via socket 
+2025-11-07T17:31:29.323Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (44885af8-a070-470a-b92f-17d8698d0b81) 
+2025-11-07T17:31:29.748Z [[32minfo[39m]: [Socket] Connected: cNW7fJPXIXQ4m-43AAAj 
+2025-11-07T17:31:29.749Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (5cffcf14-784d-449b-9a49-24953178c948) via socket 
+2025-11-07T17:31:33.484Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (808fb0cb-faa2-4d57-974b-53bacf6e8329) 
+2025-11-07T17:31:35.544Z [[32minfo[39m]: [Socket] Connected: CEA-zrwJvxzNi1NVAAAl 
+2025-11-07T17:31:35.545Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (fb144d6b-10d3-4f9a-87b0-3a8772ec872c) via socket 
+2025-11-07T17:31:35.769Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (fb144d6b-10d3-4f9a-87b0-3a8772ec872c) 
+2025-11-07T17:31:35.902Z [[32minfo[39m]: [Socket] Connected: JOEvicgeBY7oUCgoAAAn 
+2025-11-07T17:31:35.906Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:31:48.052Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T17:35:12.836Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (5cffcf14-784d-449b-9a49-24953178c948) 
+2025-11-07T17:35:12.975Z [[32minfo[39m]: [Socket] Connected: vR1aeG10pP01xOg-AAAp 
+2025-11-07T17:35:12.979Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:36:19.381Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T17:36:19.382Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T17:36:20.853Z [[32minfo[39m]: [Socket] Connected: OXc2Fy1daK941WVlAAAr 
+2025-11-07T17:36:20.854Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:36:20.887Z [[32minfo[39m]: [Socket] Connected: _48E12zrqtLAxdQAAAAt 
+2025-11-07T17:36:20.888Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:48:41.436Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:48:41.437Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:48:56.148Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:48:56.149Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:48:56.149Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:48:56.149Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:48:59.633Z [[32minfo[39m]: [Socket] Connected: lnRbv38sdEadKE7MAAAB 
+2025-11-07T17:48:59.634Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:49:00.968Z [[32minfo[39m]: [Socket] Connected: yGgbcAiLBfLwwnLwAAAD 
+2025-11-07T17:49:00.969Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:49:19.221Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:49:19.222Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:49:24.570Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:49:24.571Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:49:24.571Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:49:24.572Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:49:25.435Z [[32minfo[39m]: [Socket] Connected: YXAppkaQoOtem_x8AAAB 
+2025-11-07T17:49:25.437Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:49:25.500Z [[32minfo[39m]: [Socket] Connected: sHg5zMiPP4E1o-FIAAAD 
+2025-11-07T17:49:25.501Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:49:26.019Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:49:26.019Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:49:31.359Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:49:31.360Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:49:31.360Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:49:31.360Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:49:31.948Z [[32minfo[39m]: [Socket] Connected: 9NC3dt996Eta9c4DAAAB 
+2025-11-07T17:49:31.949Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:49:32.318Z [[32minfo[39m]: [Socket] Connected: pKei5w5SlnWn1XPiAAAD 
+2025-11-07T17:49:32.319Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:50:29.613Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:50:29.614Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:50:34.952Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:50:34.953Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:50:34.953Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:50:34.953Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:50:35.622Z [[32minfo[39m]: [Socket] Connected: mrg9anV010ZC61tbAAAB 
+2025-11-07T17:50:35.624Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:50:35.644Z [[32minfo[39m]: [Socket] Connected: IpwVLAaeulbyxUlqAAAD 
+2025-11-07T17:50:35.645Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:50:43.674Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:50:43.675Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:50:49.015Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:50:49.016Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:50:49.016Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:50:49.016Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:50:49.257Z [[32minfo[39m]: [Socket] Connected: DK0kYAO7Og3mkqvYAAAB 
+2025-11-07T17:50:49.258Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:50:49.364Z [[32minfo[39m]: [Socket] Connected: YPBPG3rNbQqBZaE0AAAD 
+2025-11-07T17:50:49.365Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:51:00.526Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:51:00.527Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:51:05.865Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:51:05.866Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:51:05.867Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:51:05.867Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:51:06.423Z [[32minfo[39m]: [Socket] Connected: NoQhq_XF8pLFBvCzAAAB 
+2025-11-07T17:51:06.424Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:51:06.602Z [[32minfo[39m]: [Socket] Connected: g12JUKc83NoLIfHgAAAD 
+2025-11-07T17:51:06.602Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:51:11.995Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:51:11.996Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:51:17.329Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:51:17.330Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:51:17.330Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:51:17.330Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:51:17.617Z [[32minfo[39m]: [Socket] Connected: 22_-PjAi2s9mmAuGAAAB 
+2025-11-07T17:51:17.618Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:51:18.379Z [[32minfo[39m]: [Socket] Connected: Y8GD5cZ7uO90Xz0UAAAD 
+2025-11-07T17:51:18.380Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:51:19.104Z [[32minfo[39m]: [Socket] Connected: yu6VvxSn0uwTDxbMAAAF 
+2025-11-07T17:51:19.105Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T17:51:28.853Z [[32minfo[39m]: [Socket] Connected: 4mlB55yfaBdgF-WJAAAH 
+2025-11-07T17:51:28.855Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T17:51:50.417Z [[32minfo[39m]: [Socket] Connected: 4BLdux-lswvRA4isAAAJ 
+2025-11-07T17:51:50.421Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T17:57:13.014Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:57:13.015Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:57:18.354Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:57:18.355Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:57:18.355Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:57:18.355Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:57:18.592Z [[32minfo[39m]: [Socket] Connected: eN4qWVyHxk5V4EiCAAAB 
+2025-11-07T17:57:18.594Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T17:57:18.835Z [[32minfo[39m]: [Socket] Connected: eIl2XrSQ31r0mC9WAAAD 
+2025-11-07T17:57:18.836Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:57:19.135Z [[32minfo[39m]: [Socket] Connected: EkORXfRR-s2X51pXAAAF 
+2025-11-07T17:57:19.136Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T17:57:19.391Z [[32minfo[39m]: [Socket] Connected: yAtRnROGC3FAMgeeAAAH 
+2025-11-07T17:57:19.392Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T17:57:19.430Z [[32minfo[39m]: [Socket] Connected: CJ7oDvqGQp8u5Ea2AAAJ 
+2025-11-07T17:57:19.431Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:57:32.552Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T17:57:32.552Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T17:57:37.892Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T17:57:37.893Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T17:57:37.893Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T17:57:37.894Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T17:57:38.336Z [[32minfo[39m]: [Socket] Connected: E-ingxSdI6uV8om5AAAB 
+2025-11-07T17:57:38.337Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T17:57:38.428Z [[32minfo[39m]: [Socket] Connected: sL0cpecp8TH11-anAAAD 
+2025-11-07T17:57:38.428Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T17:57:38.630Z [[32minfo[39m]: [Socket] Connected: H10S3CdSsj9_Pf3aAAAF 
+2025-11-07T17:57:38.631Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T17:57:38.870Z [[32minfo[39m]: [Socket] Connected: BVEfCj5T69vtAzPWAAAH 
+2025-11-07T17:57:38.871Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T17:57:39.060Z [[32minfo[39m]: [Socket] Connected: 7k4lsaJVxD4GGMsrAAAJ 
+2025-11-07T17:57:39.060Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:00:12.113Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T18:00:12.113Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T18:00:17.455Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T18:00:17.456Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T18:00:17.456Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T18:00:17.456Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T18:00:17.725Z [[32minfo[39m]: [Socket] Connected: xufiR3xDM4QOjBMVAAAB 
+2025-11-07T18:00:17.726Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T18:00:17.748Z [[32minfo[39m]: [Socket] Connected: Ikr2pBYVLfTjcinxAAAD 
+2025-11-07T18:00:17.749Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:00:18.299Z [[32minfo[39m]: [Socket] Connected: Oe3GBzfTGHSNFKCIAAAF 
+2025-11-07T18:00:18.300Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:00:18.518Z [[32minfo[39m]: [Socket] Connected: xFq2uTLyDsnglXU_AAAH 
+2025-11-07T18:00:18.519Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:00:18.542Z [[32minfo[39m]: [Socket] Connected: gDF1La8VM7m8pxAPAAAJ 
+2025-11-07T18:00:18.543Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:00:28.183Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T18:00:28.184Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T18:00:33.524Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T18:00:33.524Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T18:00:33.525Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T18:00:33.525Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T18:00:33.976Z [[32minfo[39m]: [Socket] Connected: 0EN2SgWkygBHFhWPAAAB 
+2025-11-07T18:00:33.977Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:00:34.202Z [[32minfo[39m]: [Socket] Connected: hx8l373edSDIXljVAAAD 
+2025-11-07T18:00:34.202Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:00:34.295Z [[32minfo[39m]: [Socket] Connected: KwMVEpufSSV8WVHXAAAF 
+2025-11-07T18:00:34.296Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:00:34.318Z [[32minfo[39m]: [Socket] Connected: jxWP41fKLouZRVv7AAAH 
+2025-11-07T18:00:34.319Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:00:34.509Z [[32minfo[39m]: [Socket] Connected: 0YdjTNSYt5Kyurl9AAAJ 
+2025-11-07T18:00:34.510Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T18:11:52.730Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T18:11:52.733Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:11:52.734Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:11:53.436Z [[32minfo[39m]: [Socket] Connected: -GuMS9kzXHVJWxWQAAAL 
+2025-11-07T18:11:53.437Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:11:53.795Z [[32minfo[39m]: [Socket] Connected: bcNrSakwb_nYvg3LAAAN 
+2025-11-07T18:11:53.795Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:11:53.837Z [[32minfo[39m]: [Socket] Connected: p7C4FPr-cOKcT4xdAAAP 
+2025-11-07T18:11:53.838Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:16:57.788Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:16:57.790Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T18:16:57.791Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:16:58.495Z [[32minfo[39m]: [Socket] Connected: H93-tEZNI8DUMQf0AAAR 
+2025-11-07T18:16:58.495Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:16:58.783Z [[32minfo[39m]: [Socket] Connected: tt3z6d6zhtjQRTWzAAAT 
+2025-11-07T18:16:58.784Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:16:58.881Z [[32minfo[39m]: [Socket] Connected: 6DmK_3KJod-6Bzs4AAAV 
+2025-11-07T18:16:58.882Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:22:02.828Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) 
+2025-11-07T18:22:02.830Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T18:22:02.830Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:22:03.799Z [[32minfo[39m]: [Socket] Connected: 0MFd_jbV7DzpJ7S5AAAX 
+2025-11-07T18:22:03.800Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:22:04.001Z [[32minfo[39m]: [Socket] Connected: llzcyDDpArFP7FH8AAAZ 
+2025-11-07T18:22:04.002Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:22:04.328Z [[32minfo[39m]: [Socket] Connected: ttuK0KscjfnRMEegAAAb 
+2025-11-07T18:22:04.328Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T18:27:07.875Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T18:27:07.876Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T18:27:07.878Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:27:08.663Z [[32minfo[39m]: [Socket] Connected: MdLDTIUOWMSZBQvMAAAd 
+2025-11-07T18:27:08.663Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:27:08.685Z [[32minfo[39m]: [Socket] Connected: LZuI3JGu1iCJ2lhuAAAf 
+2025-11-07T18:27:08.686Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:27:08.766Z [[32minfo[39m]: [Socket] Connected: EW89o5NubjfP-NUzAAAh 
+2025-11-07T18:27:08.766Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:38:32.309Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:38:32.310Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:38:32.310Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T18:38:32.915Z [[32minfo[39m]: [Socket] Connected: nDjyuiVrTkS0PZc8AAAj 
+2025-11-07T18:38:32.916Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:38:33.707Z [[32minfo[39m]: [Socket] Connected: KklLBcD0hbhsg3lKAAAl 
+2025-11-07T18:38:33.707Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:38:33.797Z [[32minfo[39m]: [Socket] Connected: Hh6RPbhdiil9g25UAAAn 
+2025-11-07T18:38:33.797Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:43:37.346Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:43:37.347Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) 
+2025-11-07T18:43:37.348Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:43:38.130Z [[32minfo[39m]: [Socket] Connected: 3yj4YwDRomwTQxahAAAp 
+2025-11-07T18:43:38.130Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:43:38.220Z [[32minfo[39m]: [Socket] Connected: 0HS0Q6Hl6z8pFnm4AAAr 
+2025-11-07T18:43:38.220Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T18:43:38.248Z [[32minfo[39m]: [Socket] Connected: HTNcLFmZD-49Dx2mAAAt 
+2025-11-07T18:43:38.248Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:48:42.401Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:48:42.403Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T18:48:42.403Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:48:43.377Z [[32minfo[39m]: [Socket] Connected: q-S3mZs5jNiP8i2lAAAv 
+2025-11-07T18:48:43.377Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:48:43.410Z [[32minfo[39m]: [Socket] Connected: IZ1cOTnJOwsFNKCqAAAx 
+2025-11-07T18:48:43.410Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:48:43.433Z [[32minfo[39m]: [Socket] Connected: trd4HNp_iQfgq1yLAAAz 
+2025-11-07T18:48:43.433Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) via socket 
+2025-11-07T18:53:47.385Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:53:47.386Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T18:53:47.387Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T18:53:48.297Z [[32minfo[39m]: [Socket] Connected: 9YJZ-ZmDs2gOs3koAAA1 
+2025-11-07T18:53:48.297Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:53:48.573Z [[32minfo[39m]: [Socket] Connected: I-d46dOFw1A7d8PDAAA3 
+2025-11-07T18:53:48.573Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:53:48.894Z [[32minfo[39m]: [Socket] Connected: FMidhVxbPRM29U2NAAA5 
+2025-11-07T18:53:48.894Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) via socket 
+2025-11-07T18:58:52.396Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) 
+2025-11-07T18:58:52.397Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T18:58:52.398Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T18:58:53.100Z [[32minfo[39m]: [Socket] Connected: w9Na0KwYwdd0TC04AAA7 
+2025-11-07T18:58:53.100Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) via socket 
+2025-11-07T18:58:53.180Z [[32minfo[39m]: [Socket] Connected: nkIpcS5nkpjHkqy4AAA9 
+2025-11-07T18:58:53.181Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) via socket 
+2025-11-07T18:58:53.605Z [[32minfo[39m]: [Socket] Connected: nEwdigDnGer3rPZgAAA_ 
+2025-11-07T18:58:53.606Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) via socket 
+2025-11-07T19:23:17.881Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (185b91db-c96b-4eb3-91e7-eda2c4d1161f) 
+2025-11-07T19:23:17.882Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (938a3775-da8c-4ea5-adff-be3181b9c14c) 
+2025-11-07T19:23:17.882Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (792f4288-2c7f-4a2b-8f4b-0681b798c47a) 
+2025-11-07T19:23:17.883Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (1a0a085d-cfc8-44dd-9f81-5fa0ae53355c) 
+2025-11-07T19:23:18.063Z [[32minfo[39m]: [Socket] Connected: IgJHIzEPE6jVyIUGAABB 
+2025-11-07T19:23:18.071Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (a3551839-bb7b-4683-8133-dd8eb31e2563) via socket 
+2025-11-07T19:23:19.785Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8c1b7d6a-c9d4-4885-a77e-5854a9c2763d) 
+2025-11-07T19:23:19.965Z [[32minfo[39m]: [Socket] Connected: 12nIEimRxdhLFqs8AABD 
+2025-11-07T19:23:19.969Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (50dedf33-d73c-4785-b2f2-b3005c8a4172) via socket 
+2025-11-07T19:23:43.923Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T19:23:43.925Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-07T19:23:55.686Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (a3551839-bb7b-4683-8133-dd8eb31e2563) 
+2025-11-07T19:23:55.848Z [[32minfo[39m]: [Socket] Connected: zZt1wVAWzYjq8MdaAABF 
+2025-11-07T19:23:55.866Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b0f233e9-4cca-4431-85ed-7a7d140e7cfa) via socket 
+2025-11-07T19:24:14.927Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T19:24:16.400Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (50dedf33-d73c-4785-b2f2-b3005c8a4172) 
+2025-11-07T19:24:16.402Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (b0f233e9-4cca-4431-85ed-7a7d140e7cfa) 
+2025-11-07T19:24:17.807Z [[32minfo[39m]: [Socket] Connected: IiyJvqlz-mVTJPiYAABH 
+2025-11-07T19:24:17.808Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (50dedf33-d73c-4785-b2f2-b3005c8a4172) via socket 
+2025-11-07T19:24:17.909Z [[32minfo[39m]: [Socket] Connected: vYwpJSq60Vg3MbE4AABJ 
+2025-11-07T19:24:17.909Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b0f233e9-4cca-4431-85ed-7a7d140e7cfa) via socket 
+2025-11-07T19:25:19.719Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T19:25:19.720Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T19:25:19.720Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T19:25:19.720Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T19:25:19.931Z [[32minfo[39m]: [Socket] Connected: AFXIxbS_acbEUenRAAAB 
+2025-11-07T19:25:19.932Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b0f233e9-4cca-4431-85ed-7a7d140e7cfa) via socket 
+2025-11-07T19:25:20.880Z [[32minfo[39m]: [Socket] Connected: 6bcTKqk0nefMP7nXAAAD 
+2025-11-07T19:25:20.881Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (50dedf33-d73c-4785-b2f2-b3005c8a4172) via socket 
+2025-11-07T19:25:30.698Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (b0f233e9-4cca-4431-85ed-7a7d140e7cfa) 
+2025-11-07T19:25:31.608Z [[32minfo[39m]: [Socket] Connected: PdreBVZHxLwfwXGzAAAF 
+2025-11-07T19:25:31.626Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) via socket 
+2025-11-07T19:25:35.072Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (50dedf33-d73c-4785-b2f2-b3005c8a4172) 
+2025-11-07T19:25:35.930Z [[32minfo[39m]: [Socket] Connected: YgodNNwGq563o-lJAAAH 
+2025-11-07T19:25:35.935Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) via socket 
+2025-11-07T19:25:55.346Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-07T19:25:55.348Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-07T19:27:47.112Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T19:27:47.113Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T19:27:47.631Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T19:27:47.633Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T19:27:47.633Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T19:27:47.633Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T19:27:47.634Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T19:27:47.635Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T19:27:47.635Z [[32minfo[39m]: HTTPS server closed 
+2025-11-07T19:27:48.204Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T19:27:48.206Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T19:27:48.206Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T19:27:48.206Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T19:27:48.820Z [[32minfo[39m]: [Socket] Connected: eK9Ht74iJXg17420AAAB 
+2025-11-07T19:27:48.822Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (599c5902-3049-4396-b4f6-8b71eb9aedbe) via socket 
+2025-11-07T19:27:48.882Z [[32minfo[39m]: [Socket] Connected: DuFWfsPF43svgvlUAAAD 
+2025-11-07T19:27:48.883Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b41006e5-aed5-4e9b-8d06-5567dbdfede5) via socket 
+2025-11-07T19:27:49.131Z [[32minfo[39m]: [Socket] Connected: kZl3dRw-4fO0nCrgAAAF 
+2025-11-07T19:27:49.132Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) via socket 
+2025-11-07T19:27:49.759Z [[32minfo[39m]: [Socket] Connected: ScpBpcS3QkVG1o2DAAAH 
+2025-11-07T19:27:49.761Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) via socket 
+2025-11-07T19:27:50.916Z [[32minfo[39m]: [Socket] Connected: tUk2L_Gzz2BNerd8AAAJ 
+2025-11-07T19:27:50.916Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (bb7dae77-9c57-4429-a063-2e0f5d612e7f) via socket 
+2025-11-07T19:29:21.423Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (599c5902-3049-4396-b4f6-8b71eb9aedbe) 
+2025-11-07T19:29:21.426Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) 
+2025-11-07T19:29:21.427Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) 
+2025-11-07T19:29:22.102Z [[32minfo[39m]: [Socket] Connected: cA_PkaBHefw2sqmQAAAL 
+2025-11-07T19:29:22.103Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) via socket 
+2025-11-07T19:29:22.407Z [[32minfo[39m]: [Socket] Connected: PCFs5KuDaeoQA3vMAAAN 
+2025-11-07T19:29:22.407Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (599c5902-3049-4396-b4f6-8b71eb9aedbe) via socket 
+2025-11-07T19:29:22.431Z [[32minfo[39m]: [Socket] Connected: DdXeuU1bi7rFxLEgAAAP 
+2025-11-07T19:29:22.431Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) via socket 
+2025-11-07T19:39:31.210Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) 
+2025-11-07T19:39:31.212Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (b41006e5-aed5-4e9b-8d06-5567dbdfede5) 
+2025-11-07T19:39:31.212Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) 
+2025-11-07T19:39:31.790Z [[32minfo[39m]: [Socket] Connected: o8KVfA2Qrm5ok8IpAAAR 
+2025-11-07T19:39:31.791Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) via socket 
+2025-11-07T19:39:31.814Z [[32minfo[39m]: [Socket] Connected: SBX53e0d8WS80IzDAAAT 
+2025-11-07T19:39:31.814Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b41006e5-aed5-4e9b-8d06-5567dbdfede5) via socket 
+2025-11-07T19:39:32.400Z [[32minfo[39m]: [Socket] Connected: BrTJT8Fd2pn7V26xAAAV 
+2025-11-07T19:39:32.401Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) via socket 
+2025-11-07T19:44:36.309Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) 
+2025-11-07T19:44:36.310Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (bb7dae77-9c57-4429-a063-2e0f5d612e7f) 
+2025-11-07T19:44:36.311Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) 
+2025-11-07T19:44:37.015Z [[32minfo[39m]: [Socket] Connected: 04K83BeESBk8wrttAAAX 
+2025-11-07T19:44:37.016Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) via socket 
+2025-11-07T19:44:37.194Z [[32minfo[39m]: [Socket] Connected: -tej7_QRbYDmDrDaAAAZ 
+2025-11-07T19:44:37.194Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) via socket 
+2025-11-07T19:44:37.478Z [[32minfo[39m]: [Socket] Connected: 9ztItKFeb2iXgYbuAAAb 
+2025-11-07T19:44:37.478Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (bb7dae77-9c57-4429-a063-2e0f5d612e7f) via socket 
+2025-11-07T19:48:06.859Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (dde462df-c5a0-4aeb-881a-a91c5273f8e5) 
+2025-11-07T19:49:36.592Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (bb7dae77-9c57-4429-a063-2e0f5d612e7f) 
+2025-11-07T19:49:36.594Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (599c5902-3049-4396-b4f6-8b71eb9aedbe) 
+2025-11-07T19:49:36.595Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (b41006e5-aed5-4e9b-8d06-5567dbdfede5) 
+2025-11-07T19:49:36.595Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (829810a7-12ee-4e13-bbb4-3c8bfe3389c0) 
+2025-11-07T19:49:36.800Z [[32minfo[39m]: [Socket] Connected: J8gwkKE7Lo58YSKtAAAd 
+2025-11-07T19:49:36.823Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T19:54:10.911Z [[32minfo[39m]: [Socket] Connected: zNdaE5uHIPIaHKIHAAAg 
+2025-11-07T19:54:10.911Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a8fd9c15-e960-43ae-905a-370435a1148a) via socket 
+2025-11-07T19:54:46.181Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a8fd9c15-e960-43ae-905a-370435a1148a) 
+2025-11-07T19:54:46.182Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T19:54:46.861Z [[32minfo[39m]: [Socket] Connected: n795lYjCP4LtEho8AAAi 
+2025-11-07T19:54:46.861Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a8fd9c15-e960-43ae-905a-370435a1148a) via socket 
+2025-11-07T19:54:47.354Z [[32minfo[39m]: [Socket] Connected: FNbVa1TocIdD5BR4AAAk 
+2025-11-07T19:54:47.355Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T19:57:59.681Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a8fd9c15-e960-43ae-905a-370435a1148a) 
+2025-11-07T19:59:51.234Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T19:59:52.246Z [[32minfo[39m]: [Socket] Connected: css1MV5Gsdb_PqcIAAAm 
+2025-11-07T19:59:52.247Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T20:04:56.268Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T20:04:57.352Z [[32minfo[39m]: [Socket] Connected: BKWxRuHrv_nP-pmhAAAo 
+2025-11-07T20:04:57.352Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T20:05:13.446Z [[32minfo[39m]: [Socket] Connected: m-VAKZPX8j7qIE7wAAAq 
+2025-11-07T20:05:13.448Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (7f5df6b7-0eef-408f-9583-132ccd779d7a) via socket 
+2025-11-07T20:05:29.442Z [[32minfo[39m]: [Socket] Connected: zYFS526TxDEjcMs0AAAs 
+2025-11-07T20:05:29.443Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f8fb07c7-6fa8-494b-8161-5fbcb5bc15c9) via socket 
+2025-11-07T20:06:33.923Z [[32minfo[39m]: [Socket] Connected: EfB9caVBXiH7xHvEAAAu 
+2025-11-07T20:06:33.924Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (2d3db917-e1d8-47df-ae70-8936643ce5b4) via socket 
+2025-11-07T20:07:08.645Z [[32minfo[39m]: [Socket] Connected: onnQsqPiEi1QN5-3AAAw 
+2025-11-07T20:07:08.660Z [[32minfo[39m]: [Socket] Connected: DDMpcFVhn2U4NGrBAAAy 
+2025-11-07T20:07:27.815Z [[32minfo[39m]: [Socket] Connected: f0Ft6tqlmM7JiWyaAAA0 
+2025-11-07T20:07:27.819Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (847a9010-c754-4609-a4b0-3b9953ea5df9) via socket 
+2025-11-07T20:09:13.254Z [[32minfo[39m]: [Socket] Connected: ljwwg6Q7WreiWicIAAA2 
+2025-11-07T20:09:13.255Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (fc80a359-6bb3-412f-b768-dc822472e7e7) via socket 
+2025-11-07T20:10:01.322Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (847a9010-c754-4609-a4b0-3b9953ea5df9) 
+2025-11-07T20:10:01.323Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T20:10:01.324Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f8fb07c7-6fa8-494b-8161-5fbcb5bc15c9) 
+2025-11-07T20:10:01.898Z [[32minfo[39m]: [Socket] Connected: CTsdb46baOb-7vVxAAA4 
+2025-11-07T20:10:01.898Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T20:10:02.013Z [[32minfo[39m]: [Socket] Connected: ML_mbUTgnw4gflqQAAA6 
+2025-11-07T20:10:02.013Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f8fb07c7-6fa8-494b-8161-5fbcb5bc15c9) via socket 
+2025-11-07T20:10:02.107Z [[32minfo[39m]: [Socket] Connected: enN5-jp0ROcVY_TcAAA8 
+2025-11-07T20:10:02.193Z [[32minfo[39m]: [Socket] Connected: KwbfvjpM4n8GnNmsAAA- 
+2025-11-07T20:10:02.193Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (847a9010-c754-4609-a4b0-3b9953ea5df9) via socket 
+2025-11-07T20:13:35.033Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (7f5df6b7-0eef-408f-9583-132ccd779d7a) 
+2025-11-07T20:13:35.035Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T20:13:35.799Z [[32minfo[39m]: [Socket] Connected: 5T2Bp13slhGNS1tbAABA 
+2025-11-07T20:13:35.800Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) via socket 
+2025-11-07T20:13:36.126Z [[32minfo[39m]: [Socket] Connected: 0uNWs-3EItt4zM0vAABC 
+2025-11-07T20:13:36.126Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (7f5df6b7-0eef-408f-9583-132ccd779d7a) via socket 
+2025-11-07T20:13:36.214Z [[32minfo[39m]: [Socket] Connected: Pd3aisn18kcQTWqqAABE 
+2025-11-07T20:13:36.419Z [[32minfo[39m]: [Socket] Connected: lIx71GJ8YWU_Wvm3AABG 
+2025-11-07T20:13:59.091Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (2d3db917-e1d8-47df-ae70-8936643ce5b4) 
+2025-11-07T20:13:59.092Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (fc80a359-6bb3-412f-b768-dc822472e7e7) 
+2025-11-07T20:13:59.093Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f8fb07c7-6fa8-494b-8161-5fbcb5bc15c9) 
+2025-11-07T20:13:59.093Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (27e5673d-8e4e-4c2f-a499-0d88833d709c) 
+2025-11-07T20:13:59.094Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (7f5df6b7-0eef-408f-9583-132ccd779d7a) 
+2025-11-07T20:13:59.098Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (847a9010-c754-4609-a4b0-3b9953ea5df9) 
+2025-11-07T20:13:59.295Z [[32minfo[39m]: [Socket] Connected: R68SJd0OjchvbGIZAABK 
+2025-11-07T20:13:59.318Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (cad5e414-ea25-40f1-bc39-6ac577d2f943) via socket 
+2025-11-07T20:14:01.313Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (cad5e414-ea25-40f1-bc39-6ac577d2f943) 
+2025-11-07T20:14:01.470Z [[32minfo[39m]: [Socket] Connected: e0-0h6JLYlGmjEITAABM 
+2025-11-07T20:14:01.471Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (01416204-f56d-41ef-b976-a987ff1ec48e) via socket 
+2025-11-07T20:14:11.616Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T20:14:11.617Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T20:14:11.617Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T20:14:11.617Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T20:14:13.089Z [[32minfo[39m]: [Socket] Connected: ybh-2pZ3B8h_tWLkAAAB 
+2025-11-07T20:14:13.090Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (01416204-f56d-41ef-b976-a987ff1ec48e) via socket 
+2025-11-07T20:15:01.793Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (01416204-f56d-41ef-b976-a987ff1ec48e) 
+2025-11-07T20:15:02.869Z [[32minfo[39m]: [Socket] Connected: GljV9DbYvHO_csstAAAE 
+2025-11-07T20:15:02.874Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f74ab5bd-bd9a-454e-8948-dbe70fbc6ff2) via socket 
+2025-11-07T20:20:46.092Z [[32minfo[39m]: [Socket] Connected: f79lYvHjX8M_1rr7AAAI 
+2025-11-07T20:20:46.094Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4730f054-60bb-49b8-b67e-00eedb2edca9) via socket 
+2025-11-07T20:20:48.017Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4730f054-60bb-49b8-b67e-00eedb2edca9) 
+2025-11-07T20:20:48.191Z [[32minfo[39m]: [Socket] Connected: e44xym6AUUQZTwxbAAAL 
+2025-11-07T20:20:48.194Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3439eb2a-08ac-47f9-996f-d87e27987cb8) via socket 
+2025-11-07T20:20:48.738Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3439eb2a-08ac-47f9-996f-d87e27987cb8) 
+2025-11-07T20:20:48.901Z [[32minfo[39m]: [Socket] Connected: 6p61AlVeQndr_X6-AAAO 
+2025-11-07T20:20:48.905Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (1acb2977-c971-4ca5-bcde-66b17a554bc0) via socket 
+2025-11-07T20:20:48.940Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (1acb2977-c971-4ca5-bcde-66b17a554bc0) 
+2025-11-07T20:20:49.071Z [[32minfo[39m]: [Socket] Connected: WFHkjMycWdjfEVZmAAAQ 
+2025-11-07T20:20:49.076Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (735a27f2-b06e-403e-919f-6a80bc4f7f80) via socket 
+2025-11-07T20:20:49.264Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (735a27f2-b06e-403e-919f-6a80bc4f7f80) 
+2025-11-07T20:20:49.406Z [[32minfo[39m]: [Socket] Connected: 9Su43Vj8GyRhnP5iAAAS 
+2025-11-07T20:20:49.410Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (88723f62-52d2-43b7-b854-33110fd24a7b) via socket 
+2025-11-07T20:20:49.581Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (88723f62-52d2-43b7-b854-33110fd24a7b) 
+2025-11-07T20:20:49.726Z [[32minfo[39m]: [Socket] Connected: lsL59pn_19HAZUm2AAAV 
+2025-11-07T20:20:49.728Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) via socket 
+2025-11-07T20:21:03.510Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f74ab5bd-bd9a-454e-8948-dbe70fbc6ff2) 
+2025-11-07T20:21:03.675Z [[32minfo[39m]: [Socket] Connected: Qyfki-Lsx5HqXTncAAAX 
+2025-11-07T20:21:03.678Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (ef25a677-99e4-48f9-927d-eacf037621eb) via socket 
+2025-11-07T20:21:05.348Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (ef25a677-99e4-48f9-927d-eacf037621eb) 
+2025-11-07T20:21:05.472Z [[32minfo[39m]: [Socket] Connected: YGjIsx-9TKTBkKS4AAAZ 
+2025-11-07T20:21:05.474Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (09a10c97-c72a-414f-a6c4-c4496c75f422) via socket 
+2025-11-07T20:21:05.921Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (09a10c97-c72a-414f-a6c4-c4496c75f422) 
+2025-11-07T20:21:06.030Z [[32minfo[39m]: [Socket] Connected: EoTEbP33ArbJMt96AAAb 
+2025-11-07T20:21:06.033Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (0e38d32d-0593-4d2e-8a88-b9ee0820b6cc) via socket 
+2025-11-07T20:21:09.568Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (0e38d32d-0593-4d2e-8a88-b9ee0820b6cc) 
+2025-11-07T20:21:09.684Z [[32minfo[39m]: [Socket] Connected: lo_baR5H-YY9e-fAAAAd 
+2025-11-07T20:21:09.685Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8b6cea6e-ae92-4e0d-8869-39f53eab1c12) via socket 
+2025-11-07T20:21:13.451Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8b6cea6e-ae92-4e0d-8869-39f53eab1c12) 
+2025-11-07T20:21:13.566Z [[32minfo[39m]: [Socket] Connected: _LsYdfBzsWa-K5P3AAAf 
+2025-11-07T20:21:13.568Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) via socket 
+2025-11-07T20:23:45.228Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) 
+2025-11-07T20:23:45.229Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) 
+2025-11-07T20:23:46.208Z [[32minfo[39m]: [Socket] Connected: DyZTCv7d9lv7QsLqAAAh 
+2025-11-07T20:23:46.208Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) via socket 
+2025-11-07T20:23:46.615Z [[32minfo[39m]: [Socket] Connected: E_nmdaOP52PYQr5jAAAj 
+2025-11-07T20:23:46.615Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) via socket 
+2025-11-07T20:28:50.271Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) 
+2025-11-07T20:28:50.272Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) 
+2025-11-07T20:28:51.286Z [[32minfo[39m]: [Socket] Connected: HRsOl1poZI-9BI7FAAAl 
+2025-11-07T20:28:51.286Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) via socket 
+2025-11-07T20:28:51.774Z [[32minfo[39m]: [Socket] Connected: bDev7fR8Cq9lVUGfAAAn 
+2025-11-07T20:28:51.775Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) via socket 
+2025-11-07T20:30:59.888Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (86a13036-58df-45d3-a542-c9010a7ac8b6) 
+2025-11-07T20:30:59.889Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (71b58e09-77cf-4c6f-8728-dbf8c8279926) 
+2025-11-07T20:31:00.258Z [[32minfo[39m]: [Socket] Connected: I59feKRlb6JaTopgAAAp 
+2025-11-07T20:31:00.260Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (1e1707f1-6c61-4836-8134-ae4d992a3e70) via socket 
+2025-11-07T20:31:00.270Z [[32minfo[39m]: [Socket] Connected: 7OPjNWpC-tmt3Q2iAAAr 
+2025-11-07T20:31:00.294Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3840c2a3-6413-4beb-b889-4780f0b094c0) via socket 
+2025-11-07T20:31:25.617Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (1e1707f1-6c61-4836-8134-ae4d992a3e70) 
+2025-11-07T20:31:25.635Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3840c2a3-6413-4beb-b889-4780f0b094c0) 
+2025-11-07T20:31:25.966Z [[32minfo[39m]: [Socket] Connected: LvTOUX3c3Lxit-7sAAAt 
+2025-11-07T20:31:25.972Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (63399850-1151-40b4-9eb6-61bbf1ef7064) via socket 
+2025-11-07T20:31:25.992Z [[32minfo[39m]: [Socket] Connected: B0bRUdDalOywd0_SAAAv 
+2025-11-07T20:31:25.995Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T20:38:13.152Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T20:38:13.154Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T20:38:13.154Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T20:38:13.154Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T20:38:15.642Z [[32minfo[39m]: [Socket] Connected: Eq7tHJQ1N7_up-WEAAAB 
+2025-11-07T20:38:15.643Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (63399850-1151-40b4-9eb6-61bbf1ef7064) via socket 
+2025-11-07T20:38:17.162Z [[32minfo[39m]: [Socket] Connected: PqI2CVd6JKJDuoCnAAAD 
+2025-11-07T20:38:17.163Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T20:38:23.829Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (63399850-1151-40b4-9eb6-61bbf1ef7064) 
+2025-11-07T20:38:24.877Z [[32minfo[39m]: [Socket] Connected: 75NIx6V54HQyjlJVAAAF 
+2025-11-07T20:38:24.880Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (aaeaf14b-5564-463c-b4cd-61a8d82408a4) via socket 
+2025-11-07T20:44:30.965Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T20:44:30.966Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T20:44:36.367Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T20:44:36.368Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T20:44:36.368Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T20:44:36.368Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T20:44:36.963Z [[32minfo[39m]: [Socket] Connected: 1o5Sduw5yypLhG9ZAAAB 
+2025-11-07T20:44:36.965Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (aaeaf14b-5564-463c-b4cd-61a8d82408a4) via socket 
+2025-11-07T20:44:41.502Z [[32minfo[39m]: [Socket] Connected: Np3pVlg-ZuswKRKgAAAD 
+2025-11-07T20:44:41.503Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T20:49:07.958Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (aaeaf14b-5564-463c-b4cd-61a8d82408a4) 
+2025-11-07T20:54:14.278Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T20:54:19.501Z [[32minfo[39m]: [Socket] Connected: cfq1rvTSX2auNiXfAAAF 
+2025-11-07T20:54:19.502Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:04:24.068Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:04:26.111Z [[32minfo[39m]: [Socket] Connected: f5UHMPFkC4ozQMobAAAH 
+2025-11-07T21:04:26.112Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:14:33.837Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:14:35.938Z [[32minfo[39m]: [Socket] Connected: VD25eBT3XsJaSxWdAAAJ 
+2025-11-07T21:14:35.939Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:17:46.883Z [[32minfo[39m]: [Socket] Connected: 7Jof21YA7XG5DN_FAAAL 
+2025-11-07T21:17:46.883Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:19:38.893Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T21:19:38.895Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:19:39.882Z [[32minfo[39m]: [Socket] Connected: Xz2aXR42hwvF8mMqAAAN 
+2025-11-07T21:19:39.882Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:19:41.705Z [[32minfo[39m]: [Socket] Connected: _yOx368FxB0fzbdVAAAP 
+2025-11-07T21:19:41.706Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:31:31.532Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:31:31.534Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T21:31:52.207Z [[32minfo[39m]: [Socket] Connected: rHAWyeRGuQN9QlurAAAR 
+2025-11-07T21:31:52.208Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:31:56.290Z [[32minfo[39m]: [Socket] Connected: b3Jbpgo3G52iMNbhAAAT 
+2025-11-07T21:31:56.291Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:41:59.960Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T21:41:59.961Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:42:01.206Z [[32minfo[39m]: [Socket] Connected: X7Fo5qs-g6vgm-0VAAAV 
+2025-11-07T21:42:01.207Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:42:06.046Z [[32minfo[39m]: [Socket] Connected: bI6FxvEEPFP6hZEqAAAX 
+2025-11-07T21:42:06.047Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:42:31.886Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T21:42:31.887Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T21:42:37.223Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T21:42:37.223Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T21:42:37.224Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T21:42:37.224Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T21:42:38.209Z [[32minfo[39m]: [Socket] Connected: nNea0yK5oE8IbwuBAAAB 
+2025-11-07T21:42:38.210Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:42:40.929Z [[32minfo[39m]: [Socket] Connected: 0txGW2SxgYSWCR7wAAAD 
+2025-11-07T21:42:40.930Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T21:47:05.012Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T21:47:05.015Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T21:47:06.206Z [[32minfo[39m]: [Socket] Connected: mR8pqw3nMq9k3Z2-AAAF 
+2025-11-07T21:47:06.207Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T21:47:10.053Z [[32minfo[39m]: [Socket] Connected: 0fWLd6Zp-NRo-h0nAAAH 
+2025-11-07T21:47:10.054Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:07:19.250Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T22:07:19.250Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T22:07:24.569Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T22:07:24.569Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T22:07:24.570Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T22:07:24.570Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T22:07:26.211Z [[32minfo[39m]: [Socket] Connected: hyqfPsy9Z7HIBzFtAAAB 
+2025-11-07T22:07:26.212Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:07:27.093Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T22:07:27.093Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T22:07:32.406Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T22:07:32.408Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T22:07:32.408Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T22:07:32.408Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T22:07:33.880Z [[32minfo[39m]: [Socket] Connected: eymzc3Yf4yMwCX23AAAB 
+2025-11-07T22:07:33.882Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:07:34.205Z [[32minfo[39m]: [Socket] Connected: Nyh3m52eDGtqQhWQAAAD 
+2025-11-07T22:07:34.206Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:12:29.042Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T22:12:29.044Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T22:12:31.206Z [[32minfo[39m]: [Socket] Connected: iGCGqCO2ISxPDI2rAAAF 
+2025-11-07T22:12:31.207Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:12:32.844Z [[32minfo[39m]: [Socket] Connected: VALL6IcUGn6AfJ9eAAAH 
+2025-11-07T22:12:32.845Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:14:14.231Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T22:14:14.233Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T22:14:16.205Z [[32minfo[39m]: [Socket] Connected: Ud3oUN9U7-AjC-BYAAAJ 
+2025-11-07T22:14:16.206Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:14:19.597Z [[32minfo[39m]: [Socket] Connected: d3YJZA10WH5cz93kAAAL 
+2025-11-07T22:14:19.597Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:28:22.819Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T22:28:22.821Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T22:38:56.792Z [[32minfo[39m]: [Socket] Connected: VdN_YTT1oUTGgIC_AAAN 
+2025-11-07T22:38:56.793Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:38:57.353Z [[32minfo[39m]: [Socket] Connected: dU_L9M7meKvUMRpZAAAP 
+2025-11-07T22:38:57.354Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:49:03.048Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T22:49:03.049Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T22:49:04.355Z [[32minfo[39m]: [Socket] Connected: VS0AZr1_d7Mw73ECAAAR 
+2025-11-07T22:49:04.355Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T22:49:08.135Z [[32minfo[39m]: [Socket] Connected: ucPinVkkeYhRgq7KAAAT 
+2025-11-07T22:49:08.136Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:56:02.646Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T22:56:02.647Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T22:59:39.736Z [[32minfo[39m]: [Socket] Connected: XwPW1sMKiBbS2AdKAAAV 
+2025-11-07T22:59:39.736Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T22:59:40.720Z [[32minfo[39m]: [Socket] Connected: 55UvVOS8H0vbFUPVAAAX 
+2025-11-07T22:59:40.720Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) via socket 
+2025-11-07T23:04:36.699Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (eae3c999-3c43-422b-aa7b-4f7c9c5ca848) 
+2025-11-07T23:04:36.884Z [[32minfo[39m]: [Socket] Connected: EzbjuA8cUjqGc_c3AAAZ 
+2025-11-07T23:04:36.886Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (397ab2d6-c23e-4e58-a8c5-50d445ddc1bf) via socket 
+2025-11-07T23:04:38.368Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (397ab2d6-c23e-4e58-a8c5-50d445ddc1bf) 
+2025-11-07T23:04:38.519Z [[32minfo[39m]: [Socket] Connected: Gm1y_Z9rj7rqWCRiAAAb 
+2025-11-07T23:04:38.520Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (5c8e3699-56ef-4f44-9050-37afda1e1e5d) via socket 
+2025-11-07T23:04:39.161Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (5c8e3699-56ef-4f44-9050-37afda1e1e5d) 
+2025-11-07T23:04:39.289Z [[32minfo[39m]: [Socket] Connected: -9C2-jo8BToBX1WIAAAd 
+2025-11-07T23:04:39.295Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (9e12dd07-6383-453d-a952-4bbd9012bef6) via socket 
+2025-11-07T23:04:54.878Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (9e12dd07-6383-453d-a952-4bbd9012bef6) 
+2025-11-07T23:04:55.011Z [[32minfo[39m]: [Socket] Connected: CvqY_Zj32UbQ501nAAAf 
+2025-11-07T23:04:55.014Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-07T23:19:27.260Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) 
+2025-11-07T23:19:27.262Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T23:19:29.303Z [[32minfo[39m]: [Socket] Connected: IqbwpvNpQpQCtjLHAAAh 
+2025-11-07T23:19:29.304Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-07T23:19:30.334Z [[32minfo[39m]: [Socket] Connected: rnZU8qXGkRAOQlHlAAAj 
+2025-11-07T23:19:30.334Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T23:21:59.822Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) 
+2025-11-07T23:21:59.823Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-07T23:39:59.870Z [[32minfo[39m]: [Socket] Connected: GO6bXVXu-JE6Ff5GAAAl 
+2025-11-07T23:39:59.870Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-07T23:40:00.238Z [[32minfo[39m]: [Socket] Connected: QcnJWSrMgGo8k1aEAAAn 
+2025-11-07T23:40:00.238Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-07T23:50:12.690Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-07T23:50:12.691Z [[32minfo[39m]: HTTP server closed 
+2025-11-07T23:50:13.554Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-07T23:50:13.555Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-07T23:50:13.555Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-07T23:50:13.555Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-07T23:50:14.877Z [[32minfo[39m]: [Socket] Connected: AQk63EwhUAPVEF0YAAAB 
+2025-11-07T23:50:14.878Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-07T23:50:15.701Z [[32minfo[39m]: [Socket] Connected: 8eY6qknm_oCiLjIiAAAD 
+2025-11-07T23:50:15.702Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-08T00:06:36.364Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T00:06:36.365Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T00:06:41.744Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T00:06:41.745Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T00:06:41.745Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T00:06:41.745Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T00:06:42.321Z [[32minfo[39m]: [Socket] Connected: -ZjmCKNqGI_hLLkmAAAB 
+2025-11-08T00:06:42.322Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-08T00:06:46.181Z [[32minfo[39m]: [Socket] Connected: y1Vk5QhTLcagTLk_AAAD 
+2025-11-08T00:06:46.182Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-08T00:22:34.904Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T00:22:34.904Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T00:22:40.286Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T00:22:40.287Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T00:22:40.287Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T00:22:40.287Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T00:22:41.316Z [[32minfo[39m]: [Socket] Connected: 5G1AmLONYPtT01AqAAAB 
+2025-11-08T00:22:41.317Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-08T00:22:43.801Z [[32minfo[39m]: [Socket] Connected: 3gyllRXkKkfiq3w_AAAD 
+2025-11-08T00:22:43.802Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-08T00:42:42.203Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-08T00:42:42.205Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) 
+2025-11-08T04:19:48.339Z [[32minfo[39m]: [Socket] Connected: OGA5cnAPtk9bOIEhAAAF 
+2025-11-08T04:19:48.340Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 
+2025-11-08T04:19:50.092Z [[32minfo[39m]: [Socket] Connected: zl8tHpZQNzC_zu8-AAAH 
+2025-11-08T04:19:50.093Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-08T04:34:59.846Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) 
+2025-11-08T04:34:59.849Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) 
+2025-11-08T04:35:01.093Z [[32minfo[39m]: [Socket] Connected: cYs9flpog3b7TEKjAAAJ 
+2025-11-08T04:35:01.094Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (97e3eda8-6909-43dc-999b-ff58743a28b5) via socket 
+2025-11-08T04:35:03.429Z [[32minfo[39m]: [Socket] Connected: sVpkTGTrS9doLyqZAAAL 
+2025-11-08T04:35:03.430Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (b2c8ddd6-61eb-4fe2-a102-697fd30d8fa8) via socket 

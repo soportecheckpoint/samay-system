@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@samay/tablet-shared-ui": "workspace:^",
+    "@samay/scape-protocol": "workspace:^",
+    "@samay/scape-sdk": "workspace:^",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "socket.io-client": "^4.7.2",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

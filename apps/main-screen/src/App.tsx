@@ -1,35 +1,45 @@
 import './App.css';
-import { useSocket } from './socket';
+import { SdkConnectionOverlay } from '@samay/tablet-shared-ui';
 import { Timer } from './components/Timer';
 import { PreviousMessage } from './components/PreviousMessage';
-import { FeedbackMessage } from './components/FeedbackMessage';
+import { ViewRenderer } from './components/ViewRenderer';
 import VictoryScreen from './components/VictoryScreen';
-import { TabletStateImage } from './components/TabletStateImage';
+import { useMainScreenSdk } from './sdk';
 
 function App() {
-  useSocket();
+  const { connectionState, retry } = useMainScreenSdk();
 
   return (
-    <div className="app-shell relative min-h-screen overflow-hidden font-sans text-white">
+    <SdkConnectionOverlay
+      state={connectionState}
+      onRetry={retry}
+      className="fixed h-full w-full overflow-hidden font-sans text-white"
+      copy={{
+        connectingTitle: "Conectando con el router",
+        connectingDescription: "Esperando senal del servidor principal...",
+        errorTitle: "Sin conexion",
+        errorDescription: "Revisa la red y vuelve a intentarlo.",
+        retryLabel: "Reintentar",
+      }}
+    >
       <div className="animated-gradient" aria-hidden="true" />
       <div className="gradient-overlay" aria-hidden="true" />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <div className="mx-auto flex w-full flex-1 flex-col gap-12 px-6 py-12 md:px-10 lg:flex-row">
+      <div className="relative z-10 flex min-h-screen flex-col px-6 py-12">
+        <div className="mx-auto flex w-full flex-1 flex-col gap-12 lg:flex-row">
           <div className="flex w-full flex-col gap-10 lg:w-1/2">
             <Timer />
             <PreviousMessage />
           </div>
 
-          <div className="flex w-full items-center justify-center lg:w-1/2">
-            <TabletStateImage />
+          <div className="w-1/2">
+            <ViewRenderer />
           </div>
         </div>
       </div>
 
-      <FeedbackMessage />
       <VictoryScreen />
-    </div>
+    </SdkConnectionOverlay>
   );
 }
 

@@ -3,8 +3,9 @@ import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
 import { PhotoMessageView } from '@samay/tablet-shared-ui';
 import { useTabletStore } from '../store';
-import { emitFrameMessage, emitMirror } from '../socket';
 import { createRecognitionImage } from '../utils/createRecognitionImage';
+import { emitTabletActivity, emitTabletInput } from '../socket';
+import { uploadRecognitionImage } from '../api/recognition';
 
 export function PhotoMessage() {
   const setView = useViewStore((state) => state.setView);
@@ -12,6 +13,7 @@ export function PhotoMessage() {
   const photoData = useTabletStore((state) => state.photoData);
   const storedPhotoMessage = useTabletStore((state) => state.photoMessage);
   const setComposedImage = useTabletStore((state) => state.setComposedImage);
+  const sessionId = useTabletStore((state) => state.sessionId);
   const [localText, setLocalText] = useState(storedPhotoMessage);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export function PhotoMessage() {
 
   const handleChange = (text: string) => {
     setLocalText(text);
-    emitMirror('frame_message', 7, { frameMessage: text, photoData });
+    emitTabletInput(text);
   };
 
   const handleSubmit = () => {
@@ -36,19 +38,11 @@ export function PhotoMessage() {
       console.warn('[TABLET] No photo data available for frame message generation');
     }
 
-    emitFrameMessage(sanitized, resolvedPhoto ?? undefined);
     setView('photo-preview');
-
-    // Ensure observers get an immediate snapshot even before composition completes.
-    emitMirror('frame_message', 7, {
-      frameMessage: sanitized,
-      photoData: resolvedPhoto ?? undefined,
-    });
 
     const generate = async () => {
       if (!resolvedPhoto) {
         setComposedImage(null);
-        emitFrameMessage(sanitized, undefined, null);
         return;
       }
 
@@ -58,16 +52,38 @@ export function PhotoMessage() {
           photoData: resolvedPhoto,
         });
         setComposedImage(composed);
-        emitFrameMessage(sanitized, resolvedPhoto, composed);
-        emitMirror('frame_message', 7, {
-          frameMessage: sanitized,
-          photoData: resolvedPhoto,
-          composedImage: composed,
-        });
+
+        try {
+          const response = await uploadRecognitionImage({
+            recognitionDataUrl: composed,
+            photoDataUrl: resolvedPhoto ?? undefined,
+            message: sanitized,
+            sessionId,
+            metadata: { source: 'tablet-feedback', step: 'photo-message' },
+            kind: 'recognition'
+          });
+
+          const recognitionAsset = response.assets?.recognition ?? null;
+          const photoAsset = response.assets?.photo ?? null;
+
+          setComposedImage(composed, {
+            path: recognitionAsset?.publicPath ?? response.publicPath ?? null,
+            url: recognitionAsset?.cloudinaryUrl ?? response.cloudinaryUrl ?? null,
+            photoPath: photoAsset?.publicPath ?? null,
+          });
+
+          emitTabletActivity({
+            currentView: 'photo-preview',
+            input: sanitized,
+            photoPath: photoAsset?.publicPath ?? null,
+            recognitionPath: recognitionAsset?.publicPath ?? response.publicPath ?? null,
+          });
+        } catch (uploadError) {
+          console.warn('[TABLET] Unable to upload recognition image', uploadError);
+        }
       } catch (error) {
         console.warn('[TABLET] Unable to compose recognition image', error);
         setComposedImage(null);
-        emitFrameMessage(sanitized, resolvedPhoto, null);
       }
     };
 

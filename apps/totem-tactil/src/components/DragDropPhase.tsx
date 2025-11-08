@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
-import { emitMessagesOrdered } from "../socket";
 import { useTotemStore } from "../store";
 
 type GroupId = "traditional" | "push" | "mail";
@@ -85,7 +84,6 @@ export function DragDropPhase() {
     if (!solved || solvedRef.current) return;
     solvedRef.current = true;
 
-    emitMessagesOrdered(GROUPS.map((group) => assignments[group.id]));
     markMatchCompleted();
 
     const timeout = setTimeout(() => setView("message-code"), 1200);

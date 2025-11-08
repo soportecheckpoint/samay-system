@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { useTimerStore, useConnectionStore } from '../store';
+import { useTimerStore } from '../store';
 
-const formatTime = (rawSeconds: number | undefined): string => {
-  if (typeof rawSeconds !== 'number' || Number.isNaN(rawSeconds) || rawSeconds < 0) {
+const formatTime = (milliseconds: number): string => {
+  if (typeof milliseconds !== 'number' || Number.isNaN(milliseconds) || milliseconds < 0) {
     return '00:00';
   }
 
-  const seconds = Math.floor(rawSeconds);
+  const seconds = Math.floor(milliseconds / 1000);
   const hrs = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
@@ -21,10 +21,9 @@ const formatTime = (rawSeconds: number | undefined): string => {
 const splitDigits = (timeLabel: string): string[] => Array.from(timeLabel);
 
 export const Timer: React.FC = () => {
-  const { remaining } = useTimerStore();
-  const { isConnected } = useConnectionStore();
+  const { remainingMs } = useTimerStore();
 
-  const timeLabel = useMemo(() => formatTime(remaining), [remaining]);
+  const timeLabel = useMemo(() => formatTime(remainingMs), [remainingMs]);
   const digits = useMemo(() => splitDigits(timeLabel), [timeLabel]);
 
   return (
@@ -40,13 +39,6 @@ export const Timer: React.FC = () => {
             </span>
           ))}
         </div>
-        {!isConnected && (
-          <span
-            aria-label="Sin conexión"
-            title="Sin conexión"
-            className="mt-2 h-3 w-3 rounded-full bg-red-500"
-          />
-        )}
       </div>
     </section>
   );

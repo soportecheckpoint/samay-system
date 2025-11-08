@@ -1,150 +1,101 @@
 import { useEffect } from "react";
-import { io, Socket } from "socket.io-client";
-import { useTabletStore } from "./store";
+import { useScapeSdk, type ScapeSdk } from "@samay/scape-sdk";
+import { DEVICE, type TabletActivityPayload } from "@samay/scape-protocol";
 import useViewStore from "./view-manager/view-manager-store";
-import type { Step } from "./store";
+import { useTabletStore } from "./store";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 
-let socket: Socket | null = null;
+let sharedSdk: ScapeSdk<typeof DEVICE.FEEDBACK> | null = null;
 
-type TabletSnapshot = {
-  currentStep?: Step;
-  sessionId?: string;
-  selectedMessage?: string;
-  feedbackText?: string;
-  photoData?: string | null;
-  photoMessage?: string;
-  composedImage?: string | null;
-  composedImagePath?: string | null;
-  composedImageUrl?: string | null;
-};
-
-type TabletSyncStep =
-  | Step
-  | "qr-scan"
-  | "message-select"
-  | "feedback"
-  | "photo"
-  | "frame-message"
-  | "final-code";
-
-const applyTabletSnapshot = (snapshot?: TabletSnapshot) => {
-  if (!snapshot) {
+const sendTabletActivity = (payload: TabletActivityPayload) => {
+  const client = sharedSdk;
+  if (!client) {
+    console.warn("[TABLET][SDK] Attempted to send tabletActivity without an active SDK instance");
     return;
   }
-
-  useTabletStore.getState().hydrate({
-    currentStep: snapshot.currentStep,
-    sessionId: snapshot.sessionId,
-    selectedMessage: snapshot.selectedMessage,
-    feedbackText: snapshot.feedbackText,
-    photoData: snapshot.photoData,
-    photoMessage: snapshot.photoMessage,
-    composedImage: snapshot.composedImage,
-    composedImagePath: snapshot.composedImagePath,
-    composedImageUrl: snapshot.composedImageUrl,
-  });
+  try {
+    client.direct.execute(DEVICE.MAIN_SCREEN).tabletActivity(payload);
+  } catch (error) {
+    console.warn("[TABLET][SDK] Failed to send tabletActivity", error);
+  }
 };
 
 export const useSocket = () => {
+  const sdkResult = useScapeSdk<typeof DEVICE.FEEDBACK>({
+    cacheKey: `sdk-${DEVICE.FEEDBACK}`,
+    createOptions: { url: SERVER_URL, device: DEVICE.FEEDBACK }
+  });
+  const { sdk, lastResetPayload } = sdkResult;
+
   useEffect(() => {
-    if (!socket) {
-      socket = io(SERVER_URL);
-
-      socket.on("connect", () => {
-        console.log("[TABLET] Conectado al servidor");
-        useTabletStore.getState().reset();
-        useViewStore.getState().resetFlow("camera-preview");
-        socket?.emit("register", {
-          appType: "tablet-feedback",
-          sessionId: "TABLET_SESSION",
-        });
-        emitTabletReset();
-      });
-
-      socket.on("state:update", (payload: { tablet?: TabletSnapshot }) => {
-        applyTabletSnapshot(payload?.tablet);
-      });
-
-      socket.on("tablet:state", (snapshot: TabletSnapshot) => {
-        applyTabletSnapshot(snapshot);
-      });
-
-      socket.on("tablet:reset", () => {
-        console.log("[TABLET] Reset recibido");
-        useTabletStore.getState().reset();
-        useViewStore.getState().resetFlow("camera-preview");
-      });
-
-      socket.on("game:reset", () => {
-        console.log("[TABLET] Game reset recibido");
-        useTabletStore.getState().reset();
-        useViewStore.getState().resetFlow("camera-preview");
-      });
-
-      socket.on("tablet-feedback:reset", () => {
-        console.log("[TABLET] Reset general recibido");
-        useTabletStore.getState().reset();
-        useViewStore.getState().resetFlow("camera-preview");
-      });
-
-      socket.on("disconnect", (reason) => {
-        console.log("[TABLET] Desconectado del servidor", reason);
-      });
-
-      socket.on("connect_error", (error) => {
-        console.error("[TABLET] Error al conectar con el servidor", error);
-      });
-    }
-
+    sharedSdk = sdk;
     return () => {
-      if (socket) {
-        socket.disconnect();
-        socket = null;
+      if (sharedSdk === sdk) {
+        sharedSdk = null;
       }
     };
-  }, []);
+  }, [sdk]);
 
-  return socket;
+  useEffect(() => {
+    let previousView = useViewStore.getState().currentView ?? null;
+
+    const unsubscribe = useViewStore.subscribe((state) => {
+      const nextView = state.currentView ?? null;
+      if (!nextView || nextView === previousView) {
+        return;
+      }
+      previousView = nextView;
+      sendTabletActivity({ currentView: nextView, input: "" });
+    });
+
+    return () => {
+      unsubscribe?.();
+    };
+  }, [sdk]);
+
+  useEffect(() => {
+    if (!lastResetPayload) {
+      return;
+    }
+
+    useTabletStore.getState().reset();
+    useViewStore.getState().resetFlow("camera-preview");
+  }, [lastResetPayload]);
+
+  return sdkResult;
 };
 
-export const emitMirror = (screen: string, step: number, content: any) => {
-  if (socket) {
-    socket.emit("tablet:mirror", { screen, step, content });
+export const emitTabletInput = (input: string) => {
+  const currentView = useViewStore.getState().currentView ?? "feedback-input";
+  sendTabletActivity({ currentView, input });
+};
+
+const updateLastMessage = (message: string) => {
+  const client = sharedSdk;
+  if (!client) {
+    console.warn("[TABLET][SDK] Cannot update last message without an active SDK instance");
+    return;
   }
+  client.storage.modify({
+    lastMessage: message
+  }, { persistKeys: ["lastMessage"] });
 };
 
 export const emitMessageSelected = (message: string) => {
-  if (socket) {
-    socket.emit("tablet:message-selected", { messageText: message });
+  const sanitized = typeof message === "string" ? message.trim() : "";
+  if (!sanitized) {
+    return;
   }
+  const currentView = useViewStore.getState().currentView ?? "message-select";
+  sendTabletActivity({ currentView, input: sanitized });
+  updateLastMessage(sanitized);
 };
 
-export const emitFrameMessage = (
-  message: string,
-  photoData?: string | null,
-  composedImage?: string | null,
-) => {
-  if (socket) {
-    socket.emit("tablet:frame-message", { message, photoData, composedImage });
+export const emitTabletActivity = (payload: TabletActivityPayload) => {
+  const currentView = payload.currentView ?? useViewStore.getState().currentView ?? "";
+  if (!currentView) {
+    return;
   }
-};
-
-export const emitTabletStep = (step: TabletSyncStep) => {
-  if (socket) {
-    socket.emit("tablet:step-change", { step });
-  }
-};
-
-export const emitTabletView = (viewId: string) => {
-  if (socket) {
-    socket.emit("tablet:view-change", { viewId });
-  }
-};
-
-export const emitTabletReset = () => {
-  if (socket) {
-    socket.emit("tablet:reset");
-  }
+  sendTabletActivity({ ...payload, currentView });
 };

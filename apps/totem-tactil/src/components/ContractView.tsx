@@ -1,13 +1,12 @@
 import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
-import { emitContractAccepted, emitWinOverlay } from '../socket';
+import { notifyContractAccepted } from '../socket';
 
 export function ContractView() {
   const setView = useViewStore((state) => state.setView);
 
   const handleClick = () => {
-    emitWinOverlay('/images/final_win.png', 'final');
-    emitContractAccepted();
+    notifyContractAccepted();
     setView('badge');
   };
 

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
 import { useTabletStore } from "../store";
-import { emitMirror } from "../socket";
 
 export function MessageDisplay() {
   const currentView = useViewStore((state) => state.currentView);
@@ -11,8 +10,6 @@ export function MessageDisplay() {
 
   useEffect(() => {
     if (currentView !== "message-display") return;
-
-    emitMirror("message_preview", 3, { messageText: selectedMessage });
 
     const timer = setTimeout(() => {
       setView("feedback-input");

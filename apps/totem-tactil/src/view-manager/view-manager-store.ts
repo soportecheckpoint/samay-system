@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { emitViewChange } from "../socket";
 
 export interface ViewState {
   currentView: string | null;
@@ -37,8 +36,7 @@ const useViewStore = create<ViewState>((set: any) => ({
 
   setView: (viewId: string) =>
     set((state: ViewState) => {
-      const newViewHistory = [...state.viewHistory, viewId];
-      emitViewChange(viewId);
+  const newViewHistory = [...state.viewHistory, viewId];
 
       return {
         currentView: viewId,
@@ -50,10 +48,10 @@ const useViewStore = create<ViewState>((set: any) => ({
 
   resetFlow: (viewId: string) =>
     set(() => ({
-      currentView: viewId,
-      viewHistory: [viewId],
-      selectedImage: null,
-      videoMuted: true,
+  currentView: viewId,
+  viewHistory: [viewId],
+  selectedImage: null,
+  videoMuted: true,
     })),
 
   goBack: () =>

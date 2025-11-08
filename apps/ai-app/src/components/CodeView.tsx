@@ -3,7 +3,6 @@ import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
 import { CodeInput } from './CodeInput';
 import { useAiStore } from '../store';
-import { notifyCodeCorrect } from '../socket';
 
 export function CodeView() {
   const setView = useViewStore((state) => state.setView);
@@ -15,7 +14,6 @@ export function CodeView() {
     
     if (isCodeCorrect()) {
       setCodeError('');
-      notifyCodeCorrect();
       
       // Solo crear el timer si esta vista está activa
       if (currentView === 'code') {

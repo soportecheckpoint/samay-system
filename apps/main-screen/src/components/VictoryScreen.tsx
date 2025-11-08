@@ -1,27 +1,11 @@
 import React from 'react';
-import { useVictoryStore, useWinOverlayStore } from '../store';
+import { useTimerStore } from '../store';
 
 const VictoryScreen: React.FC = () => {
-  const isVictory = useVictoryStore((state) => state.isVictory);
-  const { imageSrc, variant } = useWinOverlayStore();
+  const { phase } = useTimerStore();
 
-  if (imageSrc && variant === 'final') {
-    return (
-      <div className="fixed inset-0 z-50 bg-black">
-        <img
-          src={imageSrc}
-          alt="Mensaje de victoria"
-          className="h-full w-full object-cover"
-        />
-      </div>
-    );
-  }
-
-  if (imageSrc && variant === 'message') {
-    return null;
-  }
-
-  if (!isVictory) {
+  // Show victory screen when phase is "won"
+  if (phase !== 'won') {
     return null;
   }
 

@@ -1,0 +1,180 @@
+2025-11-07T15:53:54.486Z [[31merror[39m]: uncaughtException: this.loadPersistentState is not a function
+TypeError: this.loadPersistentState is not a function
+    at new StorageManager (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts:52:10)
+    at new ScapeServer (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts:33:27)
+    at <anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts:49:21)
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  "error": {},
+  "stack": "TypeError: this.loadPersistentState is not a function\n    at new StorageManager (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts:52:10)\n    at new ScapeServer (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts:33:27)\n    at <anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts:49:21)\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)",
+  "exception": true,
+  "date": "Fri Nov 07 2025 10:53:54 GMT-0500 (hora estándar de Perú)",
+  "process": {
+    "pid": 6238,
+    "uid": 1000,
+    "gid": 1001,
+    "cwd": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server",
+    "execPath": "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+    "version": "v22.18.0",
+    "argv": [
+      "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+      "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts"
+    ],
+    "memoryUsage": {
+      "rss": 118702080,
+      "heapTotal": 35692544,
+      "heapUsed": 20327352,
+      "external": 6112310,
+      "arrayBuffers": 100747
+    }
+  },
+  "os": {
+    "loadavg": [
+      1.72,
+      1.18,
+      0.9
+    ],
+    "uptime": 2975.78
+  },
+  "trace": [
+    {
+      "column": 10,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts",
+      "function": "new StorageManager",
+      "line": 52,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts",
+      "function": "new ScapeServer",
+      "line": 33,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 21,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts",
+      "function": "<anonymous>",
+      "line": 49,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 25,
+      "file": "node:internal/modules/esm/module_job",
+      "function": "ModuleJob.run",
+      "line": 343,
+      "method": "run",
+      "native": false
+    },
+    {
+      "column": 26,
+      "file": "node:internal/modules/esm/loader",
+      "function": "async onImport.tracePromise.__proto__",
+      "line": 647,
+      "method": "__proto__",
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/modules/run_main",
+      "function": "async asyncRunEntryPointWithESMLoader",
+      "line": 117,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2025-11-07T15:54:34.683Z [[31merror[39m]: uncaughtException: this.loadPersistentState is not a function
+TypeError: this.loadPersistentState is not a function
+    at new StorageManager (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts:52:10)
+    at new ScapeServer (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts:33:27)
+    at <anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts:49:21)
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  "error": {},
+  "stack": "TypeError: this.loadPersistentState is not a function\n    at new StorageManager (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts:52:10)\n    at new ScapeServer (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts:33:27)\n    at <anonymous> (/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts:49:21)\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)",
+  "exception": true,
+  "date": "Fri Nov 07 2025 10:54:34 GMT-0500 (hora estándar de Perú)",
+  "process": {
+    "pid": 6270,
+    "uid": 1000,
+    "gid": 1001,
+    "cwd": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server",
+    "execPath": "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+    "version": "v22.18.0",
+    "argv": [
+      "/home/yeferson/.nvm/versions/node/v22.18.0/bin/node",
+      "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts"
+    ],
+    "memoryUsage": {
+      "rss": 121483264,
+      "heapTotal": 35954688,
+      "heapUsed": 20141392,
+      "external": 6112310,
+      "arrayBuffers": 100747
+    }
+  },
+  "os": {
+    "loadavg": [
+      1.33,
+      1.15,
+      0.9
+    ],
+    "uptime": 3015.98
+  },
+  "trace": [
+    {
+      "column": 10,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/modules/storageManager.ts",
+      "function": "new StorageManager",
+      "line": 52,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/app/ScapeServer.ts",
+      "function": "new ScapeServer",
+      "line": 33,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 21,
+      "file": "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/src/index.ts",
+      "function": "<anonymous>",
+      "line": 49,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 25,
+      "file": "node:internal/modules/esm/module_job",
+      "function": "ModuleJob.run",
+      "line": 343,
+      "method": "run",
+      "native": false
+    },
+    {
+      "column": 26,
+      "file": "node:internal/modules/esm/loader",
+      "function": "async onImport.tracePromise.__proto__",
+      "line": 647,
+      "method": "__proto__",
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/modules/run_main",
+      "function": "async asyncRunEntryPointWithESMLoader",
+      "line": 117,
+      "method": null,
+      "native": false
+    }
+  ]
+}

@@ -25,6 +25,7 @@ interface TabletState {
   composedImage: string | null;
   composedImagePath: string | null;
   composedImageUrl: string | null;
+  photoServerPath: string | null;
   finalCode: string;
   setStep: (step: Step) => void;
   setSessionId: (id: string) => void;
@@ -32,7 +33,10 @@ interface TabletState {
   setFeedbackText: (text: string) => void;
   setPhotoData: (data: string | null) => void;
   setPhotoMessage: (message: string) => void;
-  setComposedImage: (data: string | null) => void;
+  setComposedImage: (
+    data: string | null,
+    extra?: { path?: string | null; url?: string | null; photoPath?: string | null }
+  ) => void;
   hydrate: (snapshot: Partial<Omit<TabletState, 'hydrate' | 'reset' | 'setStep' | 'setSessionId' | 'setSelectedMessage' | 'setFeedbackText' | 'setPhotoData' | 'setPhotoMessage' | 'setComposedImage' | 'finalCode'>>) => void;
   reset: () => void;
 }
@@ -47,6 +51,7 @@ export const useTabletStore = create<TabletState>((set) => ({
   composedImage: null,
   composedImagePath: null,
   composedImageUrl: null,
+  photoServerPath: null,
   finalCode: FIXED_FINAL_CODE,
   setStep: (step) => set({ currentStep: step }),
   setSessionId: (id) => set({ sessionId: id }),
@@ -58,13 +63,15 @@ export const useTabletStore = create<TabletState>((set) => ({
       composedImage: null,
       composedImagePath: null,
       composedImageUrl: null,
+      photoServerPath: null,
     }),
   setPhotoMessage: (message) => set({ photoMessage: message }),
-  setComposedImage: (data) =>
+  setComposedImage: (data, extra) =>
     set({
       composedImage: data,
-      composedImagePath: null,
-      composedImageUrl: null,
+      composedImagePath: extra?.path ?? null,
+      composedImageUrl: extra?.url ?? null,
+      photoServerPath: extra?.photoPath ?? null,
     }),
   hydrate: (snapshot) =>
     set((state) => ({
@@ -87,6 +94,10 @@ export const useTabletStore = create<TabletState>((set) => ({
         typeof snapshot.composedImageUrl === 'undefined'
           ? state.composedImageUrl
           : snapshot.composedImageUrl ?? null,
+      photoServerPath:
+        typeof snapshot.photoServerPath === 'undefined'
+          ? state.photoServerPath
+          : snapshot.photoServerPath ?? null,
     })),
   reset: () => set(() => {
     if (typeof window !== 'undefined') {
@@ -101,8 +112,9 @@ export const useTabletStore = create<TabletState>((set) => ({
       photoData: null,
       photoMessage: '',
       composedImage: null,
-  composedImagePath: null,
-  composedImageUrl: null,
+      composedImagePath: null,
+      composedImageUrl: null,
+  photoServerPath: null,
       finalCode: FIXED_FINAL_CODE,
     };
   }),

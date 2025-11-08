@@ -1,7 +1,7 @@
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
 import { useTabletStore } from "../store";
-import { emitMessageSelected, emitMirror } from "../socket";
+import { emitMessageSelected } from "../socket";
 
 const AVAILABLE_MESSAGES = [
   "Enfocarse en un reto por vez.",
@@ -22,7 +22,6 @@ export function MessageSelect() {
     const message = AVAILABLE_MESSAGES[index];
     setSelectedMessage(message);
     emitMessageSelected(message);
-    emitMirror("message_selected", 2, { messageText: message });
     setView("message-display");
   };
 

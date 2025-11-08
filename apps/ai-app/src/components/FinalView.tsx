@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import View from "../view-manager/View";
-import { printPDF, notifyModuleCompleted } from "../socket";
+import { printPDF } from "../socket";
 import useViewStore from "../view-manager/view-manager-store";
 
 export function FinalView() {
@@ -9,9 +9,8 @@ export function FinalView() {
   useEffect(() => {
     // Solo ejecutar cuando esta vista se hace visible
     if (currentView === "final") {
-      // Enviar evento para imprimir PDF y notificar finalización
+      // Enviar evento para imprimir PDF
       printPDF();
-      notifyModuleCompleted();
     }
   }, [currentView]);
 

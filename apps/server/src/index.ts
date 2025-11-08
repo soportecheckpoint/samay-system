@@ -1,23 +1,25 @@
-import express from 'express';
-import { createServer } from 'http';
-import { createServer as createHttpsServer } from 'https';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import { Server } from 'socket.io';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { setupRoutes } from './routes/index.js';
-import { setupSocketHandlers } from './socket/index.js';
-import { logger } from './utils/logger.js';
-import { gameState } from './state/gameState.js';
-import { startHeartbeatMonitor } from './services/heartbeat.js';
-import { initPreviousMessageStore } from './state/previousMessage.js';
+import express from "express";
+import { createServer } from "http";
+import { createServer as createHttpsServer } from "https";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { Server } from "socket.io";
+import cors from "cors";
+import dotenv from "dotenv";
+import { ScapeServer } from "./app/ScapeServer.js";
+import { logger } from "./utils/logger.js";
 
 dotenv.config();
 
-await initPreviousMessageStore();
-
 const app = express();
+
+const PUBLIC_ASSETS_DIR =
+  process.env.PUBLIC_ASSETS_DIR ??
+  process.env.RECOGNITION_IMAGE_DIR ??
+  join(process.cwd(), "public");
+const rawPublicRoute = process.env.PUBLIC_ASSETS_ROUTE ?? "public";
+const trimmedPublicRoute = rawPublicRoute.replace(/^\/+/u, "").replace(/\/+$/u, "");
+const PUBLIC_ASSETS_ROUTE = `/${trimmedPublicRoute || "public"}`;
 
 // Create HTTP server for Arduino communication
 const httpServer = createServer(app);
@@ -44,7 +46,8 @@ io.attach(httpsServer);
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "15mb" }));
+app.use(PUBLIC_ASSETS_ROUTE, express.static(PUBLIC_ASSETS_DIR, { index: false, maxAge: "1d" }));
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -52,14 +55,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Setup routes for Arduino communication
-setupRoutes(app, io);
-
-// Setup WebSocket handlers for React apps
-setupSocketHandlers(io);
-
-// Start heartbeat monitor for Arduinos
-startHeartbeatMonitor(io);
+const scapeServer = new ScapeServer({ app, io });
+scapeServer.initialize();
 
 const HTTP_PORT = parseInt(process.env.HTTP_PORT || '3001', 10);
 const HTTPS_PORT = parseInt(process.env.HTTPS_PORT || '3443', 10);

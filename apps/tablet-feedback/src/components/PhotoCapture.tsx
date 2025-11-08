@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
 import { useTabletStore } from "../store";
-import { emitMirror } from "../socket";
 
 export function PhotoCapture() {
   const currentView = useViewStore((state) => state.currentView);
@@ -46,10 +45,8 @@ export function PhotoCapture() {
       setHasStream(true);
       setCaptured(false);
       console.log("[PHOTO-CAPTURE] Camera started successfully");
-      emitMirror("taking_photo", 6, { status: "camera_active" });
     } catch (err) {
       console.error("[PHOTO-CAPTURE] Camera error:", err);
-      emitMirror("taking_photo", 6, { status: "camera_error" });
     }
   }, []);
 
@@ -119,10 +116,6 @@ export function PhotoCapture() {
       }
       setCaptured(true);
       stopStream();
-      emitMirror("taking_photo", 6, {
-        status: "photo_captured",
-        photoData: photo,
-      });
     } else {
       console.error("Video or canvas ref not available");
     }
@@ -131,7 +124,6 @@ export function PhotoCapture() {
   const retake = () => {
     setCaptured(false);
     stopStream();
-    emitMirror("taking_photo", 6, { status: "camera_active" });
     void startCamera();
   };
 

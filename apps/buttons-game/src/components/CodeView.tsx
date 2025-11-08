@@ -2,13 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import View from '../view-manager/View';
 import { useGameStore } from '../store';
 import useViewStore from '../view-manager/view-manager-store';
-import { sendCodeToServer } from '../socket';
+import { requestButtonsStart } from '../socket';
+
+const CORRECT_CODE = (import.meta.env.VITE_BUTTONS_CODE as string | undefined) ?? "1606";
 
 export const CodeView: React.FC = () => {
   const [digits, setDigits] = useState(['', '', '', '']);
   const { error, setError } = useGameStore();
   const currentView = useViewStore((state) => state.currentView);
   const codeResetCounter = useViewStore((state) => state.codeResetCounter);
+  const setView = useViewStore((state) => state.setView);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Auto-focus al primer input cuando la vista está activa
@@ -46,13 +49,24 @@ export const CodeView: React.FC = () => {
 
   // Auto-submit cuando se completen los 4 dígitos
   useEffect(() => {
-    const code = digits.join('');
-    if (code.length === 4) {
-      setError('');
-      // Enviar código al servidor para validación y envío de comando al Arduino
-      sendCodeToServer(code);
+    if (currentView !== 'code') {
+      return;
     }
-  }, [digits, setError]);
+
+    const code = digits.join('');
+    if (code.length !== 4) {
+      return;
+    }
+
+    if (code === CORRECT_CODE) {
+      setError('');
+      requestButtonsStart();
+      setView('mesa');
+      setDigits(['', '', '', '']);
+    } else {
+      setError('Código incorrecto');
+    }
+  }, [digits, setError, currentView, setView]);
 
   // Limpiar cuando hay error
   useEffect(() => {

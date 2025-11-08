@@ -1,95 +1,105 @@
-import { useEffect } from 'react';
-import { io, Socket } from 'socket.io-client';
-import { useGameStore } from './store';
-import useViewStore from './view-manager/view-manager-store';
+import { useEffect } from "react";
+import { useScapeSdk, type ScapeSdk } from "@samay/scape-sdk";
+import { DEVICE, type ButtonState } from "@samay/scape-protocol";
+import { useGameStore } from "./store";
+import useViewStore from "./view-manager/view-manager-store";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 
-let socket: Socket | null = null;
+let sharedSdk: ScapeSdk<typeof DEVICE.BUTTONS_APP> | null = null;
 
-export const useSocket = () => {
-  const { updateButtons, setError, resetGame } = useGameStore();
-  const { setView, resetFlow, resetCode } = useViewStore();
-
-  useEffect(() => {
-    if (!socket) {
-      socket = io(SERVER_URL);
-
-      socket.on('connect', () => {
-        console.log('Connected to server');
-        socket?.emit('register', { appType: 'buttons-game', sessionId: 'SESSION_001' });
-      });
-
-      // Estado de botones actualizado desde Arduino
-      socket.on('buttons:state-changed', (data: { buttons: any[]; completed?: boolean }) => {
-        console.log('Buttons state changed:', data);
-        updateButtons(data.buttons);
-
-        if (data.completed) {
-          const { currentView } = useViewStore.getState();
-
-          if (currentView !== 'message') {
-            console.log('Buttons sequence completed via state change');
-            setView('message');
-          }
-        }
-      });
-
-      // Juego iniciado
-      socket.on('buttons:game-started', () => {
-        console.log('Game started');
-        setView('mesa');
-        setError('');
-      });
-
-      // Código inválido
-      socket.on('buttons:invalid-code', (data: { message: string }) => {
-        console.log('Invalid code:', data);
-        setError(data.message);
-      });
-
-      // Juego completado - Este es el evento que envía el Arduino cuando se completa la secuencia
-      socket.on('buttons:completed', () => {
-        console.log('Game completed - Arduino sent completion signal');
-        setView('message');
-      });
-
-      // Reset específico del módulo de botones
-      socket.on('buttons:reset', () => {
-        console.log('Buttons module reset received');
-        resetGame();
-        resetFlow('code');
-        // Also clear any entered code
-        resetCode();
-      });
-
-      // Reset general del juego
-      socket.on('game:reset', () => {
-        console.log('General game reset received');
-        resetGame();
-        resetFlow('code');
-        // Also clear any entered code
-        resetCode();
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-    }
-
-    return () => {
-      if (socket) {
-        socket.disconnect();
-        socket = null;
-      }
-    };
-  }, [updateButtons, setError, resetGame, setView, resetFlow]);
-
-  return socket;
+const ensureClient = () => {
+  if (!sharedSdk) {
+    console.warn("[BUTTONS][SDK] Attempted to use SDK before initialization");
+    return null;
+  }
+  return sharedSdk;
 };
 
-export const sendCodeToServer = (code: string) => {
-  if (socket) {
-    socket.emit('buttons:code-entered', { code });
+const resetModuleState = () => {
+  useGameStore.getState().resetGame();
+  const viewStore = useViewStore.getState();
+  viewStore.resetFlow("code");
+  viewStore.resetCode();
+};
+
+const mapButtonStates = (buttons: ButtonState[]) => {
+  return buttons.map((button, index) => {
+    const parsedId = Number.parseInt(String(button.id), 10);
+
+    return {
+      id: Number.isFinite(parsedId) ? parsedId : index + 1,
+      pressed: Boolean(button.pressed),
+      completed: Boolean(button.completed)
+    };
+  });
+};
+
+export const useSocket = () => {
+  const sdkResult = useScapeSdk<typeof DEVICE.BUTTONS_APP>({
+    cacheKey: `sdk-${DEVICE.BUTTONS_APP}`,
+    createOptions: {
+      url: SERVER_URL,
+      device: DEVICE.BUTTONS_APP,
+      metadata: { role: "buttons-app" }
+    }
+  });
+
+  const { sdk, lastResetPayload } = sdkResult;
+
+  useEffect(() => {
+    sharedSdk = sdk;
+    return () => {
+      if (sharedSdk === sdk) {
+        sharedSdk = null;
+      }
+    };
+  }, [sdk]);
+
+  useEffect(() => {
+    const unsubscribe = sdk.direct.on("setState", (payload: { buttons: ButtonState[]; completed?: boolean }) => {
+      if (!payload || !Array.isArray(payload.buttons)) {
+        return;
+      }
+
+      const store = useGameStore.getState();
+      store.updateButtons(mapButtonStates(payload.buttons));
+      store.setError("");
+
+      const viewStore = useViewStore.getState();
+      if (viewStore.currentView === "code") {
+        viewStore.setView("mesa");
+      }
+
+      const completedFlag = payload.completed ?? payload.buttons.every((button: ButtonState) => button.completed);
+      if (completedFlag) {
+        if (viewStore.currentView !== "message") {
+          viewStore.setView("message");
+        }
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [sdk]);
+
+  useEffect(() => {
+    if (!lastResetPayload) {
+      return;
+    }
+
+    resetModuleState();
+  }, [lastResetPayload]);
+
+  return sdkResult;
+};
+
+export const requestButtonsStart = () => {
+  const client = ensureClient();
+  if (!client) {
+    return;
   }
+
+  client.direct.execute(DEVICE.BUTTONS_ARDUINO).start();
 };

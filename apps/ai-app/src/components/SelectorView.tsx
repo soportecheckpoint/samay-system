@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
 import { useAiStore } from '../store';
-import { notifySelectorCorrect } from '../socket';
 
 const OPTIONS = [
   'No es cliente del banco, le explicas que se ha confundido',
@@ -26,7 +25,6 @@ export function SelectorView() {
     
     if (isSelectorCorrect()) {
       setSelectorError('');
-      notifySelectorCorrect();
       setTimeout(() => {
         setView('final');
       }, 500);

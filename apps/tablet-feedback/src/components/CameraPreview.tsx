@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
-import { emitMirror, emitTabletReset } from "../socket";
 import { useTabletStore } from "../store";
 
 export function CameraPreview() {
@@ -59,8 +58,6 @@ export function CameraPreview() {
   useEffect(() => {
     if (currentView === "camera-preview") {
       resetTablet();
-      emitTabletReset();
-      emitMirror("qr_scan", 1, {});
     }
   }, [currentView, resetTablet]);
 

@@ -3,7 +3,7 @@ import { FeedbackInputView } from '@samay/tablet-shared-ui';
 import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
 import { useTabletStore } from '../store';
-import { emitMirror } from '../socket';
+import { emitTabletInput } from '../socket';
 
 export function FeedbackInput() {
   const setView = useViewStore((state) => state.setView);
@@ -18,13 +18,12 @@ export function FeedbackInput() {
   const handleChange = (text: string) => {
     setLocalText(text);
     setFeedbackText(text);
-    emitMirror('feedback_form', 4, { feedbackText: text });
+    emitTabletInput(text);
   };
 
   const handleSubmit = () => {
     const sanitized = localText.trim();
     setFeedbackText(sanitized);
-    emitMirror('feedback_form', 4, { feedbackText: sanitized });
     setView('feedback-confirm');
   };
 

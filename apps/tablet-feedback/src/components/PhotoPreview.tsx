@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import View from "../view-manager/View";
 import useViewStore from "../view-manager/view-manager-store";
 import { useTabletStore } from "../store";
-import { emitMirror } from "../socket";
 
 export function PhotoPreview() {
   const currentView = useViewStore((state) => state.currentView);
@@ -11,6 +10,7 @@ export function PhotoPreview() {
   const photoMessage = useTabletStore((state) => state.photoMessage);
   const composedImage = useTabletStore((state) => state.composedImage);
   const composedImageUrl = useTabletStore((state) => state.composedImageUrl);
+  const photoServerPath = useTabletStore((state) => state.photoServerPath);
   const [photoSnapshot, setPhotoSnapshot] = useState<string | null>(() => {
     if (typeof window === "undefined") {
       return photoData;
@@ -34,17 +34,16 @@ export function PhotoPreview() {
       setPhotoSnapshot(photoData);
     }
   }, [photoData]);
-  const previewPhoto = photoSnapshot ?? photoData ?? null;
+  useEffect(() => {
+    if (!photoSnapshot && typeof photoServerPath === "string" && photoServerPath.length > 0) {
+      setPhotoSnapshot(photoServerPath);
+    }
+  }, [photoServerPath, photoSnapshot]);
+
+  const previewPhoto = photoSnapshot ?? photoData ?? photoServerPath ?? null;
 
   useEffect(() => {
     if (currentView !== "photo-preview") return;
-
-    emitMirror("frame_message", 7, {
-      frameMessage: photoMessage,
-      photoData: previewPhoto,
-      composedImage,
-      composedImageUrl,
-    });
 
     const timer = setTimeout(() => {
       setView("final-message");

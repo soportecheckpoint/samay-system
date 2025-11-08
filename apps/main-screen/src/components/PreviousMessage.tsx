@@ -1,10 +1,10 @@
 import React from 'react';
-import { useMessageStore } from '../store';
+import { usePreviousMessageStore } from '../store';
 
 export const PreviousMessage: React.FC = () => {
-  const { previousMessage } = useMessageStore();
-  const hasMessage = Boolean(previousMessage?.trim());
-  const messageText = hasMessage ? previousMessage.trim() : 'Mensaje del equipo anterior';
+  const { message } = usePreviousMessageStore();
+  const hasMessage = Boolean(message?.trim());
+  const messageText = hasMessage ? message.trim() : 'Mensaje del equipo anterior';
 
   return (
     <div className="flex flex-col gap-8 mt-16">

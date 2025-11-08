@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import View from '../view-manager/View';
 import useViewStore from '../view-manager/view-manager-store';
-import { emitMirror } from '../socket';
 
 export function FeedbackConfirm() {
   const currentView = useViewStore((state) => state.currentView);
@@ -9,8 +8,6 @@ export function FeedbackConfirm() {
 
   useEffect(() => {
     if (currentView !== 'feedback-confirm') return;
-
-    emitMirror('processing_transition', 5, { status: 'feedback_submitted' });
 
     const timer = setTimeout(() => {
       setView('photo-capture');

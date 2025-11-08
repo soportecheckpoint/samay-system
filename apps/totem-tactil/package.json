@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@samay/scape-protocol": "workspace:^",
+    "@samay/scape-sdk": "workspace:^",
+    "@samay/tablet-shared-ui": "workspace:^",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "socket.io-client": "^4.7.2",
     "zustand": "^4.4.7",
     "framer-motion": "^11.0.0"
   },

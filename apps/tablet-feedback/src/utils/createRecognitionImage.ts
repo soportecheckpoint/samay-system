@@ -130,13 +130,41 @@ export const createRecognitionImage = async ({
     loadImage(photoData),
   ]);
 
-  context.drawImage(backgroundImage, 0, 0, width, height);
+  const backgroundCover = computeCoverSource(
+    backgroundImage,
+    width,
+    height,
+  );
+  context.drawImage(
+    backgroundImage,
+    backgroundCover.sx,
+    backgroundCover.sy,
+    backgroundCover.sw,
+    backgroundCover.sh,
+    0,
+    0,
+    width,
+    height,
+  );
 
-  const messageBoxWidth = Math.floor(width * 0.68);
-  const messageBoxHeight = Math.floor(height * 0.26);
+  const desiredMessageWidth = 841;
+  const desiredMessageHeight = 374;
+  const desiredPhotoWidth = 841;
+  const desiredPhotoHeight = 669;
+
+  const topMargin = Math.floor(height * 0.11);
+  const photoSpacing = Math.floor(height * 0.07);
+
+  const messageScale = Math.min(1, width / desiredMessageWidth);
+  const messageBoxWidth = Math.floor(desiredMessageWidth * messageScale);
+  const messageBoxHeight = Math.floor(desiredMessageHeight * messageScale);
+  const photoScale = Math.min(1, width / desiredPhotoWidth);
+  const photoBoxWidth = Math.floor(desiredPhotoWidth * photoScale);
+  const photoBoxHeight = Math.floor(desiredPhotoHeight * photoScale);
+
   const messageBoxX = Math.floor((width - messageBoxWidth) / 2);
-  const messageBoxY = Math.floor(height * 0.11);
-  const messageRadius = Math.floor(width * 0.03);
+  const messageBoxY = topMargin;
+  const messageRadius = Math.floor(messageBoxWidth * 0.06);
 
   drawRoundedRectPath(
     context,
@@ -149,14 +177,19 @@ export const createRecognitionImage = async ({
   context.fillStyle = '#FFFFFF';
   context.fill();
 
-  context.font = `600 ${Math.floor(height * 0.06)}px "Montserrat", "Arial", sans-serif`;
+  const fontSize = Math.max(12, Math.floor(messageBoxHeight * 0.18));
+  context.font = `600 ${fontSize}px "Montserrat", "Arial", sans-serif`;
   context.fillStyle = '#111111';
   context.textAlign = 'center';
   context.textBaseline = 'middle';
 
-  const maxTextWidth = messageBoxWidth - Math.floor(width * 0.08);
+  const messagePaddingX = Math.floor(messageBoxWidth * 0.08);
+  const maxTextWidth = Math.max(
+    messageBoxWidth - messagePaddingX * 2,
+    Math.floor(messageBoxWidth * 0.3),
+  );
   const lines = wrapText(context, message.trim(), maxTextWidth);
-  const lineHeight = Math.floor(height * 0.08);
+  const lineHeight = Math.max(1, Math.floor(fontSize * 1.3));
   const totalTextHeight = lineHeight * (lines.length - 1);
   const messageCenterY = messageBoxY + messageBoxHeight / 2;
 
@@ -165,11 +198,9 @@ export const createRecognitionImage = async ({
     context.fillText(line, messageBoxX + messageBoxWidth / 2, lineY);
   });
 
-  const photoBoxWidth = messageBoxWidth;
-  const photoBoxHeight = Math.floor(height * 0.46);
-  const photoBoxX = messageBoxX;
-  const photoBoxY = messageBoxY + messageBoxHeight + Math.floor(height * 0.07);
-  const photoRadius = Math.floor(width * 0.04);
+  const photoBoxX = Math.floor((width - photoBoxWidth) / 2);
+  const photoBoxY = messageBoxY + messageBoxHeight + photoSpacing;
+  const photoRadius = Math.floor(photoBoxWidth * 0.07);
 
   drawRoundedRectPath(
     context,

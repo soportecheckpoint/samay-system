@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface Button {
   id: number;
   pressed: boolean;
+  completed: boolean;
 }
 
 interface GameState {
@@ -13,10 +14,14 @@ interface GameState {
   resetGame: () => void;
 }
 
-const initialButtons: Button[] = Array.from({ length: 10 }, (_, i) => ({
-  id: i + 1,
-  pressed: false,
-}));
+const createInitialButtons = (): Button[] =>
+  Array.from({ length: 10 }, (_, i) => ({
+    id: i + 1,
+    pressed: false,
+    completed: false,
+  }));
+
+const initialButtons = createInitialButtons();
 
 export const useGameStore = create<GameState>((set) => ({
   buttons: initialButtons,
@@ -24,7 +29,7 @@ export const useGameStore = create<GameState>((set) => ({
   updateButtons: (buttons) => set({ buttons }),
   setError: (error) => set({ error }),
   resetGame: () => set({
-    buttons: initialButtons,
+    buttons: createInitialButtons(),
     error: '',
   }),
 }));

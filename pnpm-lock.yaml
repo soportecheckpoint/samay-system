@@ -84,6 +84,12 @@ importers:
 
   apps/ai-app:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:^
+        version: link:../../packages/scape-protocol
+      '@samay/scape-sdk':
+        specifier: workspace:^
+        version: link:../../packages/scape-sdk
       '@samay/tablet-shared-ui':
         specifier: workspace:^
         version: link:../../packages/tablet-shared-ui
@@ -96,9 +102,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      socket.io-client:
-        specifier: ^4.7.2
-        version: 4.8.1
       zustand:
         specifier: ^4.4.7
         version: 4.5.7(@types/react@19.2.2)(react@19.2.0)
@@ -151,6 +154,12 @@ importers:
 
   apps/buttons-game:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:^
+        version: link:../../packages/scape-protocol
+      '@samay/scape-sdk':
+        specifier: workspace:^
+        version: link:../../packages/scape-sdk
       framer-motion:
         specifier: ^11.0.0
         version: 11.18.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -160,9 +169,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      socket.io-client:
-        specifier: ^4.7.2
-        version: 4.8.1
       zustand:
         specifier: ^4.4.7
         version: 4.5.7(@types/react@19.2.2)(react@19.2.0)
@@ -215,6 +221,12 @@ importers:
 
   apps/main-screen:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:^
+        version: link:../../packages/scape-protocol
+      '@samay/scape-sdk':
+        specifier: workspace:^
+        version: link:../../packages/scape-sdk
       '@samay/tablet-shared-ui':
         specifier: workspace:^
         version: link:../../packages/tablet-shared-ui
@@ -224,9 +236,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      socket.io-client:
-        specifier: ^4.7.2
-        version: 4.8.1
       zustand:
         specifier: ^4.4.7
         version: 4.5.7(@types/react@19.2.2)(react@19.2.0)
@@ -279,6 +288,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:*
+        version: link:../../packages/scape-protocol
       axios:
         specifier: ^1.6.0
         version: 1.12.2
@@ -325,6 +337,12 @@ importers:
 
   apps/tablet-feedback:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:^
+        version: link:../../packages/scape-protocol
+      '@samay/scape-sdk':
+        specifier: workspace:^
+        version: link:../../packages/scape-sdk
       '@samay/tablet-shared-ui':
         specifier: workspace:^
         version: link:../../packages/tablet-shared-ui
@@ -340,9 +358,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      socket.io-client:
-        specifier: ^4.7.2
-        version: 4.8.1
       zustand:
         specifier: ^4.4.7
         version: 4.5.7(@types/react@19.2.2)(react@19.2.0)
@@ -398,6 +413,12 @@ importers:
 
   apps/totem-tactil:
     dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:^
+        version: link:../../packages/scape-protocol
+      '@samay/scape-sdk':
+        specifier: workspace:^
+        version: link:../../packages/scape-sdk
       framer-motion:
         specifier: ^11.0.0
         version: 11.18.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -407,9 +428,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      socket.io-client:
-        specifier: ^4.7.2
-        version: 4.8.1
       zustand:
         specifier: ^4.4.7
         version: 4.5.7(@types/react@19.2.2)(react@19.2.0)
@@ -438,6 +456,24 @@ importers:
       vite:
         specifier: ^7.1.7
         version: 7.1.10(@types/node@24.8.1)(jiti@1.21.7)(terser@5.44.0)(tsx@4.20.6)
+
+  packages/scape-protocol: {}
+
+  packages/scape-sdk:
+    dependencies:
+      '@samay/scape-protocol':
+        specifier: workspace:*
+        version: link:../scape-protocol
+      react:
+        specifier: '>=18'
+        version: 19.2.0
+      socket.io-client:
+        specifier: ^4.8.1
+        version: 4.8.1
+    devDependencies:
+      '@types/react':
+        specifier: ^19.1.16
+        version: 19.2.2
 
   packages/tablet-shared-ui:
     devDependencies:
