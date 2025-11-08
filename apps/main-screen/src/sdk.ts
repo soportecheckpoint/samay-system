@@ -14,13 +14,13 @@ type Cleanup = () => void;
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "http://localhost:3001";
 
-type TimerSlice = Omit<TimerState, "update">;
+type TimerSlice = Omit<TimerState, "update" | "lastServerSyncAt">;
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
 	typeof value === "object" && value !== null;
 
 const isTimerPhase = (value: unknown): value is TimerPhase =>
-	value === "idle" || value === "running" || value === "paused" || value === "won";
+	value === "idle" || value === "running" || value === "paused" || value === "won" || value === "lost";
 
 const handleStorageUpdate = (payload: StorageUpdatePayload) => {
 	const { state } = payload;
@@ -51,7 +51,7 @@ const handleStorageUpdate = (payload: StorageUpdatePayload) => {
 	}
 
 	if (Object.keys(timerUpdate).length > 0) {
-		useTimerStore.getState().update(timerUpdate);
+		useTimerStore.getState().update(timerUpdate, { fromServer: true });
 	}
 
 	if (lastMessage) {
@@ -131,7 +131,7 @@ export const useMainScreenSdk = () => {
 		}
 
 		// Reset all local stores so the UI returns to its initial state after a global reset
-		useTimerStore.getState().update({ totalMs: 0, remainingMs: 0, phase: "idle" });
+		useTimerStore.getState().update({ totalMs: 2400000, remainingMs: 2400000, phase: "idle" }, { fromServer: true });
 		usePreviousMessageStore.getState().update("");
 		useViewStore.getState().setView("");
 	}, [lastResetPayload]);

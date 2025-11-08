@@ -127,6 +127,13 @@ export function useDeviceCommands() {
     sdk.status.win(options);
   }, [sdk, isConnected]);
 
+  const statusLose = useCallback((options?: StatusCommandOptions) => {
+    if (!isConnected) {
+      return;
+    }
+    sdk.status.lose(options);
+  }, [sdk, isConnected]);
+
   const getCommands = useCallback(
     (target?: DeviceId, options?: BuildOptions): DeviceCommandHandle => {
       const targetInstanceId = options?.instanceId;
@@ -165,6 +172,7 @@ export function useDeviceCommands() {
       statusPause,
       statusRestart,
       statusWin,
+      statusLose,
       connectionState,
       isConnected,
     }),
@@ -177,6 +185,7 @@ export function useDeviceCommands() {
       statusPause,
       statusRestart,
       statusWin,
+      statusLose,
       connectionState,
       isConnected,
     ],

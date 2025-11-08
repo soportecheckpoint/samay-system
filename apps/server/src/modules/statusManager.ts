@@ -7,7 +7,7 @@ interface TimerState {
   durationMs: number;
   startedAt?: number | null;
   remainingMs: number;
-  phase: "idle" | "running" | "paused" | "won";
+  phase: "idle" | "running" | "paused" | "won" | "lost";
 }
 
 const DEFAULT_DURATION_MS = 40 * 60 * 1000;
@@ -65,6 +65,10 @@ export class StatusManager {
 
     socket.on(STATUS_EVENTS.WIN, (payload?: StatusPayload) => {
       this.win(payload);
+    });
+
+    socket.on(STATUS_EVENTS.LOSE, (payload?: StatusPayload) => {
+      this.lose(payload);
     });
   }
 
@@ -136,17 +140,27 @@ export class StatusManager {
 
   private win(payload?: StatusPayload): void {
     this.stopTicker();
+    this.finalizeOutcome("won", payload);
+    logger.info(`[StatusManager] Escape completed`);
+  }
+
+  private lose(payload?: StatusPayload): void {
+    this.stopTicker();
+    this.finalizeOutcome("lost", payload);
+    logger.warn(`[StatusManager] Escape failed`);
+  }
+
+  private finalizeOutcome(phase: "won" | "lost", payload?: StatusPayload): void {
     const elapsed = this.computeElapsed();
     const remainingMs = Math.max(this.state.durationMs - elapsed, 0);
 
     this.state = {
       ...this.state,
       remainingMs,
-      phase: "won"
+      phase
     };
 
     this.pushState({ note: payload?.note, operator: payload?.operator });
-    logger.info(`[StatusManager] Escape completed`);
   }
 
   private startTicker(): void {
@@ -157,13 +171,8 @@ export class StatusManager {
 
       if (remainingMs <= 0) {
         this.stopTicker();
-        this.state = {
-          ...this.state,
-          remainingMs: 0,
-          phase: "won"
-        };
-        this.pushState();
-        logger.info(`[StatusManager] Escape completed (timer)`);
+        this.finalizeOutcome("lost", { note: "timer-expired", operator: "system" });
+        logger.warn(`[StatusManager] Escape failed (timer)`);
         return;
       }
 

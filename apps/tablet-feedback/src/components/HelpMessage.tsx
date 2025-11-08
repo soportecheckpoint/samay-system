@@ -11,10 +11,15 @@ export function HelpView() {
   return (
     <View viewId="help-view">
       <div
-        className="w-full h-full bg-cover bg-center flex items-center justify-center cursor-pointer"
-        onClick={handleContinue}
+        className="w-full h-full bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(/images/fb_help.png)' }}
-      />
+      >
+        <div
+          className="cursor-pointer"
+          onClick={handleContinue}
+          style={{ width: 400, height: 100 }}
+        />
+      </div>
     </View>
   );
 }

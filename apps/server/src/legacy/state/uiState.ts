@@ -36,7 +36,7 @@ const createInitialMirror = (): TabletMirrorState => ({
 
 const createInitialTabletState = (): TabletState => ({
   currentStep: 'qr-scan',
-  currentView: 'camera-preview',
+  currentView: '',
   sessionId: '',
   selectedMessage: '',
   feedbackText: '',

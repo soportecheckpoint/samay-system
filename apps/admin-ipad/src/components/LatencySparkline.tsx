@@ -22,7 +22,7 @@ interface ChartPoint {
   latency: number | null;
 }
 
-const WINDOW_MS = 120_000; // 2 minutos
+const WINDOW_MS = 30_000; // 30 segundos
 const BUCKET_COUNT = 24;
 
 const DEVICE_COLORS: Record<string, string> = {
@@ -69,6 +69,7 @@ export function LatencySparkline({
     latestLatency,
     sampleCount,
     yDomainMax,
+    xDomain,
   } = useMemo(() => {
     if (!deviceId) {
       return {
@@ -76,12 +77,12 @@ export function LatencySparkline({
         latestLatency: undefined as number | undefined,
         sampleCount: 0,
         yDomainMax: 100,
+        xDomain: [Date.now() - WINDOW_MS, Date.now()] as [number, number],
       };
     }
 
-    const now = Date.now();
-    const windowStart = now - WINDOW_MS;
-    const bucketSize = WINDOW_MS / BUCKET_COUNT;
+    const bucketSize = Math.max(1, Math.round(WINDOW_MS / BUCKET_COUNT));
+    const windowSize = bucketSize * BUCKET_COUNT;
 
     const samples = heartbeats
       .filter((heartbeat) => {
@@ -91,9 +92,15 @@ export function LatencySparkline({
         if (instanceId && heartbeat.instanceId !== instanceId) {
           return false;
         }
-        return heartbeat.at >= windowStart;
+        return typeof heartbeat.at === "number";
       })
       .sort((a, b) => a.at - b.at);
+
+    const latestSampleAt = samples.length > 0 ? samples[samples.length - 1].at : Date.now();
+    const referenceNow = Date.now();
+    const windowEndCandidate = Math.max(referenceNow, latestSampleAt);
+    const alignedWindowEnd = Math.ceil(windowEndCandidate / bucketSize) * bucketSize;
+    const windowStart = alignedWindowEnd - windowSize;
 
     const rawBuckets: ChartPoint[] = Array.from({ length: BUCKET_COUNT }, (_, index) => {
       const time = windowStart + index * bucketSize;
@@ -108,10 +115,14 @@ export function LatencySparkline({
     });
 
     const latencyValues: number[] = [];
+    let lastLatencyBeforeWindow: number | null = null;
 
     samples.forEach((heartbeat) => {
       let bucketIndex = Math.floor((heartbeat.at - windowStart) / bucketSize);
       if (bucketIndex < 0) {
+        if (typeof heartbeat.latencyMs === "number") {
+          lastLatencyBeforeWindow = heartbeat.latencyMs;
+        }
         return;
       }
       if (bucketIndex >= BUCKET_COUNT) {
@@ -128,7 +139,7 @@ export function LatencySparkline({
       latencyValues.push(latency);
     });
 
-    let rollingLatency: number | null = null;
+    let rollingLatency: number | null = lastLatencyBeforeWindow;
     const chartData = rawBuckets.map((bucket) => {
       if (typeof bucket.latency === "number") {
         rollingLatency = bucket.latency;
@@ -149,6 +160,7 @@ export function LatencySparkline({
       latestLatency,
       sampleCount,
       yDomainMax,
+      xDomain: [windowStart, alignedWindowEnd] as [number, number],
     };
   }, [deviceId, heartbeats, instanceId]);
 
@@ -187,7 +199,12 @@ export function LatencySparkline({
                     <stop offset="100%" stopColor={color} stopOpacity={0.04} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="label" hide />
+                <XAxis
+                  dataKey="time"
+                  type="number"
+                  domain={xDomain}
+                  hide
+                />
                 <YAxis domain={[0, yDomainMax]} hide />
                 <Area
                   type="monotone"

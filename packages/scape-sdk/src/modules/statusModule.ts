@@ -24,4 +24,8 @@ export class StatusModuleImpl implements StatusModule {
   win(payload?: StatusPayload): void {
     this.socket.emit(STATUS_EVENTS.WIN, payload ?? {});
   }
+
+  lose(payload?: StatusPayload): void {
+    this.socket.emit(STATUS_EVENTS.LOSE, payload ?? {});
+  }
 }

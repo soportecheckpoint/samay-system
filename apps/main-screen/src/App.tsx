@@ -4,6 +4,7 @@ import { Timer } from './components/Timer';
 import { PreviousMessage } from './components/PreviousMessage';
 import { ViewRenderer } from './components/ViewRenderer';
 import VictoryScreen from './components/VictoryScreen';
+import { StartScreen } from './components/StartScreen';
 import { useMainScreenSdk } from './sdk';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       </div>
 
       <VictoryScreen />
+      <StartScreen />
     </SdkConnectionOverlay>
   );
 }

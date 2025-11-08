@@ -11,7 +11,7 @@ export function FinalMessage() {
 
     const timer = setTimeout(() => {
       setView('help-view');
-    }, 5000);
+    }, 13000);
 
     return () => clearTimeout(timer);
   }, [currentView, setView]);

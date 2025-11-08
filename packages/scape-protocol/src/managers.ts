@@ -160,7 +160,8 @@ export const STATUS_EVENTS = {
   START: "start-scape",
   PAUSE: "pause-scape",
   RESTART: "restart-scape",
-  WIN: "win-scape"
+  WIN: "win-scape",
+  LOSE: "lose-scape"
 } as const;
 
 export interface StatusPayload {

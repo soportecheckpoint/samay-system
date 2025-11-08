@@ -34,13 +34,21 @@ export class StorageModuleImpl implements StorageModule {
     options?: StorageSubscribePayload
   ): () => void {
     const subscribeOptions = options ?? {};
-    this.socket.emit(STORAGE_EVENTS.SUBSCRIBE, subscribeOptions);
+    const emitSubscribe = () => {
+      this.socket.emit(STORAGE_EVENTS.SUBSCRIBE, subscribeOptions);
+    };
 
     const listener = (payload: StorageUpdatePayload) => handler(payload);
     this.socket.on(STORAGE_EVENTS.UPDATE, listener);
+    this.socket.on("connect", emitSubscribe);
+
+    if (this.socket.connected) {
+      emitSubscribe();
+    }
 
     return () => {
       this.socket.off(STORAGE_EVENTS.UPDATE, listener);
+      this.socket.off("connect", emitSubscribe);
       this.socket.emit(STORAGE_EVENTS.UNSUBSCRIBE, subscribeOptions);
     };
   }

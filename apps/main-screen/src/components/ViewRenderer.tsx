@@ -3,6 +3,7 @@ import { ImageView } from './ImageView';
 import { RecognitionPreview } from './RecognitionPreview';
 import { VIEW_CONTENT_MAP } from '../viewMapping';
 import { useViewStore } from '../store';
+import { useAudioPlayer } from '../hooks/useAudioPlayer';
 
 interface ViewRendererProps {
   className?: string;
@@ -12,6 +13,9 @@ export const ViewRenderer = ({ className = '' }: ViewRendererProps) => {
   const { currentView, currentInput, photoPath, recognitionPath } = useViewStore();
   const content = VIEW_CONTENT_MAP[currentView];
   const containerClass = ['w-full', 'h-full', className].filter(Boolean).join(' ');
+
+  // Play audio when view changes
+  useAudioPlayer(content?.audio, [content?.audio]);
 
   if (!content) {
     return (

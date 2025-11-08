@@ -12,15 +12,25 @@ export const ConfirmView: React.FC = () => {
   return (
     <View viewId="confirm">
       <div 
-        className="w-full h-full cursor-pointer"
-        onClick={handleClick}
+        className="w-full h-full relative"
         style={{
           backgroundImage: 'url(/bttn_bg_confirm.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
-      />
+      >
+        <div
+          className="absolute cursor-pointer"
+          onClick={handleClick}
+          style={{
+            left: '550px',
+            bottom: '100px',
+            width: '790px',
+            height: '120px'
+          }}
+        />
+      </div>
     </View>
   );
 };

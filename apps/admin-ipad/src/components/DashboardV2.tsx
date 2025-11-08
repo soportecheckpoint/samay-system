@@ -19,6 +19,7 @@ import { DEVICE } from "@samay/scape-protocol";
 import { MarkerLayer } from "./MarkerLayer.tsx";
 import { HardwareDrawer, type DrawerAction } from "./HardwareDrawer.tsx";
 import { VictoryModal } from "./VictoryModal.tsx";
+import { FailureModal } from "./FailureModal.tsx";
 import { MonitorModal } from "./MonitorModal.tsx";
 import { DEFAULT_MARKERS } from "./markerConfig.ts";
 import { deriveMarkerDetails, type MarkerDetails } from "./status.ts";
@@ -48,13 +49,14 @@ export function DashboardV2() {
   const stageRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { connected, modules, arduinos, timer, gameCompleted, completionTime } =
+  const { connected, modules, arduinos, timer, gameCompleted, gameFailed, completionTime } =
     useAdminStore((state) => ({
       connected: state.connected,
       modules: state.modules,
       arduinos: state.arduinos,
       timer: state.timer,
       gameCompleted: state.gameCompleted,
+      gameFailed: state.gameFailed,
       completionTime: state.completionTime,
     }));
 
@@ -277,7 +279,7 @@ export function DashboardV2() {
     setSelectedMarkerId(null);
   }, []);
 
-  const { getCommands, sendCommand, resetAll, statusStart, statusPause, statusRestart } = useDeviceCommands();
+  const { getCommands, sendCommand, resetAll, resetDevice, statusStart, statusPause, statusRestart, statusWin } = useDeviceCommands();
 
   const targetDevice = useMemo(() => {
     if (!selectedMarker) {
@@ -527,8 +529,63 @@ export function DashboardV2() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   }, []);
 
-  const handleVictoryReset = useCallback(() => {
-    resetAll({ reason: "admin-victory-reset", metadata: { source: "dashboard" } });
+  const handleOutcomeReset = useCallback(() => {
+    resetAll({ reason: "admin-outcome-reset", metadata: { source: "dashboard" } });
+  }, [resetAll]);
+
+  const handleRestartArduinos = useCallback(() => {
+    if (arduinos.length === 0) {
+      setMenuOpen(false);
+      return;
+    }
+
+    const metadata = {
+      origin: "admin-ipad",
+      source: "dashboard-menu",
+      action: "hardware-reset"
+    } as Record<string, unknown>;
+
+    const uniqueTargets = new Map<string, { deviceId: string; instanceId?: string }>();
+
+    for (const arduino of arduinos) {
+      if (!arduino.id) {
+        continue;
+      }
+      const key = `${arduino.id}::${arduino.instanceId ?? ""}`;
+      if (!uniqueTargets.has(key)) {
+        uniqueTargets.set(key, { deviceId: arduino.id, instanceId: arduino.instanceId });
+      }
+    }
+
+    uniqueTargets.forEach(({ deviceId, instanceId }) => {
+      resetDevice(deviceId, {
+        reason: "admin-menu-reset-arduino",
+        metadata,
+        targetInstanceId: instanceId
+      });
+    });
+
+    setMenuOpen(false);
+  }, [arduinos, resetDevice]);
+
+  const handleTriggerVictory = useCallback(() => {
+    statusWin({
+      operator: "admin-ipad",
+      note: "triggered-from-dashboard-menu",
+      at: Date.now()
+    });
+    setMenuOpen(false);
+  }, [statusWin]);
+
+  const handleFullReset = useCallback(() => {
+    resetAll({
+      reason: "admin-menu-full-reset",
+      metadata: {
+        origin: "admin-ipad",
+        source: "dashboard-menu"
+      }
+    });
+    setMenuOpen(false);
   }, [resetAll]);
 
   return (
@@ -605,6 +662,7 @@ export function DashboardV2() {
                   {timer.status === "paused" && "Pausado"}
                   {timer.status === "waiting" && "En espera"}
                   {timer.status === "completed" && "Completado"}
+                  {timer.status === "failed" && "Perdido"}
                 </p>
               </div>
             </div>
@@ -741,11 +799,7 @@ export function DashboardV2() {
                 <div className="space-y-2.5">
                   <button
                     type="button"
-                    onClick={() => {
-                      // TODO: Implementar con scape-sdk
-                      console.log("Restart all arduinos - TODO con scape-sdk");
-                      setMenuOpen(false);
-                    }}
+                    onClick={handleRestartArduinos}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-slate-300/60 bg-gradient-to-br from-slate-50 to-slate-100/50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all duration-300 hover:scale-[1.02] hover:border-slate-400/60"
                   >
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
@@ -760,11 +814,7 @@ export function DashboardV2() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      // TODO: Implementar con scape-sdk
-                      console.log("Trigger victory - TODO con scape-sdk");
-                      setMenuOpen(false);
-                    }}
+                    onClick={handleTriggerVictory}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-emerald-400/40 bg-gradient-to-br from-emerald-50 to-emerald-100/50 px-4 py-3 text-left text-sm font-semibold text-emerald-700 transition-all duration-300 hover:scale-[1.02] hover:border-emerald-400/60 shadow-[0_2px_12px_-2px_rgba(16,185,129,0.2)]"
                   >
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
@@ -779,11 +829,7 @@ export function DashboardV2() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      // TODO: Implementar con scape-sdk
-                      console.log("Reset game - TODO con scape-sdk");
-                      setMenuOpen(false);
-                    }}
+                    onClick={handleFullReset}
                     className="flex w-full items-center gap-3 rounded-2xl border-2 border-rose-400/40 bg-gradient-to-br from-rose-50 to-rose-100/50 px-4 py-3 text-left text-sm font-semibold text-rose-700 transition-all duration-300 hover:scale-[1.02] hover:border-rose-400/60 shadow-[0_2px_12px_-2px_rgba(244,63,94,0.2)]"
                   >
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
@@ -827,7 +873,15 @@ export function DashboardV2() {
         )}
 
         {gameCompleted && completionTime !== undefined && (
-          <VictoryModal completionTime={completionTime} onReset={handleVictoryReset} />
+          <VictoryModal completionTime={completionTime} onReset={handleOutcomeReset} />
+        )}
+
+        {gameFailed && (
+          <FailureModal
+            onReset={handleOutcomeReset}
+            remainingSeconds={timer.remainingTime}
+            totalSeconds={timer.totalTime}
+          />
         )}
 
         <MonitorModal open={monitorOpen} onClose={() => setMonitorOpen(false)} />

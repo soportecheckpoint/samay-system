@@ -1,26 +1,40 @@
 import { create } from "zustand";
 
 // Timer phase matching server StatusManager
-export type TimerPhase = "idle" | "running" | "paused" | "won";
+export type TimerPhase = "idle" | "running" | "paused" | "won" | "lost";
 
 // Timer store with counter state
 export interface TimerState {
   totalMs: number;
   remainingMs: number;
   phase: TimerPhase;
-  update: (snapshot: Partial<Omit<TimerState, "update">>) => void;
+  lastServerSyncAt: number;
+  update: (
+    snapshot: Partial<Omit<TimerState, "update" | "lastServerSyncAt">>,
+    options?: { fromServer?: boolean }
+  ) => void;
 }
 
 export const useTimerStore = create<TimerState>((set) => ({
   totalMs: 0,
   remainingMs: 0,
   phase: "idle",
-  update: (snapshot) =>
-    set((state) => ({
-      totalMs: snapshot.totalMs ?? state.totalMs,
-      remainingMs: snapshot.remainingMs ?? state.remainingMs,
-      phase: snapshot.phase ?? state.phase,
-    })),
+  lastServerSyncAt: 0,
+  update: (snapshot, options) =>
+    set((state) => {
+      const nextState = {
+        totalMs: snapshot.totalMs ?? state.totalMs,
+        remainingMs: snapshot.remainingMs ?? state.remainingMs,
+        phase: snapshot.phase ?? state.phase,
+        lastServerSyncAt: state.lastServerSyncAt,
+      };
+
+      if (options?.fromServer) {
+        nextState.lastServerSyncAt = Date.now();
+      }
+
+      return nextState;
+    }),
 }));
 
 // Previous message store
@@ -82,4 +96,15 @@ export const useViewStore = create<ViewState>((set) => ({
       photoPath: options?.photoPath ?? null,
       recognitionPath: options?.recognitionPath ?? null,
     }),
+}));
+
+// Audio initialization state - tracks if user has interacted to enable audio
+interface AudioState {
+  isInitialized: boolean;
+  initialize: () => void;
+}
+
+export const useAudioStore = create<AudioState>((set) => ({
+  isInitialized: false,
+  initialize: () => set({ isInitialized: true }),
 }));

@@ -96,6 +96,13 @@ interface LatencyTooltipProps {
   label?: string | number;
 }
 
+const formatTooltipLabel = (value: LatencyTooltipProps["label"]): string => {
+  if (typeof value === "number") {
+    return formatTimestamp(value);
+  }
+  return typeof value === "string" ? value : "";
+};
+
 const LatencyTooltip = ({ active, payload, label }: LatencyTooltipProps) => {
   if (!active || !payload || payload.length === 0) {
     return null;
@@ -103,7 +110,7 @@ const LatencyTooltip = ({ active, payload, label }: LatencyTooltipProps) => {
 
   return (
     <div className="rounded-2xl border border-slate-300/60 bg-white/95 px-3 py-2 shadow-lg backdrop-blur">
-      <p className="text-xs font-semibold text-slate-600">{label}</p>
+      <p className="text-xs font-semibold text-slate-600">{formatTooltipLabel(label)}</p>
       <div className="mt-2 space-y-1">
         {payload.map((entry) => {
           if (typeof entry.value !== "number") {
@@ -138,16 +145,21 @@ const HeartbeatChart = ({
   heartbeats: AdminHeartbeatSnapshot[];
   deviceSnapshots: AdminDeviceSnapshot[];
 }) => {
-  const { chartData, deviceIds, maxLatency, totalSamples } = useMemo(() => {
-    const now = Date.now();
+  const { chartData, deviceIds, maxLatency, totalSamples, xDomain } = useMemo(() => {
     const windowMs = 60000;
     const bucketCount = 60;
-    const bucketSize = windowMs / bucketCount;
-    const windowStart = now - windowMs;
+    const bucketSize = Math.max(1, Math.round(windowMs / bucketCount));
+    const windowSize = bucketSize * bucketCount;
 
     const samples = heartbeats
-      .filter((heartbeat) => heartbeat.at >= windowStart)
+      .filter((heartbeat) => typeof heartbeat.at === "number")
       .sort((a, b) => a.at - b.at);
+
+    const now = Date.now();
+    const latestSampleAt = samples.length > 0 ? samples[samples.length - 1].at : now;
+    const windowEndCandidate = Math.max(now, latestSampleAt);
+    const alignedWindowEnd = Math.ceil(windowEndCandidate / bucketSize) * bucketSize;
+    const windowStart = alignedWindowEnd - windowSize;
 
     const allDeviceIds = new Set<string>();
     deviceSnapshots.forEach((snapshot) => {
@@ -165,7 +177,8 @@ const HeartbeatChart = ({
       (_, index) => {
         const timestamp = windowStart + index * bucketSize;
         return {
-          time: new Date(timestamp).toLocaleTimeString("es-ES", {
+          time: timestamp,
+          label: new Date(timestamp).toLocaleTimeString("es-ES", {
             minute: "2-digit",
             second: "2-digit"
           })
@@ -174,10 +187,15 @@ const HeartbeatChart = ({
     );
 
     let computedMaxLatency = 0;
+  const lastLatencyBeforeWindow = new Map<string, number>();
 
     samples.forEach((heartbeat) => {
       let bucketIndex = Math.floor((heartbeat.at - windowStart) / bucketSize);
       if (bucketIndex < 0) {
+        const latency = typeof heartbeat.latencyMs === "number" ? heartbeat.latencyMs : null;
+        if (latency !== null) {
+          lastLatencyBeforeWindow.set(heartbeat.device, latency);
+        }
         return;
       }
       if (bucketIndex >= bucketCount) {
@@ -196,11 +214,16 @@ const HeartbeatChart = ({
 
     const rollingLatency = new Map<string, number>();
     const chartData = rawBuckets.map((bucket) => {
-      const point: Record<string, number | string | null> = { time: bucket.time };
+      const point: Record<string, number | string | null> = {
+        time: bucket.time,
+        label: bucket.label
+      };
       deviceIds.forEach((device) => {
         const current = bucket[device];
         if (typeof current === "number") {
           rollingLatency.set(device, current);
+        } else if (!rollingLatency.has(device) && lastLatencyBeforeWindow.has(device)) {
+          rollingLatency.set(device, lastLatencyBeforeWindow.get(device)!);
         }
         const latest = rollingLatency.get(device);
         point[device] = typeof latest === "number" ? latest : null;
@@ -212,7 +235,8 @@ const HeartbeatChart = ({
       chartData,
       deviceIds,
       maxLatency: normalizedMaxLatency,
-      totalSamples: samples.length
+      totalSamples: samples.length,
+      xDomain: [windowStart, alignedWindowEnd] as [number, number]
     };
   }, [deviceSnapshots, heartbeats]);
 
@@ -270,10 +294,13 @@ const HeartbeatChart = ({
             <CartesianGrid stroke="rgba(148, 163, 184, 0.25)" strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="time"
+              type="number"
+              domain={xDomain}
               tick={{ fill: "#64748b", fontSize: 11, fontWeight: 500 }}
               axisLine={false}
               tickLine={false}
               minTickGap={24}
+              tickFormatter={(value) => formatTimestamp(Number(value))}
             />
             <YAxis
               tick={{ fill: "#64748b", fontSize: 11, fontWeight: 500 }}

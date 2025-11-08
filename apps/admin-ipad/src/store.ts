@@ -85,7 +85,7 @@ export interface TimerState {
   remainingTime: number;
   totalTime: number;
   elapsedTime: number;
-  status: "waiting" | "active" | "paused" | "completed";
+  status: "waiting" | "active" | "paused" | "completed" | "failed";
 }
 
 interface StorageTimerSnapshot {
@@ -131,6 +131,7 @@ interface AdminStore {
   arduinos: ArduinoState[];
   timer: TimerState;
   gameCompleted: boolean;
+  gameFailed: boolean;
   completionTime?: number;
   setConnected: (connected: boolean) => void;
   hydrateAdminState: (snapshot: AdminStateSnapshot) => void;
@@ -156,6 +157,8 @@ const mapTimerPhase = (phase?: string): TimerState["status"] => {
       return "paused";
     case "won":
       return "completed";
+    case "lost":
+      return "failed";
     default:
       return "waiting";
   }
@@ -372,6 +375,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   arduinos: [],
   timer: { ...DEFAULT_TIMER },
   gameCompleted: false,
+  gameFailed: false,
   completionTime: undefined,
 
   setConnected: (connected) => set({ connected }),
@@ -417,6 +421,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
       lastUpdatedAt: null,
       timer: { ...DEFAULT_TIMER },
       gameCompleted: false,
+      gameFailed: false,
       completionTime: undefined
     }),
 
@@ -430,12 +435,14 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
       const phase = typeof snapshot?.phase === "string" ? snapshot?.phase : undefined;
       const status = mapTimerPhase(phase);
       const completed = status === "completed";
+      const failed = status === "failed";
       const completionTime = completed
         ? Math.max(state.timer.totalTime - state.timer.remainingTime, 0)
         : undefined;
 
       return {
         gameCompleted: completed,
+        gameFailed: failed,
         completionTime,
         timer: {
           ...state.timer,

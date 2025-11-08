@@ -2952,3 +2952,613 @@
 2025-11-08T11:22:49.908Z [[32minfo[39m]: [StatusManager] State reset 
 2025-11-08T11:22:55.435Z [[32minfo[39m]: SIGTERM signal received: closing servers 
 2025-11-08T11:22:55.435Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T11:23:00.794Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T11:23:00.795Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T11:23:00.795Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T11:23:00.795Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T11:23:01.492Z [[32minfo[39m]: [Socket] Connected: gBPrPgN-y7xSXNqiAAAB 
+2025-11-08T11:23:01.500Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (a3d9a6fe-5efc-4539-8772-4946dbd5817c) via socket from 192.168.18.182 
+2025-11-08T11:23:01.546Z [[32minfo[39m]: [Socket] Connected: EqnXXCRMvU9FcAzLAAAE 
+2025-11-08T11:23:01.547Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (473005da-240a-4245-830c-17965ea1073c) via socket from 192.168.18.165 
+2025-11-08T11:23:01.548Z [[32minfo[39m]: [Socket] Connected: 2GBqpGD6Okaw_Ch4AAAF 
+2025-11-08T11:23:01.555Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T11:23:01.657Z [[32minfo[39m]: [Socket] Connected: IMTQkrjRI7CB3zafAAAH 
+2025-11-08T11:23:01.657Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c68d6c94-1483-4cf6-8422-1afdb541285c) via socket from 192.168.18.165 
+2025-11-08T11:23:01.929Z [[32minfo[39m]: [Socket] Connected: xvWsNBu_sEUJ2AyZAAAJ 
+2025-11-08T11:23:01.929Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (bdbc156c-fdfe-4d2f-aca7-5fc38335a471) via socket from 192.168.18.165 
+2025-11-08T11:23:01.941Z [[32minfo[39m]: [Socket] Connected: FaL3aeSTNcLhifseAAAL 
+2025-11-08T11:23:01.942Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T11:23:01.954Z [[32minfo[39m]: [Socket] Connected: BEfYOGQJh50_rAHzAAAN 
+2025-11-08T11:23:01.955Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (5b97abca-d2db-4624-9260-7c7084e21d93) via socket from 192.168.18.165 
+2025-11-08T11:29:46.325Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T11:29:50.472Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (a3d9a6fe-5efc-4539-8772-4946dbd5817c) 
+2025-11-08T11:29:50.473Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:33:11.736Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T11:33:13.290Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (a3d9a6fe-5efc-4539-8772-4946dbd5817c) 
+2025-11-08T11:33:13.291Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:33:16.530Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (473005da-240a-4245-830c-17965ea1073c) from 192.168.18.165 
+2025-11-08T11:33:16.660Z [[32minfo[39m]: [Socket] Connected: hlCS6CcbcjCHX3ZHAAAP 
+2025-11-08T11:33:16.661Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T11:33:16.662Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T11:33:26.785Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T11:33:26.786Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T11:33:26.786Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T11:33:26.786Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T11:33:26.935Z [[32minfo[39m]: [Socket] Connected: oYf0bcBgkN122PrwAAAB 
+2025-11-08T11:33:26.937Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (5b97abca-d2db-4624-9260-7c7084e21d93) via socket from 192.168.18.165 
+2025-11-08T11:33:26.944Z [[32minfo[39m]: [Socket] Connected: YKQJ3aApfQk7q3TGAAAD 
+2025-11-08T11:33:26.944Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T11:33:26.956Z [[32minfo[39m]: [Socket] Connected: nAmp7_qf73PxC0zWAAAF 
+2025-11-08T11:33:26.957Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (bdbc156c-fdfe-4d2f-aca7-5fc38335a471) via socket from 192.168.18.165 
+2025-11-08T11:33:27.937Z [[32minfo[39m]: [Socket] Connected: yn_3AiiVNcw4aZM9AAAH 
+2025-11-08T11:33:27.944Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (75f527cd-1cbe-4e2d-94dc-33a1f2d11c1a) via socket from 192.168.18.182 
+2025-11-08T11:33:28.152Z [[32minfo[39m]: [Socket] Connected: 5veHD0HtGicy_nNeAAAJ 
+2025-11-08T11:33:28.158Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T11:33:29.797Z [[32minfo[39m]: [Socket] Connected: Zs5h1z9OC39OgqBpAAAL 
+2025-11-08T11:33:29.798Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T11:33:30.684Z [[32minfo[39m]: [Socket] Connected: CfZNKWj5CVXbabEFAAAN 
+2025-11-08T11:33:30.685Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c68d6c94-1483-4cf6-8422-1afdb541285c) via socket from 192.168.18.165 
+2025-11-08T11:33:30.829Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T11:33:33.543Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (75f527cd-1cbe-4e2d-94dc-33a1f2d11c1a) 
+2025-11-08T11:33:33.544Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:34:57.116Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (5b97abca-d2db-4624-9260-7c7084e21d93) from 192.168.18.165 
+2025-11-08T11:38:35.490Z [[32minfo[39m]: [Socket] Connected: o6JEn4Z3uFIRUsY7AAAP 
+2025-11-08T11:38:35.496Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T11:38:35.497Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (ec7673fb-8cc0-4422-8287-6de5fa98ec04) via socket from 192.168.18.182 
+2025-11-08T11:40:09.694Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (ec7673fb-8cc0-4422-8287-6de5fa98ec04) 
+2025-11-08T11:40:09.695Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:40:12.848Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (ec7673fb-8cc0-4422-8287-6de5fa98ec04) 
+2025-11-08T11:40:12.848Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:40:17.314Z [[32minfo[39m]: [StatusManager] Escape completed 
+2025-11-08T11:40:20.023Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (ec7673fb-8cc0-4422-8287-6de5fa98ec04) 
+2025-11-08T11:40:20.023Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T11:40:44.597Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (75f527cd-1cbe-4e2d-94dc-33a1f2d11c1a) from 192.168.18.182 
+2025-11-08T11:40:44.598Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (ec7673fb-8cc0-4422-8287-6de5fa98ec04) from 192.168.18.182 
+2025-11-08T11:40:44.774Z [[32minfo[39m]: [Socket] Connected: 5zoYyyWiVNNsgfEtAAAR 
+2025-11-08T11:40:44.779Z [[32minfo[39m]: [DeviceManager] Cleaned up 2 offline devices for admin-ipad 
+2025-11-08T11:40:44.780Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (d50bc0e3-0771-4de9-8e85-dc848556415f) via socket from 192.168.18.182 
+2025-11-08T11:40:57.585Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (d50bc0e3-0771-4de9-8e85-dc848556415f) from 192.168.18.182 
+2025-11-08T11:40:57.743Z [[32minfo[39m]: [Socket] Connected: BdkXzkHOqqS3at1ZAAAT 
+2025-11-08T11:40:57.751Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T11:40:57.751Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (af6e33eb-fb96-45d4-a5b1-34604cd2007b) via socket from 192.168.18.182 
+2025-11-08T11:55:01.533Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T11:55:40.052Z [[32minfo[39m]: [DeviceManager] Device disconnected: buttons-game (bdbc156c-fdfe-4d2f-aca7-5fc38335a471) from 192.168.18.165 
+2025-11-08T11:55:40.586Z [[32minfo[39m]: [Socket] Connected: LL6d9GWTTgxTESllAAAV 
+2025-11-08T11:55:40.604Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for buttons-game 
+2025-11-08T11:55:40.604Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T11:57:34.688Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (af6e33eb-fb96-45d4-a5b1-34604cd2007b) targeting buttons-game@3e3121d9-6f76-4207-802f-5afd8c0d6adf 
+2025-11-08T12:00:35.366Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (af6e33eb-fb96-45d4-a5b1-34604cd2007b) from 192.168.18.182 
+2025-11-08T12:00:35.527Z [[32minfo[39m]: [Socket] Connected: krywlu7XPQ7nYscdAAAX 
+2025-11-08T12:00:35.532Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:00:35.532Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (bcadaa86-07d6-438a-82cf-91af18470893) via socket from 192.168.18.182 
+2025-11-08T12:01:09.934Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (c68d6c94-1483-4cf6-8422-1afdb541285c) from 192.168.18.165 
+2025-11-08T12:01:14.464Z [[32minfo[39m]: [Socket] Connected: AKH0QOCsyO9yP1ZbAAAZ 
+2025-11-08T12:01:14.465Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:01:14.465Z [[32minfo[39m]: [DeviceManager] Device registered: totem (2dcef963-d150-4bfb-b305-14faa6bb2658) via socket from 192.168.18.165 
+2025-11-08T12:01:14.841Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (2dcef963-d150-4bfb-b305-14faa6bb2658) from 192.168.18.165 
+2025-11-08T12:01:17.886Z [[32minfo[39m]: [Socket] Connected: OkTJqiY3kIJnhc2GAAAb 
+2025-11-08T12:01:17.887Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:01:17.887Z [[32minfo[39m]: [DeviceManager] Device registered: totem (de49b584-67dd-41b9-b1e8-9525ac93c63c) via socket from 192.168.18.165 
+2025-11-08T12:11:33.726Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (de49b584-67dd-41b9-b1e8-9525ac93c63c) from 192.168.18.165 
+2025-11-08T12:11:33.884Z [[32minfo[39m]: [Socket] Connected: p1x6uaXDC7xWtDnUAAAd 
+2025-11-08T12:11:33.886Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:11:33.886Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c7d74637-6cd2-4ac4-8316-99440d4c7ab5) via socket from 192.168.18.165 
+2025-11-08T12:11:39.372Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (c7d74637-6cd2-4ac4-8316-99440d4c7ab5) from 192.168.18.165 
+2025-11-08T12:13:06.006Z [[32minfo[39m]: [Socket] Connected: RVUwvFMMbUzSV1cWAAAf 
+2025-11-08T12:13:06.028Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:13:06.028Z [[32minfo[39m]: [DeviceManager] Device registered: totem (d81b3828-fece-459a-95ef-65b7bd5f6530) via socket from 192.168.18.165 
+2025-11-08T12:15:16.168Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (bcadaa86-07d6-438a-82cf-91af18470893) targeting totem@d81b3828-fece-459a-95ef-65b7bd5f6530 
+2025-11-08T12:16:30.351Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (bcadaa86-07d6-438a-82cf-91af18470893) targeting totem@d81b3828-fece-459a-95ef-65b7bd5f6530 
+2025-11-08T12:17:21.060Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (d81b3828-fece-459a-95ef-65b7bd5f6530) from 192.168.18.165 
+2025-11-08T12:17:21.216Z [[32minfo[39m]: [Socket] Connected: r3rjUNFLfdoTdHiwAAAh 
+2025-11-08T12:17:21.234Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:17:21.234Z [[32minfo[39m]: [DeviceManager] Device registered: totem (b080c833-78f3-42b9-a128-dcd2e1623fd6) via socket from 192.168.18.165 
+2025-11-08T12:17:53.317Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (bcadaa86-07d6-438a-82cf-91af18470893) targeting totem@b080c833-78f3-42b9-a128-dcd2e1623fd6 
+2025-11-08T12:22:26.486Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (bcadaa86-07d6-438a-82cf-91af18470893) from 192.168.18.182 
+2025-11-08T12:23:10.562Z [[32minfo[39m]: [Socket] Connected: xYQfdUf19zZfnnfYAAAj 
+2025-11-08T12:23:10.570Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:23:10.570Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (e1f7f29b-f58e-40bc-a358-337b4c78ba9e) via socket from 192.168.18.182 
+2025-11-08T12:23:27.884Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (b080c833-78f3-42b9-a128-dcd2e1623fd6) from 192.168.18.165 
+2025-11-08T12:23:28.029Z [[32minfo[39m]: [Socket] Connected: 5AO5BWBzaXeJce2kAAAl 
+2025-11-08T12:23:28.031Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T12:23:28.031Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:23:28.788Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (e1f7f29b-f58e-40bc-a358-337b4c78ba9e) from 192.168.18.182 
+2025-11-08T12:23:30.719Z [[32minfo[39m]: [Socket] Connected: 1WdIEmo7YzXvqY3uAAAn 
+2025-11-08T12:23:30.725Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:23:30.725Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (d1eeea27-9502-46c0-818c-15dc17415858) via socket from 192.168.18.182 
+2025-11-08T12:23:31.594Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (d1eeea27-9502-46c0-818c-15dc17415858) from 192.168.18.182 
+2025-11-08T12:23:32.836Z [[32minfo[39m]: [Socket] Connected: XSwnKNE8BqwnRlDGAAAp 
+2025-11-08T12:23:32.842Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:23:32.842Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (dd10a232-d34e-4074-a7d2-80b0f9fd81e9) via socket from 192.168.18.182 
+2025-11-08T12:24:21.990Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (dd10a232-d34e-4074-a7d2-80b0f9fd81e9) from 192.168.18.182 
+2025-11-08T12:24:23.327Z [[32minfo[39m]: [Socket] Connected: oGalLq0OMejSdIj8AAAr 
+2025-11-08T12:24:23.333Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:24:23.333Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (89f34b27-7a51-4459-b816-4ee09873ea12) via socket from 192.168.18.182 
+2025-11-08T12:24:28.267Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (89f34b27-7a51-4459-b816-4ee09873ea12) from 192.168.18.182 
+2025-11-08T12:24:32.994Z [[32minfo[39m]: [Socket] Connected: 3xrZsEk_wIM-ImNYAAAt 
+2025-11-08T12:24:33.000Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:24:33.000Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (88a8f9f9-e16e-48c7-a1df-8d6ab47f2134) via socket from 192.168.18.165 
+2025-11-08T12:24:40.154Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (88a8f9f9-e16e-48c7-a1df-8d6ab47f2134) from 192.168.18.165 
+2025-11-08T12:24:59.287Z [[32minfo[39m]: [Socket] Connected: PSvoysHQlR2kvK1JAAAw 
+2025-11-08T12:24:59.320Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:24:59.320Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (4947ddbe-03e6-4fee-b6e0-74dcf8b4df35) via socket from 192.168.18.165 
+2025-11-08T12:25:03.153Z [[32minfo[39m]: [Socket] Connected: 0-ufWwaHTMFQ5g2QAAAy 
+2025-11-08T12:25:03.158Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:25:16.899Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (4947ddbe-03e6-4fee-b6e0-74dcf8b4df35) from 192.168.18.165 
+2025-11-08T12:35:01.571Z [[32minfo[39m]: [StatusManager] Escape completed (timer) 
+2025-11-08T12:43:15.584Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:43:15.607Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:43:21.040Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:43:21.041Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:43:21.042Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:43:21.042Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:43:21.763Z [[32minfo[39m]: [Socket] Connected: -H74P_XkvKxqkjEjAAAB 
+2025-11-08T12:43:21.770Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:43:21.934Z [[32minfo[39m]: [Socket] Connected: YKAE8LvheC7k0QuBAAAD 
+2025-11-08T12:43:21.935Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:43:21.945Z [[32minfo[39m]: [Socket] Connected: m2QMEv50d-t6iZCcAAAF 
+2025-11-08T12:43:21.946Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:43:21.957Z [[32minfo[39m]: [Socket] Connected: 4oqOEJ9erMXAxUtuAAAH 
+2025-11-08T12:43:21.958Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:43:22.134Z [[32minfo[39m]: [Socket] Connected: nEGJURkTC0BPegV1AAAJ 
+2025-11-08T12:43:22.139Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:43:22.907Z [[32minfo[39m]: [Socket] Connected: oE7EcS5VIJd7-fGrAAAL 
+2025-11-08T12:43:22.907Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:43:59.354Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:43:59.355Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:44:04.673Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:44:04.673Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:44:04.674Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:44:04.674Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:44:05.698Z [[32minfo[39m]: [Socket] Connected: yHibExV38gT5CpSfAAAB 
+2025-11-08T12:44:05.704Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:44:05.915Z [[32minfo[39m]: [Socket] Connected: QHLpV4cvzl9lkNdfAAAD 
+2025-11-08T12:44:05.921Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:44:05.938Z [[32minfo[39m]: [Socket] Connected: MpO0x3-yuW6dtRC1AAAF 
+2025-11-08T12:44:05.939Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:44:05.954Z [[32minfo[39m]: [Socket] Connected: 2_s8TT6jHAFxo8WnAAAH 
+2025-11-08T12:44:05.954Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:44:05.966Z [[32minfo[39m]: [Socket] Connected: 8q_n71usyhG7n31pAAAJ 
+2025-11-08T12:44:05.966Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:44:05.977Z [[32minfo[39m]: [Socket] Connected: 4N-x1yDJti99nwNoAAAL 
+2025-11-08T12:44:05.978Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:44:18.823Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:44:18.824Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:44:24.154Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:44:24.155Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:44:24.155Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:44:24.155Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:44:24.737Z [[32minfo[39m]: [Socket] Connected: Qzr8dSxJKQarOaKqAAAB 
+2025-11-08T12:44:24.743Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:44:24.903Z [[32minfo[39m]: [Socket] Connected: R2WRe5Oj-yJh6z0PAAAD 
+2025-11-08T12:44:24.903Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:44:25.445Z [[32minfo[39m]: [Socket] Connected: vQ-kAx1wH53FlljLAAAF 
+2025-11-08T12:44:25.452Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:44:25.927Z [[32minfo[39m]: [Socket] Connected: dnTYImLPqpYCRK2IAAAH 
+2025-11-08T12:44:25.927Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:44:25.939Z [[32minfo[39m]: [Socket] Connected: r9Jnjdi-KrzVYu7DAAAJ 
+2025-11-08T12:44:25.940Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:44:25.950Z [[32minfo[39m]: [Socket] Connected: KReJzScaL5CBvU6LAAAL 
+2025-11-08T12:44:25.950Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:44:37.402Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:44:37.402Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:44:42.720Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:44:42.721Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:44:42.721Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:44:42.722Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:44:43.691Z [[32minfo[39m]: [Socket] Connected: 8t4qakC8nXmLAGkLAAAC 
+2025-11-08T12:44:43.699Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:44:43.702Z [[32minfo[39m]: [Socket] Connected: xQQAfUDTGwE0EdACAAAD 
+2025-11-08T12:44:43.712Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:44:43.939Z [[32minfo[39m]: [Socket] Connected: oPWAPw0tknm1d8yAAAAF 
+2025-11-08T12:44:43.940Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:44:43.950Z [[32minfo[39m]: [Socket] Connected: Vk-IMzUpUoafgJkiAAAH 
+2025-11-08T12:44:43.951Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:44:43.963Z [[32minfo[39m]: [Socket] Connected: HJpv9Yau4s5IRtNwAAAJ 
+2025-11-08T12:44:43.963Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:44:43.975Z [[32minfo[39m]: [Socket] Connected: 59OkNjqLNgyayjOHAAAL 
+2025-11-08T12:44:43.975Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:44:48.962Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:44:48.963Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:44:54.272Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:44:54.273Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:44:54.273Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:44:54.273Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:44:54.920Z [[32minfo[39m]: [Socket] Connected: AGtd2-XaaYq79j_OAAAB 
+2025-11-08T12:44:54.921Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:44:54.931Z [[32minfo[39m]: [Socket] Connected: AibClZ6G50Y49E6JAAAD 
+2025-11-08T12:44:54.931Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:44:55.348Z [[32minfo[39m]: [Socket] Connected: HnKPdDFRYfv_mPMzAAAF 
+2025-11-08T12:44:55.354Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) via socket from 192.168.18.182 
+2025-11-08T12:44:55.512Z [[32minfo[39m]: [Socket] Connected: kpzqtfzS7QIytVNXAAAH 
+2025-11-08T12:44:55.518Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:44:55.916Z [[32minfo[39m]: [Socket] Connected: d6q5EgZhTR-Vm39_AAAJ 
+2025-11-08T12:44:55.916Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:44:55.928Z [[32minfo[39m]: [Socket] Connected: Lu-S8bkOL_4yxkH3AAAL 
+2025-11-08T12:44:55.929Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:45:02.918Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (79eae736-6ecb-409c-b3ef-b81d47103a82) from 192.168.18.182 
+2025-11-08T12:45:26.407Z [[32minfo[39m]: [Socket] Connected: pCrbKy0A-LL0IZuzAAAN 
+2025-11-08T12:45:26.417Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T12:45:26.417Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (c1d8daec-a980-4aa3-b2d3-6583ec241f2f) via socket from 192.168.18.182 
+2025-11-08T12:48:28.617Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T12:48:28.618Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T12:48:29.403Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T12:48:29.404Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T12:48:29.405Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T12:48:29.405Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T12:48:29.910Z [[32minfo[39m]: [Socket] Connected: d35cRT6pDChyvCiuAAAB 
+2025-11-08T12:48:29.911Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T12:48:30.190Z [[32minfo[39m]: [Socket] Connected: Ujp6QxXDxaTIYXmfAAAD 
+2025-11-08T12:48:30.198Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) via socket from 192.168.18.182 
+2025-11-08T12:48:30.341Z [[32minfo[39m]: [Socket] Connected: zP1N2wHpNdD3583sAAAF 
+2025-11-08T12:48:30.349Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (c1d8daec-a980-4aa3-b2d3-6583ec241f2f) via socket from 192.168.18.182 
+2025-11-08T12:48:30.927Z [[32minfo[39m]: [Socket] Connected: gfWO59-LULOVkjBGAAAH 
+2025-11-08T12:48:30.927Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) via socket from 192.168.18.165 
+2025-11-08T12:48:30.939Z [[32minfo[39m]: [Socket] Connected: DmJ5m1oBtHD2ZOikAAAJ 
+2025-11-08T12:48:30.940Z [[32minfo[39m]: [DeviceManager] Device registered: totem (23a06882-981e-47f3-9e85-7147b27fdde1) via socket from 192.168.18.165 
+2025-11-08T12:48:30.952Z [[32minfo[39m]: [Socket] Connected: 5y33sGHalf2UptdBAAAL 
+2025-11-08T12:48:30.953Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) via socket from 192.168.18.165 
+2025-11-08T12:51:48.075Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T13:00:02.186Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (05589dc5-947d-4748-ae30-e980bf97c781) from 192.168.18.182 
+2025-11-08T13:00:03.275Z [[32minfo[39m]: [Socket] Connected: LlLBHkd8z-gd2sDAAAAN 
+2025-11-08T13:00:04.035Z [[32minfo[39m]: [Socket] Connected: PgJKieal-vkt2cXHAAAP 
+2025-11-08T13:00:04.042Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:00:04.042Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) via socket from 192.168.18.182 
+2025-11-08T13:03:31.948Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-08T13:03:31.951Z [[33mwarn[39m]: [CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET 
+2025-11-08T13:07:35.755Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (c1d8daec-a980-4aa3-b2d3-6583ec241f2f) from 192.168.18.182 
+2025-11-08T13:07:36.042Z [[32minfo[39m]: [Socket] Connected: 8U_7qV4VXR3pr_qfAAAR 
+2025-11-08T13:07:36.050Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T13:07:36.050Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (b51dff84-215b-4dd3-8107-b4597428c3af) via socket from 192.168.18.182 
+2025-11-08T13:07:54.685Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) from 192.168.18.182 
+2025-11-08T13:08:08.197Z [[32minfo[39m]: [Socket] Connected: cUmS-tqNkaNHoKKnAAAT 
+2025-11-08T13:08:08.204Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T13:08:53.190Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) from 192.168.18.182 
+2025-11-08T13:25:20.426Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (5d8a14fe-2715-41f7-819a-632f41a6cb06) from 192.168.18.165 
+2025-11-08T13:25:22.090Z [[32minfo[39m]: [Socket] Connected: MGy8XNI7LtPd6NKRAAAV 
+2025-11-08T13:25:22.117Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:25:22.117Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (41a62162-aeb4-4db0-8e7d-a4982a1cef5d) via socket from 192.168.18.165 
+2025-11-08T13:25:30.844Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (b51dff84-215b-4dd3-8107-b4597428c3af) from 192.168.18.182 
+2025-11-08T13:25:31.011Z [[32minfo[39m]: [Socket] Connected: dBW_AiZaTCmzRUHtAAAX 
+2025-11-08T13:25:31.017Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T13:25:31.017Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) via socket from 192.168.18.182 
+2025-11-08T13:27:49.086Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (41a62162-aeb4-4db0-8e7d-a4982a1cef5d) from 192.168.18.165 
+2025-11-08T13:27:49.288Z [[32minfo[39m]: [Socket] Connected: syb_-R9cyqlS6tVOAAAZ 
+2025-11-08T13:27:49.305Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:27:49.305Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (146f22a5-80b7-4e73-ba25-d95761c2f8df) via socket from 192.168.18.165 
+2025-11-08T13:27:58.912Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) targeting ai-app@146f22a5-80b7-4e73-ba25-d95761c2f8df 
+2025-11-08T13:28:02.510Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) targeting ai-app@146f22a5-80b7-4e73-ba25-d95761c2f8df 
+2025-11-08T13:29:47.506Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (146f22a5-80b7-4e73-ba25-d95761c2f8df) from 192.168.18.165 
+2025-11-08T13:29:47.692Z [[32minfo[39m]: [Socket] Connected: mP5Xkr--zPxeMzYlAAAb 
+2025-11-08T13:29:47.695Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:29:47.695Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (6a84b203-1b9a-4d4c-bdfa-c0fc696c46c3) via socket from 192.168.18.165 
+2025-11-08T13:30:36.550Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (6a84b203-1b9a-4d4c-bdfa-c0fc696c46c3) from 192.168.18.165 
+2025-11-08T13:30:36.689Z [[32minfo[39m]: [Socket] Connected: c4ycOUqfDwOBdE4BAAAd 
+2025-11-08T13:30:36.691Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:30:36.691Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (94dca348-75a0-4c5d-851f-5c74fd4d0a64) via socket from 192.168.18.165 
+2025-11-08T13:30:42.129Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (94dca348-75a0-4c5d-851f-5c74fd4d0a64) from 192.168.18.165 
+2025-11-08T13:30:42.250Z [[32minfo[39m]: [Socket] Connected: FY8GtEr1NegNll0QAAAf 
+2025-11-08T13:30:42.252Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:30:42.252Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (c9d7ea96-da94-44ce-8c94-32602a8922af) via socket from 192.168.18.165 
+2025-11-08T13:30:58.362Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (c9d7ea96-da94-44ce-8c94-32602a8922af) from 192.168.18.165 
+2025-11-08T13:30:58.480Z [[32minfo[39m]: [Socket] Connected: TdgV7KzclobNg4nfAAAh 
+2025-11-08T13:30:58.481Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:30:58.481Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (8692f78e-5c84-43c4-be1d-d76a9fed08a1) via socket from 192.168.18.165 
+2025-11-08T13:31:48.312Z [[33mwarn[39m]: [StatusManager] Escape failed (timer) 
+2025-11-08T13:35:12.164Z [[32minfo[39m]: [PrinterManager] Printing document: /home/yeferson/Dev/scape-room/scape-room-software/apps/server/to-print/to-print.pdf 
+2025-11-08T13:35:12.164Z [[32minfo[39m]: [PrinterManager] Target printer: EPSON_PM-520_Series 
+2025-11-08T13:35:12.167Z [[32minfo[39m]: [PRINTER] Plataforma detectada: linux 
+2025-11-08T13:35:12.167Z [[32minfo[39m]: [PRINTER] Imprimiendo PDF: /home/yeferson/Dev/scape-room/scape-room-software/apps/server/to-print/to-print.pdf 
+2025-11-08T13:35:12.167Z [[32minfo[39m]: [PRINTER] Impresora: EPSON_PM-520_Series 
+2025-11-08T13:35:12.167Z [[32minfo[39m]: [PRINTER] Ejecutando comando: lp -d EPSON_PM-520_Series "/home/yeferson/Dev/scape-room/scape-room-software/apps/server/to-print/to-print.pdf" 
+2025-11-08T13:35:12.191Z [[32minfo[39m]: [PRINTER] Resultado: la id solicitada es EPSON_PM-520_Series-8 (1 archivo(s)) 
+2025-11-08T13:35:12.191Z [[32minfo[39m]: [PRINTER] PDF enviado a la impresora exitosamente (Linux) 
+2025-11-08T13:35:15.701Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (8692f78e-5c84-43c4-be1d-d76a9fed08a1) from 192.168.18.165 
+2025-11-08T13:35:15.817Z [[32minfo[39m]: [Socket] Connected: sWZPpYiWlYyZLwNBAAAj 
+2025-11-08T13:35:15.818Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for ai-app 
+2025-11-08T13:35:15.818Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (84405cc7-8d45-444d-865e-28002f11ee51) via socket from 192.168.18.165 
+2025-11-08T13:35:52.652Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:35:52.653Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:00.249Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (5d8819b3-bfaf-4624-a143-825b0a242088) from 192.168.18.165 
+2025-11-08T13:36:01.935Z [[32minfo[39m]: [Socket] Connected: nbZVvkVuxGSAT93dAAAl 
+2025-11-08T13:36:01.936Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:36:01.936Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (7a5bf935-2e4a-4278-846d-c9d3fef30b4a) via socket from 192.168.18.165 
+2025-11-08T13:36:05.150Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T13:36:06.583Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:36:06.584Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:09.342Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T13:36:10.877Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:36:10.878Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:13.719Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:36:13.719Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:19.233Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:36:19.234Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:23.063Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T13:36:47.046Z [[32minfo[39m]: [Socket] Connected: TqgIndlUmFPTyTR5AAAn 
+2025-11-08T13:36:47.053Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T13:36:50.144Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:36:50.144Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:36:51.609Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T13:36:56.535Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (23a06882-981e-47f3-9e85-7147b27fdde1) from 192.168.18.165 
+2025-11-08T13:36:56.812Z [[32minfo[39m]: [Socket] Connected: mvyfXgX8n5cSylU6AAAp 
+2025-11-08T13:36:56.835Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T13:36:56.835Z [[32minfo[39m]: [DeviceManager] Device registered: totem (4df08568-b934-4b10-a629-3d4297b15a18) via socket from 192.168.18.165 
+2025-11-08T13:36:59.417Z [[32minfo[39m]: [StatusManager] Escape completed 
+2025-11-08T13:37:11.274Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) 
+2025-11-08T13:37:11.275Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T13:37:32.040Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) from 192.168.18.182 
+2025-11-08T13:38:26.031Z [[32minfo[39m]: [DeviceManager] Device disconnected: ai-app (84405cc7-8d45-444d-865e-28002f11ee51) from 192.168.18.165 
+2025-11-08T13:38:26.043Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (7a5bf935-2e4a-4278-846d-c9d3fef30b4a) from 192.168.18.165 
+2025-11-08T13:38:26.043Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (4df08568-b934-4b10-a629-3d4297b15a18) from 192.168.18.165 
+2025-11-08T13:38:26.045Z [[32minfo[39m]: [DeviceManager] Device disconnected: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) from 192.168.18.165 
+2025-11-08T13:38:26.607Z [[32minfo[39m]: [Socket] Connected: 41sbQ5RowjU0EZmOAAAr 
+2025-11-08T13:38:26.608Z [[32minfo[39m]: [DeviceManager] Device registered: totem (4df08568-b934-4b10-a629-3d4297b15a18) via socket from 192.168.18.165 (reconnected) 
+2025-11-08T13:38:26.906Z [[32minfo[39m]: [Socket] Connected: 6Oo-SRTSmqqGCJ18AAAt 
+2025-11-08T13:38:26.907Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 (reconnected) 
+2025-11-08T13:38:27.138Z [[32minfo[39m]: [Socket] Connected: kqBpkwdcgUwZ_vMNAAAv 
+2025-11-08T13:38:27.138Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (7a5bf935-2e4a-4278-846d-c9d3fef30b4a) via socket from 192.168.18.165 (reconnected) 
+2025-11-08T13:38:27.903Z [[32minfo[39m]: [Socket] Connected: s0h-41LPnzbbG4P1AAAx 
+2025-11-08T13:38:27.903Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (84405cc7-8d45-444d-865e-28002f11ee51) via socket from 192.168.18.165 (reconnected) 
+2025-11-08T13:48:32.735Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (7a5bf935-2e4a-4278-846d-c9d3fef30b4a) from 192.168.18.165 
+2025-11-08T13:48:32.873Z [[32minfo[39m]: [Socket] Connected: L0mJsfQem8D2Xp1nAAAz 
+2025-11-08T13:48:32.876Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:48:32.876Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3a01c34e-c60c-4398-8881-b1c69aa67170) via socket from 192.168.18.165 
+2025-11-08T13:48:36.385Z [[32minfo[39m]: [Socket] Connected: VZ17AywnWmaU2ZyHAAA1 
+2025-11-08T13:48:36.388Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T13:48:40.259Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f5222eca-4649-4f6e-8728-800f7d0f00e7) from 192.168.18.182 
+2025-11-08T13:48:40.508Z [[32minfo[39m]: [Socket] Connected: MiU3dNw9JqIvVpZYAAA3 
+2025-11-08T13:48:40.524Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:48:40.524Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (a10b7bba-b487-434f-b657-90246aade448) via socket from 192.168.18.182 
+2025-11-08T13:50:18.715Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (a10b7bba-b487-434f-b657-90246aade448) from 192.168.18.182 
+2025-11-08T13:50:18.831Z [[32minfo[39m]: [Socket] Connected: gRhCsyA4ZHcU9SkkAAA5 
+2025-11-08T13:50:18.835Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:50:18.835Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (8f282b49-5d9d-4aea-818d-bc1ec81c1073) via socket from 192.168.18.182 
+2025-11-08T13:50:38.895Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3a01c34e-c60c-4398-8881-b1c69aa67170) from 192.168.18.165 
+2025-11-08T13:50:43.903Z [[32minfo[39m]: [Socket] Connected: T7n3zqk9m4iHQvhyAAA7 
+2025-11-08T13:50:43.904Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:50:43.904Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (dbfcc08a-fbd2-4cc9-93e2-579789581854) via socket from 192.168.18.165 
+2025-11-08T13:50:55.326Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (dbfcc08a-fbd2-4cc9-93e2-579789581854) from 192.168.18.165 
+2025-11-08T13:50:55.516Z [[32minfo[39m]: [Socket] Connected: SBDaMlCFgwjiBPIfAAA9 
+2025-11-08T13:50:55.517Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:50:55.517Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (7cae533d-739e-4eb5-a77f-ec0723ef8483) via socket from 192.168.18.165 
+2025-11-08T13:50:59.922Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (7cae533d-739e-4eb5-a77f-ec0723ef8483) from 192.168.18.165 
+2025-11-08T13:51:00.040Z [[32minfo[39m]: [Socket] Connected: _5diQmLn-m1aAG-CAAA_ 
+2025-11-08T13:51:00.044Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:51:00.044Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (eb138f6b-2eb5-4a3d-bead-3e56272456e2) via socket from 192.168.18.165 
+2025-11-08T13:53:05.707Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (eb138f6b-2eb5-4a3d-bead-3e56272456e2) from 192.168.18.165 
+2025-11-08T13:53:05.818Z [[32minfo[39m]: [Socket] Connected: ynWarJCqkU1gmvbLAABB 
+2025-11-08T13:53:05.837Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:53:05.838Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (9fab6347-a5f9-41b5-ac9f-91d062b03114) via socket from 192.168.18.165 
+2025-11-08T13:53:08.819Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (8f282b49-5d9d-4aea-818d-bc1ec81c1073) from 192.168.18.182 
+2025-11-08T13:53:09.117Z [[32minfo[39m]: [Socket] Connected: g8sLO0vmv_sWOdjZAABD 
+2025-11-08T13:53:09.122Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:53:09.122Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (71e4fda9-1d40-4edd-9f68-4e18d39f99d1) via socket from 192.168.18.182 
+2025-11-08T13:53:24.813Z [[32minfo[39m]: [Socket] Connected: GlqWXTZbIDWItmNnAABF 
+2025-11-08T13:53:24.814Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (16d725b0-8aff-413c-8c44-a24bfaefd184) via socket from 192.168.18.165 
+2025-11-08T13:53:29.024Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (16d725b0-8aff-413c-8c44-a24bfaefd184) from 192.168.18.165 
+2025-11-08T13:54:01.752Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (9fab6347-a5f9-41b5-ac9f-91d062b03114) from 192.168.18.165 
+2025-11-08T13:54:01.902Z [[32minfo[39m]: [Socket] Connected: ANRUjMydYxWhov5PAABH 
+2025-11-08T13:54:01.905Z [[32minfo[39m]: [DeviceManager] Cleaned up 2 offline devices for main-screen 
+2025-11-08T13:54:01.905Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (69008dfa-7e1d-4148-80ba-dfd0ba7218fd) via socket from 192.168.18.165 
+2025-11-08T13:54:06.125Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (71e4fda9-1d40-4edd-9f68-4e18d39f99d1) from 192.168.18.182 
+2025-11-08T13:54:06.250Z [[32minfo[39m]: [Socket] Connected: cMj8Ug8Q4sYIyQIRAABJ 
+2025-11-08T13:54:06.261Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:54:06.261Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (2cc331ea-a99e-495e-834c-d16d166cf46f) via socket from 192.168.18.182 
+2025-11-08T13:54:21.446Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (69008dfa-7e1d-4148-80ba-dfd0ba7218fd) from 192.168.18.165 
+2025-11-08T13:54:21.558Z [[32minfo[39m]: [Socket] Connected: 4wvf2yZC9IB19ggvAABL 
+2025-11-08T13:54:21.559Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:54:21.560Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5f67411b-d3df-4425-a038-f989e8a4a62e) via socket from 192.168.18.165 
+2025-11-08T13:54:23.355Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (2cc331ea-a99e-495e-834c-d16d166cf46f) from 192.168.18.182 
+2025-11-08T13:54:23.484Z [[32minfo[39m]: [Socket] Connected: a_z-Jtq7oOZMnaj_AABN 
+2025-11-08T13:54:23.486Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:54:23.486Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (63565f09-9f36-4c78-b5c8-172eb37468e3) via socket from 192.168.18.182 
+2025-11-08T13:54:29.145Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (5f67411b-d3df-4425-a038-f989e8a4a62e) from 192.168.18.165 
+2025-11-08T13:54:29.274Z [[32minfo[39m]: [Socket] Connected: kYNl5ReI3zF0yZv3AABP 
+2025-11-08T13:54:29.278Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:54:29.279Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5e00fa0b-b3e3-47af-933d-ebc131c9590f) via socket from 192.168.18.165 
+2025-11-08T13:54:32.462Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (63565f09-9f36-4c78-b5c8-172eb37468e3) from 192.168.18.182 
+2025-11-08T13:54:32.581Z [[32minfo[39m]: [Socket] Connected: hmxvj_F9wpAGn9TsAABR 
+2025-11-08T13:54:32.587Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:54:32.587Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (b38489d9-d076-4b15-b1dc-138ceb07b1aa) via socket from 192.168.18.182 
+2025-11-08T13:55:05.666Z [[32minfo[39m]: [Socket] Connected: 110ooWzjofxAm440AABT 
+2025-11-08T13:55:05.667Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (967ad4a4-cf34-4bbe-9683-cfd085d55821) via socket from 192.168.18.165 
+2025-11-08T13:55:44.865Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (967ad4a4-cf34-4bbe-9683-cfd085d55821) from 192.168.18.165 
+2025-11-08T13:55:44.954Z [[32minfo[39m]: [Socket] Connected: w4uTCVaRT46ph4X0AABV 
+2025-11-08T13:55:44.955Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:55:44.955Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (e7bc3cfd-bd83-473c-8044-1b520fd7c3e1) via socket from 192.168.18.165 
+2025-11-08T13:55:47.697Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (b38489d9-d076-4b15-b1dc-138ceb07b1aa) from 192.168.18.182 
+2025-11-08T13:55:48.061Z [[32minfo[39m]: [Socket] Connected: lS_P5jazk_S9UILiAABX 
+2025-11-08T13:55:48.065Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:55:48.065Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (9971b849-62e5-48fa-9eb1-bfb7f31da510) via socket from 192.168.18.182 
+2025-11-08T13:55:59.019Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (e7bc3cfd-bd83-473c-8044-1b520fd7c3e1) from 192.168.18.165 
+2025-11-08T13:55:59.179Z [[32minfo[39m]: [Socket] Connected: SQ98YUKWfp0_k4EQAABZ 
+2025-11-08T13:55:59.179Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:55:59.180Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (6fdd4b5a-07a4-4c87-bf59-f194240f1a77) via socket from 192.168.18.165 
+2025-11-08T13:56:03.290Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (9971b849-62e5-48fa-9eb1-bfb7f31da510) from 192.168.18.182 
+2025-11-08T13:56:03.506Z [[32minfo[39m]: [Socket] Connected: ROX3jNwIR3jFF7orAABb 
+2025-11-08T13:56:03.513Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:56:03.513Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (d8d51ee7-a9bb-47e5-8629-a55a30fb7b5f) via socket from 192.168.18.182 
+2025-11-08T13:56:10.726Z [[32minfo[39m]: [Socket] Connected: 8kGn0n8bb6f9domDAABd 
+2025-11-08T13:56:10.727Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4d9d747d-3155-45a8-9725-e44dd91c5f35) via socket from 192.168.18.165 
+2025-11-08T13:56:12.207Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4d9d747d-3155-45a8-9725-e44dd91c5f35) from 192.168.18.165 
+2025-11-08T13:56:12.278Z [[32minfo[39m]: [Socket] Connected: uYAF2z8tBIyMWPlkAABf 
+2025-11-08T13:56:12.278Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:12.279Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (0a30a93c-3200-47ad-8fc7-782ef77ecdd9) via socket from 192.168.18.165 
+2025-11-08T13:56:12.650Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (0a30a93c-3200-47ad-8fc7-782ef77ecdd9) from 192.168.18.165 
+2025-11-08T13:56:12.721Z [[32minfo[39m]: [Socket] Connected: e_2_b4NQRTr-bNafAABh 
+2025-11-08T13:56:12.721Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:12.721Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (072bfbf0-730a-42ae-a2e1-5f736c43e0c4) via socket from 192.168.18.165 
+2025-11-08T13:56:12.865Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (072bfbf0-730a-42ae-a2e1-5f736c43e0c4) from 192.168.18.165 
+2025-11-08T13:56:12.939Z [[32minfo[39m]: [Socket] Connected: EFqknrmfYAoMyjAtAABj 
+2025-11-08T13:56:12.940Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:12.940Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3de5ec8d-ed02-4eca-84e4-41fa97cfc0e1) via socket from 192.168.18.165 
+2025-11-08T13:56:13.085Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3de5ec8d-ed02-4eca-84e4-41fa97cfc0e1) from 192.168.18.165 
+2025-11-08T13:56:13.150Z [[32minfo[39m]: [Socket] Connected: _kSf_IInRz3mV_kHAABl 
+2025-11-08T13:56:13.151Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:13.151Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (8062bac2-6ae4-4423-88ec-93df10ec24b3) via socket from 192.168.18.165 
+2025-11-08T13:56:13.300Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (8062bac2-6ae4-4423-88ec-93df10ec24b3) from 192.168.18.165 
+2025-11-08T13:56:13.397Z [[32minfo[39m]: [Socket] Connected: JQOAtJOpnm7r5-0NAABn 
+2025-11-08T13:56:13.398Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:13.398Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (fd24182b-ecf8-420b-af9e-33ee3e6eec81) via socket from 192.168.18.165 
+2025-11-08T13:56:13.512Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (fd24182b-ecf8-420b-af9e-33ee3e6eec81) from 192.168.18.165 
+2025-11-08T13:56:13.586Z [[32minfo[39m]: [Socket] Connected: DKnAs2RpKonC2WiaAABp 
+2025-11-08T13:56:13.587Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:13.587Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (6d086cb9-37d2-4160-b4e0-8ce76967af5f) via socket from 192.168.18.165 
+2025-11-08T13:56:13.705Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (6d086cb9-37d2-4160-b4e0-8ce76967af5f) from 192.168.18.165 
+2025-11-08T13:56:13.790Z [[32minfo[39m]: [Socket] Connected: p5fuv7ZygPxMHc4qAABr 
+2025-11-08T13:56:13.791Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:13.791Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (a77bd2bd-a520-4bc7-8469-e5064349ca0c) via socket from 192.168.18.165 
+2025-11-08T13:56:13.904Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (a77bd2bd-a520-4bc7-8469-e5064349ca0c) from 192.168.18.165 
+2025-11-08T13:56:13.972Z [[32minfo[39m]: [Socket] Connected: aJxAu5UuTYqvIduHAABt 
+2025-11-08T13:56:13.977Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:13.977Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (3c1f8cc5-a034-4e31-acee-41240e5c5826) via socket from 192.168.18.165 
+2025-11-08T13:56:14.150Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (3c1f8cc5-a034-4e31-acee-41240e5c5826) from 192.168.18.165 
+2025-11-08T13:56:14.227Z [[32minfo[39m]: [Socket] Connected: PuUg2V5PzjRAS53OAABv 
+2025-11-08T13:56:14.227Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:14.227Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (5fe50dec-4ccf-4e78-aa4f-560f96d16ed8) via socket from 192.168.18.165 
+2025-11-08T13:56:14.680Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (5fe50dec-4ccf-4e78-aa4f-560f96d16ed8) from 192.168.18.165 
+2025-11-08T13:56:14.750Z [[32minfo[39m]: [Socket] Connected: -0cZXNhbbUUGMdXvAABx 
+2025-11-08T13:56:14.751Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:14.751Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (9a629be1-048d-46c1-a155-03752ebba610) via socket from 192.168.18.165 
+2025-11-08T13:56:21.433Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (9a629be1-048d-46c1-a155-03752ebba610) from 192.168.18.165 
+2025-11-08T13:56:21.524Z [[32minfo[39m]: [Socket] Connected: SsM1mn57BoICqahVAABz 
+2025-11-08T13:56:21.525Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:56:21.525Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (24153fa9-2bd0-4c7e-9a46-7cc0b54efc21) via socket from 192.168.18.165 
+2025-11-08T13:56:28.293Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (24153fa9-2bd0-4c7e-9a46-7cc0b54efc21) from 192.168.18.165 
+2025-11-08T13:57:05.280Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) from 192.168.18.182 
+2025-11-08T13:57:07.208Z [[32minfo[39m]: [Socket] Connected: FS6myQPvJBXJrqflAAB1 
+2025-11-08T13:57:07.219Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T13:58:05.063Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (6fdd4b5a-07a4-4c87-bf59-f194240f1a77) from 192.168.18.165 
+2025-11-08T13:58:05.281Z [[32minfo[39m]: [Socket] Connected: 6oRlD6h3-xj3MRtlAAB3 
+2025-11-08T13:58:05.281Z [[32minfo[39m]: [DeviceManager] Cleaned up 2 offline devices for main-screen 
+2025-11-08T13:58:05.282Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (717cfe2a-c0e3-44af-98ce-1ca5fda68887) via socket from 192.168.18.165 
+2025-11-08T13:58:08.933Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (5e00fa0b-b3e3-47af-933d-ebc131c9590f) from 192.168.18.165 
+2025-11-08T13:58:10.197Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (717cfe2a-c0e3-44af-98ce-1ca5fda68887) from 192.168.18.165 
+2025-11-08T13:58:10.369Z [[32minfo[39m]: [Socket] Connected: F4o-9TXcczT0EvYdAAB5 
+2025-11-08T13:58:10.372Z [[32minfo[39m]: [DeviceManager] Cleaned up 2 offline devices for main-screen 
+2025-11-08T13:58:10.372Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (ad098b4d-b8db-4483-871d-b99ce27069d8) via socket from 192.168.18.165 
+2025-11-08T13:58:12.448Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (ad098b4d-b8db-4483-871d-b99ce27069d8) from 192.168.18.165 
+2025-11-08T13:58:12.573Z [[32minfo[39m]: [Socket] Connected: luZ4BGgOHKcY-YVzAAB7 
+2025-11-08T13:58:12.577Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T13:58:12.577Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (e30cd7b8-6198-4142-9c31-fa0185b62665) via socket from 192.168.18.165 
+2025-11-08T13:58:15.553Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (d8d51ee7-a9bb-47e5-8629-a55a30fb7b5f) from 192.168.18.182 
+2025-11-08T13:58:15.918Z [[32minfo[39m]: [Socket] Connected: El9XbWdCoHh78PQzAAB9 
+2025-11-08T13:58:15.922Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T13:58:15.922Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (81affa17-63a4-4dbd-ad2f-362c1b16207f) via socket from 192.168.18.182 
+2025-11-08T13:58:45.420Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) from 192.168.18.182 
+2025-11-08T13:59:04.403Z [[32minfo[39m]: [Socket] Connected: 9ti2e1MDMDOz6lvMAAB_ 
+2025-11-08T13:59:04.545Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T13:59:44.886Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) from 192.168.18.182 
+2025-11-08T13:59:52.294Z [[32minfo[39m]: [Socket] Connected: rGL2_lKcS3cz5LODAACB 
+2025-11-08T13:59:52.299Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T14:01:17.145Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) from 192.168.18.182 
+2025-11-08T14:01:39.542Z [[32minfo[39m]: [Socket] Connected: q9priCyyeR_sn5yrAACD 
+2025-11-08T14:01:40.464Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) via socket from 192.168.18.182 (reconnected) 
+2025-11-08T14:02:04.903Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (81affa17-63a4-4dbd-ad2f-362c1b16207f) from 192.168.18.182 
+2025-11-08T14:02:05.437Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (f87b4498-8745-4c4f-aa3a-2a7904b35f47) from 192.168.18.182 
+2025-11-08T14:02:05.703Z [[32minfo[39m]: [Socket] Connected: qc1tuqiiA5lYDRfaAACF 
+2025-11-08T14:02:05.706Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T14:02:05.706Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f5c504e0-74f6-471d-bc93-ba0e6295532f) via socket from 192.168.18.182 
+2025-11-08T14:02:06.604Z [[32minfo[39m]: [Socket] Connected: H24h7J0p-k-6XdJOAACH 
+2025-11-08T14:02:06.613Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T14:02:06.613Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) via socket from 192.168.18.182 
+2025-11-08T14:02:12.755Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) targeting totem@4df08568-b934-4b10-a629-3d4297b15a18 
+2025-11-08T14:02:27.279Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (e30cd7b8-6198-4142-9c31-fa0185b62665) from 192.168.18.165 
+2025-11-08T14:02:27.456Z [[32minfo[39m]: [Socket] Connected: HzmpkodPiG8-G7R5AACJ 
+2025-11-08T14:02:27.457Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:02:27.457Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (f26b71e5-f6d4-41f8-813a-e511bf884bc8) via socket from 192.168.18.165 
+2025-11-08T14:03:05.349Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (f26b71e5-f6d4-41f8-813a-e511bf884bc8) from 192.168.18.165 
+2025-11-08T14:03:05.486Z [[32minfo[39m]: [Socket] Connected: qqEk8Cgp_IJiDVcUAACL 
+2025-11-08T14:03:05.487Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:03:05.487Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (6c01f32e-31ee-4187-978a-9f047799e73f) via socket from 192.168.18.165 
+2025-11-08T14:03:07.832Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f5c504e0-74f6-471d-bc93-ba0e6295532f) from 192.168.18.182 
+2025-11-08T14:03:08.010Z [[32minfo[39m]: [Socket] Connected: ws4DVH8tczJbPegBAACN 
+2025-11-08T14:03:08.014Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T14:03:08.014Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (fce86b60-3c1c-4f14-8a15-788f7738a757) via socket from 192.168.18.182 
+2025-11-08T14:04:12.593Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (fce86b60-3c1c-4f14-8a15-788f7738a757) from 192.168.18.182 
+2025-11-08T14:04:12.707Z [[32minfo[39m]: [Socket] Connected: cS9upz1sX4esnu0xAACP 
+2025-11-08T14:04:12.710Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T14:04:12.710Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (ccb037a8-60c8-49ae-8902-d026b10686e9) via socket from 192.168.18.182 
+2025-11-08T14:04:17.566Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (6c01f32e-31ee-4187-978a-9f047799e73f) from 192.168.18.165 
+2025-11-08T14:04:17.696Z [[32minfo[39m]: [Socket] Connected: jLOqlIigovgGvI3-AACR 
+2025-11-08T14:04:17.698Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:04:17.698Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (4759d962-db17-4b0a-a9e9-95d6796e08a1) via socket from 192.168.18.165 
+2025-11-08T14:05:03.065Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-08T14:06:14.462Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (ccb037a8-60c8-49ae-8902-d026b10686e9) from 192.168.18.182 
+2025-11-08T14:06:14.584Z [[32minfo[39m]: [Socket] Connected: KnzyaV8eYxaMepGeAACT 
+2025-11-08T14:06:14.587Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T14:06:14.587Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (f15fb96e-2f1a-4f9c-b8d3-45d48ef56fc9) via socket from 192.168.18.182 
+2025-11-08T14:06:19.657Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (4759d962-db17-4b0a-a9e9-95d6796e08a1) from 192.168.18.165 
+2025-11-08T14:06:19.819Z [[32minfo[39m]: [Socket] Connected: Go4aIiCrMjX6uxZWAACV 
+2025-11-08T14:06:19.821Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:06:19.821Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (857b7062-255f-485b-99af-49660671f1b0) via socket from 192.168.18.165 
+2025-11-08T14:07:42.653Z [[32minfo[39m]: [DeviceManager] Device disconnected: tablet-feedback (f15fb96e-2f1a-4f9c-b8d3-45d48ef56fc9) from 192.168.18.182 
+2025-11-08T14:07:42.767Z [[32minfo[39m]: [Socket] Connected: VIVkMg4_RRcTkDYMAACX 
+2025-11-08T14:07:42.770Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for tablet-feedback 
+2025-11-08T14:07:42.770Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (a75122b0-1e8a-4cdd-a9cc-fff7484e843c) via socket from 192.168.18.182 
+2025-11-08T14:07:46.711Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (857b7062-255f-485b-99af-49660671f1b0) from 192.168.18.165 
+2025-11-08T14:07:46.855Z [[32minfo[39m]: [Socket] Connected: iGWSKKyErmDEq-pCAACZ 
+2025-11-08T14:07:46.874Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:07:46.875Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (38801c1f-c430-40b6-bb80-26767aa27845) via socket from 192.168.18.165 
+2025-11-08T14:08:28.282Z [[32minfo[39m]: POST /api/recognition/image 
+2025-11-08T14:12:24.774Z [[32minfo[39m]: [DeviceManager] Device disconnected: totem (4df08568-b934-4b10-a629-3d4297b15a18) from 192.168.18.165 
+2025-11-08T14:12:24.929Z [[32minfo[39m]: [Socket] Connected: TBsMM_1pPgX88ss3AACb 
+2025-11-08T14:12:24.930Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for totem 
+2025-11-08T14:12:24.930Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c62d77bc-9361-473c-802e-e60c242d5204) via socket from 192.168.18.165 
+2025-11-08T14:13:41.284Z [[32minfo[39m]: [StatusManager] Escape completed 
+2025-11-08T14:13:48.737Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) 
+2025-11-08T14:13:48.738Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T14:15:28.578Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) 
+2025-11-08T14:15:28.579Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T14:15:32.988Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (38801c1f-c430-40b6-bb80-26767aa27845) from 192.168.18.165 
+2025-11-08T14:15:33.132Z [[32minfo[39m]: [Socket] Connected: cK6u8k8sjT3L6xZ9AACd 
+2025-11-08T14:15:33.134Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:15:33.134Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (da1f4b97-9ab1-4b79-8a64-d28fe25eac02) via socket from 192.168.18.165 
+2025-11-08T14:15:37.278Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T14:15:39.570Z [[32minfo[39m]: [ScapeServer] Reset requested by admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) 
+2025-11-08T14:15:39.571Z [[32minfo[39m]: [StatusManager] State reset 
+2025-11-08T14:16:29.506Z [[32minfo[39m]: [DeviceManager] Device disconnected: main-screen (da1f4b97-9ab1-4b79-8a64-d28fe25eac02) from 192.168.18.165 
+2025-11-08T14:16:29.640Z [[32minfo[39m]: [Socket] Connected: h8rd66jxRwKid41wAACf 
+2025-11-08T14:16:29.642Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for main-screen 
+2025-11-08T14:16:29.642Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (da7bad28-f0ae-4c08-930c-5ba5472db511) via socket from 192.168.18.165 
+2025-11-08T14:16:34.320Z [[32minfo[39m]: [StatusManager] Escape started with duration 2400s 
+2025-11-08T14:17:42.584Z [[32minfo[39m]: [DeviceManager] Device disconnected: admin-ipad (6ea39716-eaeb-4ff5-a078-c1eb52252c69) from 192.168.18.182 
+2025-11-08T14:17:42.720Z [[32minfo[39m]: [Socket] Connected: 4WNA5kgORCMdhsBhAACh 
+2025-11-08T14:17:42.725Z [[32minfo[39m]: [DeviceManager] Cleaned up 1 offline devices for admin-ipad 
+2025-11-08T14:17:42.725Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (ff5f2e96-2070-4773-b3a2-f0693d3d38cd) via socket from 192.168.18.182 
+2025-11-08T14:19:01.465Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T14:19:01.465Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T14:19:06.956Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T14:19:06.960Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T14:19:06.960Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T14:19:06.961Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T14:19:07.295Z [[32minfo[39m]: [Socket] Connected: PRZqKdnardWB4T4uAAAB 
+2025-11-08T14:19:07.297Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c62d77bc-9361-473c-802e-e60c242d5204) via socket from 192.168.18.165 
+2025-11-08T14:19:07.559Z [[32minfo[39m]: [Socket] Connected: DYuD-0qfNk_7YqSQAAAD 
+2025-11-08T14:19:07.564Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (a75122b0-1e8a-4cdd-a9cc-fff7484e843c) via socket from 192.168.18.182 
+2025-11-08T14:19:07.873Z [[32minfo[39m]: [Socket] Connected: C9-vpIM-JuwckDS9AAAF 
+2025-11-08T14:19:07.876Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (ff5f2e96-2070-4773-b3a2-f0693d3d38cd) via socket from 192.168.18.182 
+2025-11-08T14:19:07.887Z [[32minfo[39m]: [Socket] Connected: Pt4cDc2EWbeQkye2AAAH 
+2025-11-08T14:19:07.888Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (da7bad28-f0ae-4c08-930c-5ba5472db511) via socket from 192.168.18.165 
+2025-11-08T14:19:07.911Z [[32minfo[39m]: [Socket] Connected: y3FgmCnnPjT1HPeBAAAJ 
+2025-11-08T14:19:07.912Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (84405cc7-8d45-444d-865e-28002f11ee51) via socket from 192.168.18.165 
+2025-11-08T14:19:08.907Z [[32minfo[39m]: [Socket] Connected: Ye5fpqoxV2El13tyAAAL 
+2025-11-08T14:19:08.907Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 
+2025-11-08T14:21:36.866Z [[32minfo[39m]: SIGTERM signal received: closing servers 
+2025-11-08T14:21:36.867Z [[32minfo[39m]: HTTP server closed 
+2025-11-08T14:21:42.235Z [[32minfo[39m]: 🚀 HTTP Server running on 0.0.0.0:3001 (Arduino communication) 
+2025-11-08T14:21:42.236Z [[32minfo[39m]: 🔒 HTTPS Server running on 0.0.0.0:3443 (Web clients) 
+2025-11-08T14:21:42.236Z [[32minfo[39m]: 📡 WebSocket server ready on both HTTP and HTTPS 
+2025-11-08T14:21:42.236Z [[32minfo[39m]: 🎮 Escape Room Server initialized 
+2025-11-08T14:21:42.882Z [[32minfo[39m]: [Socket] Connected: jAtVECr0-rD9MpJqAAAB 
+2025-11-08T14:21:42.884Z [[32minfo[39m]: [DeviceManager] Device registered: main-screen (da7bad28-f0ae-4c08-930c-5ba5472db511) via socket from 192.168.18.165 
+2025-11-08T14:21:42.916Z [[32minfo[39m]: [Socket] Connected: IUaWZJH_mw5OE_wjAAAD 
+2025-11-08T14:21:42.917Z [[32minfo[39m]: [DeviceManager] Device registered: totem (c62d77bc-9361-473c-802e-e60c242d5204) via socket from 192.168.18.165 
+2025-11-08T14:21:42.927Z [[32minfo[39m]: [Socket] Connected: IZHzkXZmZAaRizTIAAAF 
+2025-11-08T14:21:42.928Z [[32minfo[39m]: [DeviceManager] Device registered: ai-app (84405cc7-8d45-444d-865e-28002f11ee51) via socket from 192.168.18.165 
+2025-11-08T14:21:43.106Z [[32minfo[39m]: [Socket] Connected: FG43_axu4Pee8EZ1AAAH 
+2025-11-08T14:21:43.110Z [[32minfo[39m]: [DeviceManager] Device registered: admin-ipad (ff5f2e96-2070-4773-b3a2-f0693d3d38cd) via socket from 192.168.18.182 
+2025-11-08T14:21:43.717Z [[32minfo[39m]: [Socket] Connected: QjUiuH4fBu2wUamJAAAJ 
+2025-11-08T14:21:43.720Z [[32minfo[39m]: [DeviceManager] Device registered: tablet-feedback (a75122b0-1e8a-4cdd-a9cc-fff7484e843c) via socket from 192.168.18.182 
+2025-11-08T14:21:43.904Z [[32minfo[39m]: [Socket] Connected: NpFxTm4f5i6t6Vm6AAAL 
+2025-11-08T14:21:43.904Z [[32minfo[39m]: [DeviceManager] Device registered: buttons-game (3e3121d9-6f76-4207-802f-5afd8c0d6adf) via socket from 192.168.18.165 

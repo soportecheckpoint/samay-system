@@ -11,7 +11,7 @@ export function FeedbackConfirm() {
 
     const timer = setTimeout(() => {
       setView('photo-capture');
-    }, 5000);
+    }, 11000);
 
     return () => clearTimeout(timer);
   }, [currentView, setView]);

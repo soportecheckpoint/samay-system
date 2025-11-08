@@ -78,6 +78,7 @@ export interface StatusModule {
   pause(payload?: StatusPayload): void;
   restart(payload?: StatusPayload): void;
   win(payload?: StatusPayload): void;
+  lose(payload?: StatusPayload): void;
 }
 
 export interface DevicesModule {

@@ -44,7 +44,7 @@ export function useSocket() {
 
   useEffect(() => {
     const unsubscribe = sdk.direct.on("start", () => {
-      resetLocalState();
+      useViewStore.getState().setView("audio");
     });
 
     return () => {
