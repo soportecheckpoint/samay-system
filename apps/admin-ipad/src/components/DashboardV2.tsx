@@ -335,7 +335,12 @@ export function DashboardV2() {
         requireHold: true,
         disabled: !canTriggerReset,
         onClick: () => {
-          resetSelectedDevice();
+          resetSelectedDevice({
+            metadata: {
+              origin: "admin-ipad",
+              markerId: selectedMarker.id,
+            },
+          });
         },
       },
     ];

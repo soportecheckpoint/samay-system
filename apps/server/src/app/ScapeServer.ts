@@ -10,7 +10,7 @@ import { PrinterManager } from "../modules/printerManager.js";
 import { ArduinoBridge } from "../modules/arduinoBridge.js";
 import { createRecognitionRouter } from "../routes/recognitionRouter.js";
 import { logger } from "../utils/logger.js";
-import { DEVICE_MANAGER_EVENTS, SDK_EVENTS, type ResetPayload } from "@samay/scape-protocol";
+import { DEVICE_MANAGER_EVENTS, SDK_EVENTS, type DeviceId, type ResetPayload } from "@samay/scape-protocol";
 import { AdminStateManager } from "../modules/adminStateManager.js";
 
 export interface ScapeServerOptions {
@@ -87,12 +87,124 @@ export class ScapeServer {
       sourceInstanceId: payload?.sourceInstanceId ?? session?.instanceId
     };
 
+    const targets = this.extractResetTargets(normalized.metadata);
+
+    if (targets.length === 0) {
+      logger.info(
+        `[ScapeServer] Reset requested by ${normalized.source ?? "unknown"} (${normalized.sourceInstanceId ?? "n/a"})`
+      );
+
+      socket.broadcast.emit(SDK_EVENTS.RESET, normalized);
+      this.statusManager.reset();
+      return;
+    }
+
+    const dispatched = this.dispatchTargetedReset(normalized, targets, session?.id, session?.instanceId);
+
+    if (dispatched === 0) {
+      logger.warn(
+        `[ScapeServer] Targeted reset requested but no recipients found for ${targets
+          .map((target) => `${target.device}${target.instanceId ? `@${target.instanceId}` : ""}`)
+          .join(", ")}`
+      );
+      return;
+    }
+
     logger.info(
-      `[ScapeServer] Reset requested by ${normalized.source ?? "unknown"} (${normalized.sourceInstanceId ?? "n/a"})`
+      `[ScapeServer] Reset requested by ${normalized.source ?? "unknown"} (${normalized.sourceInstanceId ?? "n/a"}) targeting ${targets
+        .map((target) => `${target.device}${target.instanceId ? `@${target.instanceId}` : ""}`)
+        .join(", ")}`
     );
+  }
 
-    socket.broadcast.emit(SDK_EVENTS.RESET, normalized);
+  private extractResetTargets(metadata?: Record<string, unknown> | null): Array<{ device: DeviceId; instanceId?: string }> {
+    if (!metadata) {
+      return [];
+    }
 
-    this.statusManager.reset();
+  const container = metadata as { targets?: unknown };
+  const raw = container.targets;
+    const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+
+    const targets: Array<{ device: DeviceId; instanceId?: string }> = [];
+
+    for (const entry of list) {
+      if (!entry || typeof entry !== "object") {
+        continue;
+      }
+
+      const device = this.pickDeviceId(entry);
+      if (!device) {
+        continue;
+      }
+
+      const instanceId = this.pickInstanceId(entry);
+      targets.push({ device, instanceId });
+    }
+
+    return targets;
+  }
+
+  private pickDeviceId(entry: unknown): DeviceId | null {
+    if (!entry || typeof entry !== "object") {
+      return null;
+    }
+
+    const { device, deviceId } = entry as { device?: unknown; deviceId?: unknown };
+    if (typeof device === "string" && device.trim().length > 0) {
+      return device;
+    }
+
+    if (typeof deviceId === "string" && deviceId.trim().length > 0) {
+      return deviceId;
+    }
+
+    return null;
+  }
+
+  private pickInstanceId(entry: unknown): string | undefined {
+    if (!entry || typeof entry !== "object") {
+      return undefined;
+    }
+
+    const candidate = (entry as { instanceId?: unknown }).instanceId;
+    return typeof candidate === "string" && candidate.trim().length > 0 ? candidate : undefined;
+  }
+
+  private dispatchTargetedReset(
+    payload: ResetPayload & { at: number },
+    targets: Array<{ device: DeviceId; instanceId?: string }>,
+    sourceDevice?: DeviceId,
+    sourceInstanceId?: string
+  ): number {
+    const delivered = new Set<string>();
+
+    for (const target of targets) {
+      const sessions = this.deviceManager.getDeviceSessions(target.device);
+      const recipients = target.instanceId
+        ? sessions.filter((session) => session.instanceId === target.instanceId)
+        : sessions;
+
+      for (const recipient of recipients) {
+        const key = `${recipient.id}:${recipient.instanceId}`;
+        if (delivered.has(key)) {
+          continue;
+        }
+
+        if (
+          sourceDevice &&
+          sourceInstanceId &&
+          recipient.id === sourceDevice &&
+          recipient.instanceId === sourceInstanceId
+        ) {
+          continue;
+        }
+
+        delivered.add(key);
+        recipient.socket.emit(SDK_EVENTS.RESET, payload);
+      }
+    }
+
+    return delivered.size;
   }
 }

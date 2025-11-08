@@ -9,13 +9,19 @@ interface CommandOptions {
   targetInstanceId?: string;
 }
 
+interface ResetOptions {
+  reason?: string;
+  metadata?: Record<string, unknown>;
+  targetInstanceId?: string;
+}
+
 interface BuildOptions {
   instanceId?: string;
 }
 
 interface DeviceCommandHandle {
   execute: (command: string, options?: CommandOptions) => void;
-  reset: (options?: CommandOptions) => void;
+  reset: (options?: ResetOptions) => void;
   isReady: boolean;
 }
 
@@ -44,17 +50,29 @@ export function useDeviceCommands() {
   );
 
   const resetDevice = useCallback(
-    (target: DeviceId | undefined, options?: CommandOptions) => {
+    (target: DeviceId | undefined, options?: ResetOptions) => {
       if (!target || !isConnected) {
         return;
       }
 
-      sendCommand(target, "reset", {
-        payload: options?.payload,
-        targetInstanceId: options?.targetInstanceId,
-      });
+      const metadata = { ...(options?.metadata ?? {}) } as Record<string, unknown> & {
+        targets?: Array<{ device?: DeviceId; deviceId?: DeviceId; instanceId?: string }>;
+      };
+
+      const existingTargets = Array.isArray(metadata.targets) ? metadata.targets : [];
+      const normalizedTargets = existingTargets.filter((entry) => entry && (entry.device || entry.deviceId));
+      normalizedTargets.push({ device: target, deviceId: target, instanceId: options?.targetInstanceId });
+      metadata.targets = normalizedTargets;
+
+      sdk.reset(
+        {
+          reason: options?.reason ?? "manual-device-reset",
+          metadata,
+        },
+        { broadcast: true },
+      );
     },
-    [sendCommand, isConnected],
+    [sdk, isConnected],
   );
 
   const getCommands = useCallback(
@@ -68,9 +86,10 @@ export function useDeviceCommands() {
         });
       };
 
-      const reset = (resetOptions?: CommandOptions) => {
+      const reset = (resetOptions?: ResetOptions) => {
         resetDevice(target, {
-          payload: resetOptions?.payload,
+          reason: resetOptions?.reason,
+          metadata: resetOptions?.metadata,
           targetInstanceId: resetOptions?.targetInstanceId ?? targetInstanceId,
         });
       };
