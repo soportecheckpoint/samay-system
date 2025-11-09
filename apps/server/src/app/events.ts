@@ -5,7 +5,7 @@ import type {
   DeviceId,
   DeviceLatencyPayload,
   MonitorEventPayload,
-  MonitorHeartbeatPayload,
+  MonitorLatencyPayload,
   StorageUpdatePayload
 } from "@samay/scape-protocol";
 
@@ -14,10 +14,10 @@ export const SERVER_EVENTS = {
   DEVICE_UNREGISTERED: "device:unregistered",
   DEVICE_DISCONNECTED: "device:disconnected",
   DEVICE_LIST_CHANGED: "device:list",
-  DEVICE_HEARTBEAT: "device:heartbeat",
+  DEVICE_LATENCY: "device:latency",
   DIRECT_EXECUTED: "direct:executed",
   MONITOR_EVENT: "monitor:event",
-  MONITOR_HEARTBEAT: "monitor:heartbeat",
+  MONITOR_LATENCY: "monitor:latency",
   STORAGE_UPDATED: "storage:updated",
   HARDWARE_HEARTBEAT: "hardware:heartbeat",
   HARDWARE_EVENT: "hardware:event"
@@ -40,7 +40,7 @@ type ServerEventMap = {
     }>;
   };
   [SERVER_EVENTS.DEVICE_LIST_CHANGED]: DeviceConnectionSnapshot[];
-  [SERVER_EVENTS.DEVICE_HEARTBEAT]: DeviceLatencyPayload & {
+  [SERVER_EVENTS.DEVICE_LATENCY]: DeviceLatencyPayload & {
     at: number;
   };
   [SERVER_EVENTS.DIRECT_EXECUTED]: {
@@ -49,7 +49,7 @@ type ServerEventMap = {
     recipients: DeviceConnectionSnapshot[];
   };
   [SERVER_EVENTS.MONITOR_EVENT]: MonitorEventPayload;
-  [SERVER_EVENTS.MONITOR_HEARTBEAT]: MonitorHeartbeatPayload;
+  [SERVER_EVENTS.MONITOR_LATENCY]: MonitorLatencyPayload;
   [SERVER_EVENTS.STORAGE_UPDATED]: StorageUpdatePayload;
   [SERVER_EVENTS.HARDWARE_HEARTBEAT]: {
     device: DeviceId;

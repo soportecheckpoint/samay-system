@@ -4,7 +4,7 @@ import {
   DEVICE_KIND,
   type AdminConnectionStatus,
   type AdminDeviceSnapshot,
-  type AdminHeartbeatSnapshot,
+  type AdminLatencySample,
   type AdminEventSnapshot,
   type AdminStateSnapshot,
   type DeviceMetadata
@@ -124,7 +124,7 @@ interface AdminStore {
   lastUpdatedAt: number | null;
   devices: AdminDeviceSnapshot[];
   events: AdminEventSnapshot[];
-  heartbeats: AdminHeartbeatSnapshot[];
+  latencyHistory: AdminLatencySample[];
   deviceGroups: DeviceGroupMap;
   deviceSessions: DeviceSessionMap;
   modules: Record<ModuleId, ModuleState>;
@@ -368,7 +368,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   lastUpdatedAt: null,
   devices: [],
   events: [],
-  heartbeats: [],
+  latencyHistory: [],
   deviceGroups: {},
   deviceSessions: {},
   modules: createDefaultModules(),
@@ -388,7 +388,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
 
       const devices = [...snapshot.devices];
       const events = [...snapshot.events];
-      const heartbeats = Array.isArray(snapshot.heartbeats) ? [...snapshot.heartbeats] : [];
+  const latencyHistory = Array.isArray(snapshot.latencyHistory) ? [...snapshot.latencyHistory] : [];
       const deviceGroups = groupDevicesById(devices);
       const deviceSessions = indexDeviceSessions(devices);
       const modules = buildModules(deviceGroups);
@@ -398,7 +398,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
         snapshot,
         devices,
         events,
-  heartbeats,
+        latencyHistory,
         deviceGroups,
         deviceSessions,
         modules,
@@ -413,7 +413,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
       snapshot: null,
       devices: [],
       events: [],
-      heartbeats: [],
+      latencyHistory: [],
       deviceGroups: {},
       deviceSessions: {},
       modules: createDefaultModules(),

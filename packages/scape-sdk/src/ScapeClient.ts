@@ -1,5 +1,12 @@
 import type { Socket } from "socket.io-client";
-import { ROUTER_EVENTS, SDK_EVENTS, type DeviceId, type HeartbeatPayload, type ResetPayload } from "@samay/scape-protocol";
+import {
+  ROUTER_EVENTS,
+  SDK_EVENTS,
+  type DeviceId,
+  type DeviceLatencyPingPayload,
+  type DeviceLatencyPongPayload,
+  type ResetPayload
+} from "@samay/scape-protocol";
 import { HandlerRegistry } from "./core/handlerRegistry.js";
 import { defaultSocketFactory } from "./core/socketFactory.js";
 import type { SocketFactory } from "./core/socketFactory.js";
@@ -74,19 +81,33 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
 
   private readonly metadata?: Record<string, unknown>;
   private readonly transport: "socket" | "http";
-  private readonly heartbeatIntervalMs: number;
   private connectionState: ConnectionState;
   private readonly connectionListeners = new Set<(state: ConnectionState) => void>();
   private readonly resetListeners = new Set<ResetHandler>();
-  private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
   private readonly handleResetEvent = (payload?: ResetPayload) => {
-
-    console.log("reset")
     const normalized = this.normalizeResetPayload(payload, { includeSourceDefaults: false });
     if (normalized.sourceInstanceId && normalized.sourceInstanceId === this.instanceId) {
       return;
     }
     this.notifyReset(normalized);
+  };
+  private readonly handleLatencyPing = (payload: DeviceLatencyPingPayload) => {
+    if (!payload || typeof payload.pingId !== "string") {
+      return;
+    }
+
+    const respondedAt = Date.now();
+    const pong: DeviceLatencyPongPayload = {
+      pingId: payload.pingId,
+      sentAt: typeof payload.sentAt === "number" ? payload.sentAt : respondedAt,
+      respondedAt
+    };
+
+    try {
+      this.socket.emit(ROUTER_EVENTS.LATENCY_PONG, pong);
+    } catch {
+      // Ignore emission errors to avoid interrupting the client flow
+    }
   };
 
   constructor(
@@ -100,18 +121,13 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       instanceId,
       autoConnect = true,
       transport = "socket",
-      socketOptions = {},
-      heartbeatIntervalMs
+      socketOptions = {}
     } = options;
 
     this.device = device;
     this.instanceId = instanceId ?? generateInstanceId();
     this.metadata = metadata;
     this.transport = transport;
-    this.heartbeatIntervalMs = typeof heartbeatIntervalMs === "number" && heartbeatIntervalMs > 0
-      ? heartbeatIntervalMs
-      : 2_000;
-
     const factory: SocketFactory = dependencies.factory ?? defaultSocketFactory;
     this.socket = factory(url, {
       autoConnect,
@@ -136,6 +152,7 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
     };
     this.connection = this.buildConnectionApi();
     this.socket.on(SDK_EVENTS.RESET, this.handleResetEvent);
+    this.socket.on(ROUTER_EVENTS.LATENCY_PING, this.handleLatencyPing);
 
     this.socket.on("connect", () => {
       this.setConnectionState({
@@ -147,7 +164,6 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       this.register();
     });
     this.socket.on("disconnect", (reason) => {
-      this.stopHeartbeatLoop();
       this.setConnectionState((prev) => ({
         status: "connecting",
         attempt: prev.attempt,
@@ -156,9 +172,6 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       }));
     });
     this.socket.on("connect_error", (error) => {
-      if (!this.socket.connected) {
-        this.stopHeartbeatLoop();
-      }
       this.setConnectionState((prev) => ({
         status: "error",
         attempt: prev.attempt,
@@ -167,9 +180,6 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       }));
     });
     this.socket.on("error", (error) => {
-      if (!this.socket.connected) {
-        this.stopHeartbeatLoop();
-      }
       this.setConnectionState((prev) => ({
         status: "error",
         attempt: prev.attempt,
@@ -221,8 +231,7 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       on: this.socket.on.bind(this.socket),
       off: this.socket.off.bind(this.socket),
       once: this.socket.once.bind(this.socket),
-      emit: this.socket.emit.bind(this.socket),
-      heartbeat: () => this.heartbeat()
+      emit: this.socket.emit.bind(this.socket)
     };
   }
 
@@ -262,21 +271,6 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
       metadata: this.metadata,
       transport: this.transport
     });
-    this.startHeartbeatLoop();
-  }
-
-  private heartbeat(): void {
-    if (!this.socket.connected) {
-      return;
-    }
-
-    const payload: HeartbeatPayload = {
-      device: this.device,
-      instanceId: this.instanceId,
-      at: Date.now()
-    };
-
-    this.socket.emit(ROUTER_EVENTS.HEARTBEAT, payload);
   }
 
   public reset(payload?: ResetPayload, options?: ResetOptions): void {
@@ -340,31 +334,6 @@ export class ScapeClient<TDevice extends DeviceId> implements ScapeSdk<TDevice> 
     }));
 
     this.socket.connect();
-  }
-
-  private startHeartbeatLoop(): void {
-    if (this.transport !== "socket") {
-      return;
-    }
-
-    this.stopHeartbeatLoop();
-    this.heartbeat();
-    this.heartbeatTimer = setInterval(() => {
-      try {
-        this.heartbeat();
-      } catch {
-        // Ignore heartbeat failures to avoid interrupting the SDK flow
-      }
-    }, this.heartbeatIntervalMs);
-  }
-
-  private stopHeartbeatLoop(): void {
-    if (!this.heartbeatTimer) {
-      return;
-    }
-
-    clearInterval(this.heartbeatTimer);
-    this.heartbeatTimer = null;
   }
 }
 

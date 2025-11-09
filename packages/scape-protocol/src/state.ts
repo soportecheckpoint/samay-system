@@ -31,13 +31,14 @@ export interface AdminEventSnapshot {
 export interface AdminStateSnapshot {
   devices: AdminDeviceSnapshot[];
   events: AdminEventSnapshot[];
-  heartbeats: AdminHeartbeatSnapshot[];
+  latencyHistory: AdminLatencySample[];
   updatedAt: number;
 }
 
-export interface AdminHeartbeatSnapshot {
+export interface AdminLatencySample {
   device: DeviceId;
   instanceId: string;
   latencyMs: number;
   at: number;
+  pingId?: string;
 }

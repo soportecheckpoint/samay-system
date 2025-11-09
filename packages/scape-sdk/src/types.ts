@@ -7,7 +7,7 @@ import type {
   ExecuteTarget,
   DeviceLatencyPayload,
   MonitorEventPayload,
-  MonitorHeartbeatPayload,
+  MonitorLatencyPayload,
   MonitorHistoryPayload,
   PrintPayload,
   ResetPayload,
@@ -44,7 +44,6 @@ export interface CreateSdkOptions<TDevice extends DeviceId = DeviceId> {
   autoConnect?: boolean;
   transport?: "socket" | "http";
   socketOptions?: Partial<ManagerOptions & SocketOptions>;
-  heartbeatIntervalMs?: number;
 }
 
 export interface DirectModule<TDevice extends DeviceId> {
@@ -89,7 +88,7 @@ export interface DevicesModule {
 
 export interface MonitorModule {
   onEvent(handler: (payload: MonitorEventPayload) => void): () => void;
-  onHeartbeat(handler: (payload: MonitorHeartbeatPayload) => void): () => void;
+  onLatency(handler: (payload: MonitorLatencyPayload) => void): () => void;
   onHistory(handler: (payload: MonitorHistoryPayload) => void): () => void;
 }
 
@@ -111,7 +110,6 @@ export interface CoreSocketApi {
   off: Socket["off"];
   once: Socket["once"];
   emit: Socket["emit"];
-  heartbeat(): void;
 }
 
 export interface ScapeSdk<TDevice extends DeviceId = DeviceId> {

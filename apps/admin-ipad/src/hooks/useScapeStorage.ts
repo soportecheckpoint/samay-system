@@ -16,7 +16,7 @@ const isAdminStateSnapshot = (value: unknown): value is AdminStateSnapshot => {
   return (
     Array.isArray(snapshot.devices) &&
     Array.isArray(snapshot.events) &&
-    Array.isArray(snapshot.heartbeats) &&
+    Array.isArray(snapshot.latencyHistory) &&
     typeof snapshot.updatedAt === "number"
   );
 };

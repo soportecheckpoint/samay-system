@@ -1,13 +1,13 @@
 import {
   MONITOR_EVENTS,
   type MonitorEventPayload,
-  type MonitorHeartbeatPayload,
+  type MonitorLatencyPayload,
   type MonitorHistoryPayload
 } from "@samay/scape-protocol";
 import type { Server, Socket } from "socket.io";
 import { SERVER_EVENTS, ServerEventBus } from "../app/events.js";
 
-const MAX_HISTORY = 200;
+const MAX_HISTORY = 500;
 
 export class MonitorManager {
   private readonly history: MonitorEventPayload[] = [];
@@ -35,14 +35,15 @@ export class MonitorManager {
       this.recordEvent(payload);
     });
 
-    this.bus.on(SERVER_EVENTS.DEVICE_HEARTBEAT, (payload) => {
-      const heartbeat: MonitorHeartbeatPayload = {
+    this.bus.on(SERVER_EVENTS.DEVICE_LATENCY, (payload) => {
+      const sample: MonitorLatencyPayload = {
         device: payload.device,
         instanceId: payload.instanceId,
         latencyMs: payload.latencyMs,
-        at: payload.at
+        at: payload.at,
+        pingId: payload.pingId
       };
-      this.broadcastHeartbeat(heartbeat);
+      this.broadcastLatency(sample);
     });
   }
 
@@ -86,11 +87,11 @@ export class MonitorManager {
     this.bus.emit(SERVER_EVENTS.MONITOR_EVENT, payload);
   }
 
-  private broadcastHeartbeat(payload: MonitorHeartbeatPayload): void {
+  private broadcastLatency(payload: MonitorLatencyPayload): void {
     for (const watcher of this.watchers.values()) {
-      watcher.emit(MONITOR_EVENTS.HEARTBEAT, payload);
+      watcher.emit(MONITOR_EVENTS.LATENCY, payload);
     }
 
-    this.bus.emit(SERVER_EVENTS.MONITOR_HEARTBEAT, payload);
+    this.bus.emit(SERVER_EVENTS.MONITOR_LATENCY, payload);
   }
 }

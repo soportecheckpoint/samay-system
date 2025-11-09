@@ -62,7 +62,7 @@ export function LatencySparkline({
   instanceId,
   communicationType,
 }: LatencySparklineProps) {
-  const heartbeats = useAdminStore((state) => state.heartbeats);
+  const latencyHistory = useAdminStore((state) => state.latencyHistory);
 
   const {
     chartData,
@@ -84,15 +84,15 @@ export function LatencySparkline({
     const bucketSize = Math.max(1, Math.round(WINDOW_MS / BUCKET_COUNT));
     const windowSize = bucketSize * BUCKET_COUNT;
 
-    const samples = heartbeats
-      .filter((heartbeat) => {
-        if (heartbeat.device !== deviceId) {
+    const samples = latencyHistory
+      .filter((sample) => {
+        if (sample.device !== deviceId) {
           return false;
         }
-        if (instanceId && heartbeat.instanceId !== instanceId) {
+        if (instanceId && sample.instanceId !== instanceId) {
           return false;
         }
-        return typeof heartbeat.at === "number";
+        return typeof sample.at === "number";
       })
       .sort((a, b) => a.at - b.at);
 
@@ -117,18 +117,18 @@ export function LatencySparkline({
     const latencyValues: number[] = [];
     let lastLatencyBeforeWindow: number | null = null;
 
-    samples.forEach((heartbeat) => {
-      let bucketIndex = Math.floor((heartbeat.at - windowStart) / bucketSize);
+    samples.forEach((sample) => {
+      let bucketIndex = Math.floor((sample.at - windowStart) / bucketSize);
       if (bucketIndex < 0) {
-        if (typeof heartbeat.latencyMs === "number") {
-          lastLatencyBeforeWindow = heartbeat.latencyMs;
+        if (typeof sample.latencyMs === "number") {
+          lastLatencyBeforeWindow = sample.latencyMs;
         }
         return;
       }
       if (bucketIndex >= BUCKET_COUNT) {
         bucketIndex = BUCKET_COUNT - 1;
       }
-      const latency = typeof heartbeat.latencyMs === "number" ? heartbeat.latencyMs : null;
+      const latency = typeof sample.latencyMs === "number" ? sample.latencyMs : null;
       if (latency === null) {
         return;
       }
@@ -162,7 +162,7 @@ export function LatencySparkline({
       yDomainMax,
       xDomain: [windowStart, alignedWindowEnd] as [number, number],
     };
-  }, [deviceId, heartbeats, instanceId]);
+  }, [deviceId, instanceId, latencyHistory]);
 
   const color = getDeviceColor(deviceId);
   const gradientId = `drawerLatency-${sanitizeId(deviceId)}-${sanitizeId(instanceId)}`;

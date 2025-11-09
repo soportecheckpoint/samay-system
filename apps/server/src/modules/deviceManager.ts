@@ -6,15 +6,19 @@ import {
   type DeviceConnectionSummary,
   type DeviceId,
   type DeviceLatencyPayload,
+  type DeviceLatencyPingPayload,
+  type DeviceLatencyPongPayload,
   type DeviceMetadata,
-  type HeartbeatPayload,
   type RegisterDevicePayload
 } from "@samay/scape-protocol";
 import type { Server, Socket } from "socket.io";
+import { randomUUID } from "node:crypto";
 import { logger } from "../utils/logger.js";
 
 interface DeviceSession extends DeviceConnectionSnapshot {
-  socket: Socket;
+  socket: Socket | null;
+  latencyTimer?: NodeJS.Timeout;
+  pendingPings: Map<string, { sentAt: number; timeout: NodeJS.Timeout }>;
 }
 
 interface DisconnectedDevice {
@@ -36,6 +40,8 @@ export class DeviceManager {
   private readonly sessions = new Map<string, DeviceSession>();
   private readonly deviceIndex = new Map<DeviceId, Map<string, DeviceSession>>();
   private readonly disconnectedDevices = new Map<string, DisconnectedDevice>();
+  private readonly latencyPingIntervalMs = 2_000;
+  private readonly latencyPingTimeoutMs = 5_000;
 
   constructor(
     private readonly io: Server,
@@ -59,8 +65,8 @@ export class DeviceManager {
       this.handleUnregister(socket.id);
     });
 
-    socket.on(ROUTER_EVENTS.HEARTBEAT, (payload: HeartbeatPayload) => {
-      this.handleHeartbeat(socket.id, payload);
+    socket.on(ROUTER_EVENTS.LATENCY_PONG, (payload: DeviceLatencyPongPayload) => {
+      this.handleLatencyPong(socket.id, payload);
     });
 
     socket.on("disconnect", () => {
@@ -68,9 +74,80 @@ export class DeviceManager {
     });
   }
 
+  registerHttpDevice(payload: {
+    device: DeviceId;
+    instanceId: string;
+    transport: "http";
+    metadata?: DeviceMetadata;
+    ip?: string;
+  }): void {
+    const now = Date.now();
+    const existing = this.sessions.get(payload.instanceId);
+
+    if (existing) {
+      // Actualizar sesión existente
+      existing.lastSeenAt = now;
+      existing.ip = payload.ip ?? existing.ip;
+      existing.metadata = payload.metadata;
+      existing.registered = true;
+      existing.pendingPings = existing.pendingPings ?? new Map();
+      this.sessions.set(payload.instanceId, existing);
+      logger.info(
+        `[DeviceManager] HTTP device updated: ${payload.device} (${payload.instanceId})`
+      );
+    } else {
+      // Crear nueva sesión sin socket (HTTP device)
+      const registered: DeviceSession = {
+        socket: null,
+        id: payload.device,
+        socketId: payload.instanceId,
+        instanceId: payload.instanceId,
+        connectedAt: now,
+        lastSeenAt: now,
+        transport: "http",
+        metadata: payload.metadata,
+        registered: true,
+        ip: payload.ip,
+        pendingPings: new Map()
+      };
+
+      this.sessions.set(payload.instanceId, registered);
+      this.addToIndex(registered);
+
+      logger.info(
+        `[DeviceManager] HTTP device registered: ${payload.device} (${payload.instanceId}) from ${payload.ip ?? 'unknown'}`
+      );
+
+      this.bus.emit(SERVER_EVENTS.DEVICE_REGISTERED, registered);
+    }
+
+    this.emitList();
+  }
+
+  updateHttpDeviceActivity(instanceId: string): void {
+    const session = this.sessions.get(instanceId);
+    if (session && session.transport === "http") {
+      session.lastSeenAt = Date.now();
+      this.sessions.set(instanceId, session);
+    }
+  }
+
+  startHttpLatencyProbe(instanceId: string, baseUrl: string, intervalMs: number = 10_000): void {
+    const session = this.sessions.get(instanceId);
+    if (!session || session.transport !== "http") {
+      return;
+    }
+
+    this.stopLatencyProbe(session);
+
+    const sendHttpPing = () => this.dispatchHttpLatencyPing(session, baseUrl);
+    sendHttpPing();
+    session.latencyTimer = setInterval(sendHttpPing, intervalMs);
+  }
+
   sendLatencyUpdate(payload: DeviceLatencyPayload & { at: number }): void {
     this.io.emit(DEVICE_MANAGER_EVENTS.LATENCY, payload);
-    this.bus.emit(SERVER_EVENTS.DEVICE_HEARTBEAT, payload);
+    this.bus.emit(SERVER_EVENTS.DEVICE_LATENCY, payload);
   }
 
   private handleRegister(socket: Socket, payload: RegisterDevicePayload): void {
@@ -81,6 +158,7 @@ export class DeviceManager {
 
     const existing = this.sessions.get(socket.id);
     if (existing) {
+      this.stopLatencyProbe(existing);
       this.removeFromIndex(existing);
     }
 
@@ -121,11 +199,13 @@ export class DeviceManager {
       transport: payload.transport ?? "socket",
       metadata: payload.metadata as DeviceMetadata | undefined,
       registered: true,
-      ip
+      ip,
+      pendingPings: new Map()
     };
 
     this.sessions.set(socket.id, registered);
     this.addToIndex(registered);
+    this.startLatencyProbe(registered);
 
     const ipInfo = registered.ip ? ` from ${registered.ip}` : "";
     const reconnectInfo = disconnectedDevice ? " (reconnected)" : "";
@@ -143,6 +223,7 @@ export class DeviceManager {
       return;
     }
 
+    this.stopLatencyProbe(session);
     this.sessions.delete(socketId);
     this.removeFromIndex(session);
 
@@ -196,25 +277,140 @@ export class DeviceManager {
     this.emitList();
   }
 
-  private handleHeartbeat(socketId: string, payload: HeartbeatPayload): void {
+  private startLatencyProbe(session: DeviceSession): void {
+    if (!session.socket) {
+      return;
+    }
+
+    this.stopLatencyProbe(session);
+
+    const sendPing = () => this.dispatchLatencyPing(session);
+    sendPing();
+    session.latencyTimer = setInterval(sendPing, this.latencyPingIntervalMs);
+  }
+
+  private stopLatencyProbe(session: DeviceSession): void {
+    if (session.latencyTimer) {
+      clearInterval(session.latencyTimer);
+      session.latencyTimer = undefined;
+    }
+
+    for (const { timeout } of session.pendingPings.values()) {
+      clearTimeout(timeout);
+    }
+
+    session.pendingPings.clear();
+  }
+
+  private dispatchLatencyPing(session: DeviceSession): void {
+    if (!session.socket || session.socket.disconnected) {
+      return;
+    }
+
+    const pingId = randomUUID();
+    const sentAt = Date.now();
+    const timeout = setTimeout(() => {
+      session.pendingPings.delete(pingId);
+    }, this.latencyPingTimeoutMs);
+
+    session.pendingPings.set(pingId, { sentAt, timeout });
+
+    const payload: DeviceLatencyPingPayload = {
+      pingId,
+      sentAt
+    };
+
+    try {
+      session.socket.emit(ROUTER_EVENTS.LATENCY_PING, payload);
+    } catch (error) {
+      clearTimeout(timeout);
+      session.pendingPings.delete(pingId);
+      logger.warn(
+        `[DeviceManager] Failed to emit latency ping to ${session.id} (${session.instanceId}): ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+    }
+  }
+
+  private handleLatencyPong(socketId: string, payload: DeviceLatencyPongPayload): void {
     const session = this.sessions.get(socketId);
     if (!session) {
       return;
     }
 
+    if (!payload || typeof payload.pingId !== "string") {
+      return;
+    }
+
+    const pending = session.pendingPings.get(payload.pingId);
+    if (!pending) {
+      return;
+    }
+
+    clearTimeout(pending.timeout);
+    session.pendingPings.delete(payload.pingId);
+
     const now = Date.now();
-    const latency = Math.max(0, now - payload.at);
+    const latency = Math.max(0, now - pending.sentAt);
+
     session.lastSeenAt = now;
     session.latencyMs = latency;
 
-    const heartbeatPayload: DeviceLatencyPayload & { at: number } = {
+    const latencyPayload: DeviceLatencyPayload & { at: number; pingId: string } = {
+      device: session.id,
+      instanceId: session.instanceId,
+      latencyMs: latency,
+      at: now,
+      pingId: payload.pingId
+    };
+
+    this.sendLatencyUpdate(latencyPayload);
+  }
+
+  handleHttpPong(instanceId: string, sentTimestamp: number): void {
+    const session = this.sessions.get(instanceId);
+    if (!session || session.transport !== "http") {
+      return;
+    }
+
+    const now = Date.now();
+    const latency = Math.max(0, now - sentTimestamp);
+
+    session.lastSeenAt = now;
+    session.latencyMs = latency;
+
+    const latencyPayload: DeviceLatencyPayload & { at: number } = {
       device: session.id,
       instanceId: session.instanceId,
       latencyMs: latency,
       at: now
     };
 
-    this.sendLatencyUpdate(heartbeatPayload);
+    this.sendLatencyUpdate(latencyPayload);
+  }
+
+  private async dispatchHttpLatencyPing(session: DeviceSession, baseUrl: string): Promise<void> {
+    if (!session || session.transport !== "http") {
+      return;
+    }
+
+    const sentAt = Date.now();
+    const url = `${baseUrl}/ping?time=${sentAt}`;
+
+    try {
+      // No esperamos respuesta aquí - el Arduino debe llamar a /pong
+      await fetch(url, {
+        method: "GET",
+        signal: AbortSignal.timeout(5000)
+      });
+    } catch (error) {
+      logger.warn(
+        `[DeviceManager] Failed to send HTTP ping to ${session.id} at ${url}: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+    }
   }
 
   private addToIndex(session: DeviceSession) {

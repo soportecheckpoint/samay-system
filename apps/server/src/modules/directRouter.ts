@@ -7,12 +7,19 @@ import {
 import type { Socket } from "socket.io";
 import { SERVER_EVENTS, ServerEventBus } from "../app/events.js";
 import type { DeviceManager } from "./deviceManager.js";
+import type { ArduinoBridge } from "./arduinoBridge.js";
+import { logger } from "../utils/logger.js";
 
 export class DirectRouter {
   constructor(
     private readonly deviceManager: DeviceManager,
-    private readonly bus: ServerEventBus
+    private readonly bus: ServerEventBus,
+    private arduinoBridge?: ArduinoBridge
   ) {}
+
+  setArduinoBridge(bridge: ArduinoBridge): void {
+    this.arduinoBridge = bridge;
+  }
 
   attach(socket: Socket): void {
     socket.on(ROUTER_EVENTS.EXECUTE, (envelope: DirectExecuteEnvelope) => {
@@ -46,8 +53,20 @@ export class DirectRouter {
     const eventName = this.resolveEventName(envelope.target, envelope.command);
     const recipients = this.pickRecipients(envelope.target, envelope.targetInstanceId);
 
+    // Verificar si el target es un dispositivo HTTP (Arduino)
+    const isHttpDevice = recipients.length > 0 && recipients[0].transport === "http";
+
+    if (isHttpDevice) {
+      // Enviar comando HTTP al Arduino
+      this.sendHttpCommand(envelope, recipients);
+      return recipients.length;
+    }
+
+    // Envío normal vía WebSocket
     for (const recipient of recipients) {
-      recipient.socket.emit(eventName, envelope.payload);
+      if (recipient.socket) {
+        recipient.socket.emit(eventName, envelope.payload);
+      }
     }
 
     const historyEntry = {
@@ -78,6 +97,59 @@ export class DirectRouter {
     }
 
     return recipients.length;
+  }
+
+  private sendHttpCommand(envelope: DirectExecuteEnvelope, recipients: any[]): void {
+    if (!this.arduinoBridge) {
+      logger.error("[DirectRouter] ArduinoBridge not set, cannot send HTTP command");
+      return;
+    }
+
+    // Solo soportar comandos "start" y "reset" (reset = restart)
+    const command = envelope.command;
+    if (command !== "start" && command !== "reset") {
+      logger.warn(
+        `[DirectRouter] Unsupported HTTP command for Arduino: ${command}. Only 'start' and 'reset' are supported.`
+      );
+      return;
+    }
+
+    const arduinoCommand = command === "reset" ? "restart" : command;
+
+    for (const recipient of recipients) {
+      this.arduinoBridge
+        .sendCommandToArduino(recipient.id, arduinoCommand as "start" | "restart")
+        .then(() => {
+          logger.info(
+            `[DirectRouter] HTTP command "${arduinoCommand}" sent successfully to ${recipient.id}`
+          );
+
+          const historyEntry = {
+            envelope: { ...envelope, command: arduinoCommand },
+            eventName: `arduino:command:${arduinoCommand}`,
+            recipients: [
+              {
+                id: recipient.id,
+                socketId: recipient.socketId,
+                instanceId: recipient.instanceId,
+                connectedAt: recipient.connectedAt,
+                lastSeenAt: recipient.lastSeenAt,
+                transport: recipient.transport,
+                metadata: recipient.metadata,
+                registered: recipient.registered,
+                latencyMs: recipient.latencyMs
+              }
+            ]
+          };
+
+          this.bus.emit(SERVER_EVENTS.DIRECT_EXECUTED, historyEntry);
+        })
+        .catch((error: any) => {
+          logger.error(
+            `[DirectRouter] Failed to send HTTP command to ${recipient.id}: ${error.message}`
+          );
+        });
+    }
   }
 
   private resolveEventName(target: DeviceId, command: string): string {

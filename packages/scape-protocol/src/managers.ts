@@ -3,7 +3,8 @@ import type { DeviceId, DeviceMetadata, DeviceTransport } from "./devices.js";
 export const ROUTER_EVENTS = {
   REGISTER: "device:register",
   UNREGISTER: "device:unregister",
-  HEARTBEAT: "device:heartbeat",
+  LATENCY_PING: "device:latency-ping",
+  LATENCY_PONG: "device:latency-pong",
   EXECUTE: "direct:execute"
 } as const;
 
@@ -18,10 +19,15 @@ export interface RegisterDevicePayload {
   transport?: DeviceTransport;
 }
 
-export interface HeartbeatPayload {
-  device: DeviceId;
-  instanceId: string;
-  at: number;
+export interface DeviceLatencyPingPayload {
+  pingId: string;
+  sentAt: number;
+}
+
+export interface DeviceLatencyPongPayload {
+  pingId: string;
+  sentAt: number;
+  respondedAt?: number;
 }
 
 export interface DirectExecuteEnvelope {
@@ -84,6 +90,7 @@ export interface DeviceLatencyPayload {
   device: DeviceId;
   latencyMs: number;
   instanceId: string;
+  pingId?: string;
 }
 
 export interface DeviceConnectionSummary {
@@ -123,7 +130,7 @@ export interface UnregisteredDevicePayload {
 
 export const MONITOR_EVENTS = {
   STREAM: "monitor:event",
-  HEARTBEAT: "monitor:heartbeat",
+  LATENCY: "monitor:latency",
   HISTORY: "monitor:history"
 } as const;
 
@@ -135,11 +142,12 @@ export interface MonitorEventPayload {
   detail?: Record<string, unknown>;
 }
 
-export interface MonitorHeartbeatPayload {
+export interface MonitorLatencyPayload {
   device: DeviceId;
   instanceId: string;
   latencyMs?: number;
   at: number;
+  pingId?: string;
 }
 
 export interface MonitorHistoryPayload {

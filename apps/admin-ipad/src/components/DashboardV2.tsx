@@ -279,7 +279,7 @@ export function DashboardV2() {
     setSelectedMarkerId(null);
   }, []);
 
-  const { getCommands, sendCommand, resetAll, resetDevice, statusStart, statusPause, statusRestart, statusWin } = useDeviceCommands();
+  const { getCommands, sendCommand, resetAll, statusStart, statusPause, statusRestart, statusWin } = useDeviceCommands();
 
   const targetDevice = useMemo(() => {
     if (!selectedMarker) {
@@ -464,9 +464,22 @@ export function DashboardV2() {
         requireHold: true,
         disabled: !canTriggerReset,
         onClick: () => {
-          resetSelectedDevice({
-            metadata: baseMetadata,
-          });
+          // Para Arduinos (transport: http), usar comando directo "reset"
+          // Para apps React (transport: socket), usar SDK reset
+          const isArduino = selectedMarker?.type === "arduino";
+          
+          if (isArduino && targetDeviceId) {
+            // Arduino: usar comando HTTP "reset" (convertido a "restart" por DirectRouter)
+            sendCommand(targetDeviceId, "reset", {
+              targetInstanceId: targetInstanceId,
+              payload: baseMetadata,
+            });
+          } else {
+            // Apps React: usar SDK reset
+            resetSelectedDevice({
+              metadata: baseMetadata,
+            });
+          }
         },
       },
     );
@@ -539,12 +552,6 @@ export function DashboardV2() {
       return;
     }
 
-    const metadata = {
-      origin: "admin-ipad",
-      source: "dashboard-menu",
-      action: "hardware-reset"
-    } as Record<string, unknown>;
-
     const uniqueTargets = new Map<string, { deviceId: string; instanceId?: string }>();
 
     for (const arduino of arduinos) {
@@ -557,16 +564,21 @@ export function DashboardV2() {
       }
     }
 
+    // Para Arduinos, usar comando directo "reset" (no SDK reset)
+    // El DirectRouter convertirá "reset" → "restart" para HTTP
     uniqueTargets.forEach(({ deviceId, instanceId }) => {
-      resetDevice(deviceId, {
-        reason: "admin-menu-reset-arduino",
-        metadata,
+      sendCommand(deviceId, "reset", {
+        payload: {
+          origin: "admin-ipad",
+          source: "dashboard-menu",
+          action: "hardware-reset"
+        },
         targetInstanceId: instanceId
       });
     });
 
     setMenuOpen(false);
-  }, [arduinos, resetDevice]);
+  }, [arduinos, sendCommand]);
 
   const handleTriggerVictory = useCallback(() => {
     statusWin({

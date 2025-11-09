@@ -12,11 +12,13 @@ export function ContractView() {
 
   return (
     <View viewId="contract">
-      <div 
-        className="w-full h-full bg-cover bg-center bg-no-repeat cursor-pointer"
-        style={{ backgroundImage: 'url(/insig1.png)' }}
-        onClick={handleClick}
-      />
+      <div className="w-full h-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/insig1.png)' }}>
+        <div 
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+          style={{ width: '85%', height: '12%' }}
+          onClick={handleClick}
+        />
+      </div>
     </View>
   );
 }

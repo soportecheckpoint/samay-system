@@ -36,8 +36,12 @@ export class ScapeServer {
     this.statusManager = new StatusManager(this.storageManager);
     this.monitorManager = new MonitorManager(options.io, this.bus);
     this.printerManager = new PrinterManager();
-    this.arduinoBridge = new ArduinoBridge(options.app, options.io, this.bus);
+    this.arduinoBridge = new ArduinoBridge(options.app, options.io, this.bus, this.deviceManager);
     this.adminStateManager = new AdminStateManager(this.storageManager, this.bus);
+    
+    // Conectar ArduinoBridge con DirectRouter (bidireccional)
+    this.directRouter.setArduinoBridge(this.arduinoBridge);
+    this.arduinoBridge.setDirectRouter(this.directRouter);
   }
 
   initialize(): void {
@@ -91,11 +95,15 @@ export class ScapeServer {
 
     if (targets.length === 0) {
       logger.info(
-        `[ScapeServer] Reset requested by ${normalized.source ?? "unknown"} (${normalized.sourceInstanceId ?? "n/a"})`
+        `[ScapeServer] Global reset requested by ${normalized.source ?? "unknown"} (${normalized.sourceInstanceId ?? "n/a"})`
       );
 
       socket.broadcast.emit(SDK_EVENTS.RESET, normalized);
       this.statusManager.reset();
+      
+      // Enviar restart a todos los Arduinos conectados
+      this.restartAllArduinos();
+      
       return;
     }
 
@@ -206,5 +214,29 @@ export class ScapeServer {
     }
 
     return delivered.size;
+  }
+
+  private restartAllArduinos(): void {
+    // Obtener todos los dispositivos con transport="http" (Arduinos)
+    const allDevices = this.deviceManager.getSummaries();
+    const arduinos = allDevices.filter((device) => device.transport === "http");
+
+    if (arduinos.length === 0) {
+      logger.info("[ScapeServer] No Arduinos connected to restart");
+      return;
+    }
+
+    logger.info(`[ScapeServer] Restarting ${arduinos.length} Arduino(s)`);
+
+    for (const arduino of arduinos) {
+      this.arduinoBridge
+        .sendCommandToArduino(arduino.device, "restart")
+        .then(() => {
+          logger.info(`[ScapeServer] Restart command sent to Arduino: ${arduino.device}`);
+        })
+        .catch((error: Error) => {
+          logger.error(`[ScapeServer] Failed to restart Arduino ${arduino.device}: ${error.message}`);
+        });
+    }
   }
 }

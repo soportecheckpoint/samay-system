@@ -37,11 +37,11 @@ const MODULE_STATUS_LABEL: Record<ModuleState['status'], MarkerStatus> = {
 };
 
 const ARDUINO_STATUS_LABEL: Record<ArduinoState['status'], MarkerStatus> = {
-  connected: { connection: 'online', label: 'Conectado', helper: 'Recibiendo heartbeats' },
+  connected: { connection: 'online', label: 'Conectado', helper: 'Recibiendo señal' },
   disconnected: {
     connection: 'offline',
     label: 'Sin conexión',
-    helper: 'Último heartbeat perdido',
+    helper: 'Última señal perdida',
   },
   error: { connection: 'error', label: 'Error', helper: 'Revisar logs del dispositivo' },
 };
@@ -65,13 +65,13 @@ function buildModuleMeta(module: ModuleState | undefined): MarkerMetaField[] {
 function buildArduinoMeta(arduino: ArduinoState | undefined): MarkerMetaField[] {
   if (!arduino) {
     return [
-      { label: 'Último heartbeat', value: 'Sin registro' },
+      { label: 'Última actividad', value: 'Sin registro' },
       { label: 'Último comando', value: 'Sin registro' },
     ];
   }
 
   return [
-    { label: 'Último heartbeat', value: formatRelativeTime(arduino.lastHeartbeat) },
+    { label: 'Última actividad', value: formatRelativeTime(arduino.lastHeartbeat) },
     { label: 'Dirección IP', value: arduino.ip ?? 'Sin registro' },
     { label: 'Último comando', value: arduino.lastCommand ?? 'Sin registro' },
     { label: 'Hora comando', value: formatRelativeTime(arduino.lastCommandTime) },

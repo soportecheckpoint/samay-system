@@ -44,6 +44,7 @@ export function useSocket() {
 
   useEffect(() => {
     let startTimer: ReturnType<typeof setTimeout> | null = null;
+    let startTimer2: ReturnType<typeof setTimeout> | null = null;
 
     const unsubscribe = sdk.direct.on("start", (payload) => {
       resetLocalState();
@@ -55,16 +56,21 @@ export function useSocket() {
       // Si es fase 1, ir a before-start y luego a match
       if (phase === 1) {
         sdk.direct.execute(DEVICE.MAIN_SCREEN).showImage({ image: "notification" });
-        viewStore.resetFlow("before-start");
+        
         startTimer = setTimeout(() => {
-          if (useViewStore.getState().currentView === "before-start") {
-            viewStore.setView("match");
-          }
+          viewStore.resetFlow("before-start");
+          startTimer2 = setTimeout(() => {
+            if (useViewStore.getState().currentView === "before-start") {
+              viewStore.setView("match");
+            }
+          }, 5000);
         }, 30000);
       } else if (phase === 2) {
         // Si es fase 2, ir directamente a contract
         sdk.direct.execute(DEVICE.MAIN_SCREEN).showImage({ image: "accept" });
-        viewStore.resetFlow("contract");
+        startTimer = setTimeout(() => {
+          viewStore.resetFlow("contract");
+        }, 5000);
       }
     });
 
@@ -73,6 +79,10 @@ export function useSocket() {
       if (startTimer) {
         clearTimeout(startTimer);
         startTimer = null;
+      }
+      if (startTimer2) {
+        clearTimeout(startTimer2);
+        startTimer2 = null;
       }
     };
   }, [sdk]);

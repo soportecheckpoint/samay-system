@@ -13,7 +13,7 @@ import { useAdminStore } from "../store.ts";
 import type {
   AdminDeviceSnapshot,
   AdminEventSnapshot,
-  AdminHeartbeatSnapshot
+  AdminLatencySample
 } from "@samay/scape-protocol";
 import { formatRelativeTime } from "../utils/time.ts";
 
@@ -138,11 +138,11 @@ const LatencyTooltip = ({ active, payload, label }: LatencyTooltipProps) => {
   );
 };
 
-const HeartbeatChart = ({
-  heartbeats,
+const LatencyHistoryChart = ({
+  latencySamples,
   deviceSnapshots
 }: {
-  heartbeats: AdminHeartbeatSnapshot[];
+  latencySamples: AdminLatencySample[];
   deviceSnapshots: AdminDeviceSnapshot[];
 }) => {
   const { chartData, deviceIds, maxLatency, totalSamples, xDomain } = useMemo(() => {
@@ -151,8 +151,8 @@ const HeartbeatChart = ({
     const bucketSize = Math.max(1, Math.round(windowMs / bucketCount));
     const windowSize = bucketSize * bucketCount;
 
-    const samples = heartbeats
-      .filter((heartbeat) => typeof heartbeat.at === "number")
+    const samples = latencySamples
+      .filter((sample) => typeof sample.at === "number")
       .sort((a, b) => a.at - b.at);
 
     const now = Date.now();
@@ -167,8 +167,8 @@ const HeartbeatChart = ({
         allDeviceIds.add(snapshot.device);
       }
     });
-    samples.forEach((heartbeat) => {
-      allDeviceIds.add(heartbeat.device);
+    samples.forEach((sample) => {
+      allDeviceIds.add(sample.device);
     });
     const deviceIds = Array.from(allDeviceIds).sort();
 
@@ -189,12 +189,12 @@ const HeartbeatChart = ({
     let computedMaxLatency = 0;
   const lastLatencyBeforeWindow = new Map<string, number>();
 
-    samples.forEach((heartbeat) => {
-      let bucketIndex = Math.floor((heartbeat.at - windowStart) / bucketSize);
+    samples.forEach((sample) => {
+      let bucketIndex = Math.floor((sample.at - windowStart) / bucketSize);
       if (bucketIndex < 0) {
-        const latency = typeof heartbeat.latencyMs === "number" ? heartbeat.latencyMs : null;
+        const latency = typeof sample.latencyMs === "number" ? sample.latencyMs : null;
         if (latency !== null) {
-          lastLatencyBeforeWindow.set(heartbeat.device, latency);
+          lastLatencyBeforeWindow.set(sample.device, latency);
         }
         return;
       }
@@ -202,9 +202,9 @@ const HeartbeatChart = ({
         bucketIndex = bucketCount - 1;
       }
 
-      const latency = typeof heartbeat.latencyMs === "number" ? heartbeat.latencyMs : 0;
+      const latency = typeof sample.latencyMs === "number" ? sample.latencyMs : 0;
       computedMaxLatency = Math.max(computedMaxLatency, latency);
-      rawBuckets[bucketIndex][heartbeat.device] = latency;
+      rawBuckets[bucketIndex][sample.device] = latency;
     });
 
     const normalizedMaxLatency = Math.max(
@@ -238,7 +238,7 @@ const HeartbeatChart = ({
       totalSamples: samples.length,
       xDomain: [windowStart, alignedWindowEnd] as [number, number]
     };
-  }, [deviceSnapshots, heartbeats]);
+  }, [deviceSnapshots, latencySamples]);
 
   const yAxisTicks = useMemo(() => {
     const ticks = new Set<number>();
@@ -256,7 +256,7 @@ const HeartbeatChart = ({
         </h3>
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Zap className="h-4 w-4" />
-          <span>{totalSamples} heartbeats</span>
+          <span>{totalSamples} muestras</span>
         </div>
       </div>
 
@@ -539,10 +539,10 @@ const EventsLog = ({ events }: { events: AdminEventSnapshot[] }) => {
 };
 
 export function MonitorModal({ open, onClose }: MonitorModalProps) {
-  const { deviceSnapshots, events, heartbeats } = useAdminStore((state) => ({
+  const { deviceSnapshots, events, latencyHistory } = useAdminStore((state) => ({
     deviceSnapshots: state.devices,
     events: state.events,
-    heartbeats: state.heartbeats
+    latencyHistory: state.latencyHistory
   }));
 
   const [isVisible, setIsVisible] = useState(false);
@@ -632,8 +632,8 @@ export function MonitorModal({ open, onClose }: MonitorModalProps) {
         </div>
 
         <div className="mx-auto max-w-7xl space-y-6">
-          {/* Heartbeat Chart */}
-          <HeartbeatChart heartbeats={heartbeats} deviceSnapshots={deviceSnapshots} />
+          {/* Latency Chart */}
+          <LatencyHistoryChart latencySamples={latencyHistory} deviceSnapshots={deviceSnapshots} />
 
           {/* Devices Table */}
           <DevicesTable devices={deviceSnapshots} />

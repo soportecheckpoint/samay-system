@@ -2,7 +2,7 @@ import {
   DEVICE_CATALOG,
   type AdminDeviceSnapshot,
   type AdminEventSnapshot,
-  type AdminHeartbeatSnapshot,
+  type AdminLatencySample,
   type AdminStateSnapshot,
   type DeviceConnectionSnapshot,
   type DeviceDescriptor,
@@ -39,7 +39,7 @@ export class AdminStateManager {
   private readonly bus: ServerEventBus;
   private readonly devices = new Map<string, AdminDeviceEntry>();
   private readonly events: AdminEventEntry[] = [];
-  private readonly heartbeats: AdminHeartbeatSnapshot[] = [];
+  private readonly latencyHistory: AdminLatencySample[] = [];
   private flushTimer: NodeJS.Timeout | null = null;
   private pendingFlush = false;
 
@@ -67,8 +67,8 @@ export class AdminStateManager {
       this.events.push(...snapshot.events.slice(-MAX_EVENT_HISTORY));
     }
 
-    if (Array.isArray(snapshot.heartbeats)) {
-      this.heartbeats.push(...snapshot.heartbeats.slice(-200));
+    if (Array.isArray(snapshot.latencyHistory)) {
+      this.latencyHistory.push(...snapshot.latencyHistory.slice(-200));
     }
   }
 
@@ -85,8 +85,8 @@ export class AdminStateManager {
       this.applyDeviceDisconnected(payload);
     });
 
-    this.bus.on(SERVER_EVENTS.DEVICE_HEARTBEAT, (payload) => {
-      this.applyDeviceHeartbeat(payload);
+    this.bus.on(SERVER_EVENTS.DEVICE_LATENCY, (payload) => {
+      this.applyDeviceLatency(payload);
     });
 
     this.bus.on(SERVER_EVENTS.HARDWARE_HEARTBEAT, (payload) => {
@@ -258,7 +258,7 @@ private cleanupOfflineDevices(connectedDeviceId: DeviceId, connectedInstanceId: 
   }
 }
 
-  private applyDeviceHeartbeat(payload: DeviceLatencyPayload & { at: number }): void {
+  private applyDeviceLatency(payload: DeviceLatencyPayload & { at: number }): void {
     const key = toKey(payload.device, payload.instanceId);
     const entry = this.devices.get(key);
     if (!entry) {
@@ -273,11 +273,12 @@ private cleanupOfflineDevices(connectedDeviceId: DeviceId, connectedInstanceId: 
     this.devices.set(key, entry);
 
     if (typeof payload.latencyMs === "number") {
-      this.recordHeartbeat({
+      this.recordLatencySample({
         device: payload.device,
         instanceId: payload.instanceId,
         latencyMs: payload.latencyMs,
-        at: payload.at
+        at: payload.at,
+        pingId: payload.pingId
       });
     }
 
@@ -311,7 +312,7 @@ private cleanupOfflineDevices(connectedDeviceId: DeviceId, connectedInstanceId: 
     this.devices.set(key, entry);
 
     if (typeof payload.latencyMs === "number") {
-      this.recordHeartbeat({
+      this.recordLatencySample({
         device,
         instanceId,
         latencyMs: payload.latencyMs,
@@ -466,12 +467,12 @@ private cleanupOfflineDevices(connectedDeviceId: DeviceId, connectedInstanceId: 
     });
 
     const events = [...this.events];
-    const heartbeats = [...this.heartbeats];
+    const latencyHistory = [...this.latencyHistory];
 
     const snapshot: AdminStateSnapshot = {
       devices,
       events,
-      heartbeats,
+      latencyHistory,
       updatedAt: now()
     };
 
@@ -482,10 +483,10 @@ private cleanupOfflineDevices(connectedDeviceId: DeviceId, connectedInstanceId: 
     return randomUUID();
   }
 
-  private recordHeartbeat(entry: AdminHeartbeatSnapshot): void {
-    this.heartbeats.push(entry);
-    if (this.heartbeats.length > 200) {
-      this.heartbeats.splice(0, this.heartbeats.length - 200);
+  private recordLatencySample(entry: AdminLatencySample): void {
+    this.latencyHistory.push(entry);
+    if (this.latencyHistory.length > 200) {
+      this.latencyHistory.splice(0, this.latencyHistory.length - 200);
     }
   }
 }

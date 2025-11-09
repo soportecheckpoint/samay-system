@@ -2,7 +2,7 @@ import type { Socket } from "socket.io-client";
 import {
   MONITOR_EVENTS,
   type MonitorEventPayload,
-  type MonitorHeartbeatPayload,
+  type MonitorLatencyPayload,
   type MonitorHistoryPayload
 } from "@samay/scape-protocol";
 import type { MonitorModule } from "../types.js";
@@ -19,9 +19,9 @@ export class MonitorModuleImpl implements MonitorModule {
     return () => this.socket.off(MONITOR_EVENTS.STREAM, handler);
   }
 
-  onHeartbeat(handler: (payload: MonitorHeartbeatPayload) => void): () => void {
-    this.socket.on(MONITOR_EVENTS.HEARTBEAT, handler);
-    return () => this.socket.off(MONITOR_EVENTS.HEARTBEAT, handler);
+  onLatency(handler: (payload: MonitorLatencyPayload) => void): () => void {
+    this.socket.on(MONITOR_EVENTS.LATENCY, handler);
+    return () => this.socket.off(MONITOR_EVENTS.LATENCY, handler);
   }
 
   onHistory(handler: (payload: MonitorHistoryPayload) => void): () => void {
