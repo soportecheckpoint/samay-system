@@ -8,16 +8,16 @@ export const MesaView: React.FC = () => {
   // Configuración de los botones en forma de cuadrado (según la imagen)
   // Posiciones en porcentaje relativo a la imagen de la mesa
   const buttonPositions = [
-    { id: 1, top: '23%', left: '22%', label: 'Banca Corporativa' },
-    { id: 2, top: '23%', left: '41%', label: 'BEX' },
-    { id: 3, top: '23%', left: '59%', label: 'Innovación' },
-    { id: 4, top: '23%', left: '78%', label: 'Legal' },
-    { id: 5, top: '46%', left: '22%', label: 'Tecnología' },
-    { id: 6, top: '46%', left: '78%', label: 'Exp. Cliente' },
-    { id: 7, top: '70%', left: '22%', label: 'Finanzas' },
-    { id: 8, top: '70%', left: '41%', label: 'Canales' },
-    { id: 9, top: '70%', left: '59%', label: 'Riesgos' },
-    { id: 10, top: '70%', left: '78%', label: 'Banca de Inversión' }
+    { id: 1, top: '26%', left: '31%', label: 'Banca Corporativa' },
+    { id: 2, top: '26%', left: '51%', label: 'BEX' },
+    { id: 3, top: '26%', left: '69%', label: 'Innovación' },
+    { id: 4, top: '36%', left: '76%', label: 'Legal' },
+    { id: 5, top: '36%', left: '24%', label: 'Tecnología' },
+    { id: 6, top: '63%', left: '76%', label: 'Exp. Cliente' },
+    { id: 7, top: '63%', left: '24%', label: 'Finanzas' },
+    { id: 8, top: '74%', left: '31%', label: 'Canales' },
+    { id: 9, top: '74%', left: '51%', label: 'Riesgos' },
+    { id: 10, top: '74%', left: '69%', label: 'Banca de Inversión' }
   ];
 
   return (

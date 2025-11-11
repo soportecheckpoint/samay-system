@@ -63,14 +63,14 @@ export function useSocket() {
             if (useViewStore.getState().currentView === "before-start") {
               viewStore.setView("match");
             }
-          }, 5000);
+          }, 15000);
         }, 30000);
       } else if (phase === 2) {
         // Si es fase 2, ir directamente a contract
         sdk.direct.execute(DEVICE.MAIN_SCREEN).showImage({ image: "accept" });
         startTimer = setTimeout(() => {
           viewStore.resetFlow("contract");
-        }, 5000);
+        }, 28000);
       }
     });
 

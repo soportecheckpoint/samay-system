@@ -12,7 +12,6 @@ interface ArduinoSession {
   ip: string;
   port: number;
   connectedAt: string;
-  lastHeartbeat: string;
   status: "connected" | "disconnected" | "error";
 }
 
@@ -47,7 +46,6 @@ export class ArduinoBridge {
         ip,
         port: port || 8080,
         connectedAt: now,
-        lastHeartbeat: now,
         status: "connected"
       };
 
@@ -75,15 +73,19 @@ export class ArduinoBridge {
         metadata: { port }
       });
 
-      // Iniciar sondeo de latencia HTTP cada 10 segundos
-      const baseUrl = `http://${ip}:${port}`;
-      this.deviceManager.startHttpLatencyProbe(id, baseUrl, 5_000);
-
+      // Responder primero para que el Arduino complete su conexión
       res.json({
         status: "registered",
         arduinoId: id,
         message: "Arduino registrado exitosamente"
       });
+
+      // Iniciar sondeo de latencia HTTP después de un delay para permitir
+      // que el Arduino complete el proceso de conexión (timeout + margen)
+      const baseUrl = `http://${ip}:${port}`;
+      setTimeout(() => {
+        this.deviceManager.startHttpLatencyProbe(id, baseUrl, 5_000);
+      }, 500); // 500ms de delay inicial
     });
 
     // POST /dispatch - Arduino envía eventos
@@ -130,56 +132,9 @@ export class ArduinoBridge {
       });
     });
 
-    // POST /heartbeat - Monitoreo de salud del Arduino
     this.app.post("/heartbeat", (req: Request, res: Response) => {
-      const { arduinoId, timestamp } = req.body;
-
-      if (!arduinoId) {
-        return res.status(400).json({ error: "Missing arduinoId" });
-      }
-
-      const session = this.sessions.get(arduinoId);
-      if (session) {
-        session.lastHeartbeat = new Date().toISOString();
-        session.status = "connected";
-        this.sessions.set(arduinoId, session);
-
-        // Actualizar actividad en DeviceManager
-        this.deviceManager.updateHttpDeviceActivity(arduinoId);
-
-        this.bus.emit(SERVER_EVENTS.HARDWARE_HEARTBEAT, {
-          device: arduinoId as DeviceId,
-          instanceId: arduinoId,
-          at: Date.now(),
-          ip: session.ip
-        });
-      }
-
       res.json({
-        status: "alive",
-        timestamp: new Date().toISOString()
-      });
-    });
-
-    // GET /pong - Arduino responde al ping con el timestamp original
-    this.app.get("/pong", (req: Request, res: Response) => {
-      const { arduinoId, time } = req.query;
-
-      if (!arduinoId || !time) {
-        return res.status(400).json({ error: "Missing arduinoId or time" });
-      }
-
-      const sentTimestamp = parseInt(time as string, 10);
-      if (isNaN(sentTimestamp)) {
-        return res.status(400).json({ error: "Invalid timestamp" });
-      }
-
-      // Calcular latencia basándose en el timestamp enviado
-      this.deviceManager.handleHttpPong(arduinoId as string, sentTimestamp);
-
-      res.json({
-        status: "pong",
-        receivedAt: Date.now()
+        status: "heartbeat received",
       });
     });
   }
@@ -199,7 +154,7 @@ export class ArduinoBridge {
       const response = await axios.post(
         url,
         { command },
-        { timeout: 5000 }
+        { timeout: 10000 }
       );
 
       logger.info(`[ArduinoBridge] Arduino ${arduinoId} responded:`, response.data);

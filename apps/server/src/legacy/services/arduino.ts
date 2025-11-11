@@ -24,7 +24,7 @@ export const sendCommandToArduino = async (
     const response = await axios.post(
       url,
       { command },
-      { timeout: 5000 }
+      { timeout: 10000 }
     );
 
     logger.info(`Arduino ${arduinoId} responded:`, response.data);

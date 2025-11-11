@@ -46,9 +46,9 @@ export function SelectorView() {
   {/* Bloque centrado con contenido alineado a la izquierda */}
   <div className="w-full max-w-5xl bg-transparent relative">
           {/* Icono y Título (alineados a la izquierda dentro del bloque) */}
-          <div className="flex items-center gap-4 mb-8">
-            <img src="/mano.png" alt="Mano" className="w-20 h-20" />
-            <h1 className="text-5xl font-bold text-white" style={{ fontStyle: 'italic' }}>
+          <div className="flex items-end gap-4 mb-8">
+            <img src="/mano.png" alt="Mano" className="w-20 h-20 object-contain" />
+            <h1 className="text-5xl font-bold text-white leading-[0.6]" style={{ fontStyle: 'italic' }}>
               MARCA UNA OPCIÓN:
             </h1>
           </div>

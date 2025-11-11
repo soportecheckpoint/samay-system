@@ -19,6 +19,12 @@ interface DeviceSession extends DeviceConnectionSnapshot {
   socket: Socket | null;
   latencyTimer?: NodeJS.Timeout;
   pendingPings: Map<string, { sentAt: number; timeout: NodeJS.Timeout }>;
+  httpPingState?: {
+    baseUrl: string;
+    pendingTimestamp?: number;
+    timeout?: NodeJS.Timeout;
+    nextPingTimer?: NodeJS.Timeout;
+  };
 }
 
 interface DisconnectedDevice {
@@ -132,7 +138,66 @@ export class DeviceManager {
     }
   }
 
-  startHttpLatencyProbe(instanceId: string, baseUrl: string, intervalMs: number = 10_000): void {
+  disconnectHttpDevice(instanceId: string): void {
+    const session = this.sessions.get(instanceId);
+    if (!session || session.transport !== "http") {
+      return;
+    }
+
+    this.stopLatencyProbe(session);
+    this.sessions.delete(instanceId);
+    this.removeFromIndex(session);
+
+    // Guardar información del dispositivo desconectado
+    const disconnectedKey = `${session.id}:${session.instanceId}`;
+    const existingDisconnected = this.disconnectedDevices.get(disconnectedKey);
+    
+    const connectionHistory = existingDisconnected?.connectionHistory || [];
+    const currentConnection = connectionHistory[connectionHistory.length - 1];
+    if (currentConnection && !currentConnection.disconnectedAt) {
+      currentConnection.disconnectedAt = Date.now();
+      currentConnection.duration = currentConnection.disconnectedAt - currentConnection.connectedAt;
+    }
+
+    const disconnectedDevice: DisconnectedDevice = {
+      id: session.id,
+      instanceId: session.instanceId,
+      lastConnectedAt: session.connectedAt,
+      disconnectedAt: Date.now(),
+      ip: session.ip,
+      transport: session.transport,
+      metadata: session.metadata,
+      connectionHistory: connectionHistory.length > 0 ? connectionHistory : [{
+        connectedAt: session.connectedAt,
+        disconnectedAt: Date.now(),
+        duration: Date.now() - session.connectedAt
+      }]
+    };
+
+    this.disconnectedDevices.set(disconnectedKey, disconnectedDevice);
+
+    const ipInfo = session.ip ? ` from ${session.ip}` : "";
+    logger.info(
+      `[DeviceManager] HTTP device disconnected: ${session.id} (${session.instanceId})${ipInfo}`
+    );
+
+    this.bus.emit(SERVER_EVENTS.DEVICE_UNREGISTERED, {
+      id: session.id,
+      socketId: session.socketId,
+      instanceId: session.instanceId,
+      connectedAt: session.connectedAt,
+      lastSeenAt: session.lastSeenAt,
+      transport: session.transport,
+      metadata: session.metadata,
+      registered: session.registered,
+      latencyMs: session.latencyMs,
+      ip: session.ip
+    });
+
+    this.emitList();
+  }
+
+  startHttpLatencyProbe(instanceId: string, baseUrl: string, _intervalMs: number = 10_000): void {
     const session = this.sessions.get(instanceId);
     if (!session || session.transport !== "http") {
       return;
@@ -140,9 +205,13 @@ export class DeviceManager {
 
     this.stopLatencyProbe(session);
 
-    const sendHttpPing = () => this.dispatchHttpLatencyPing(session, baseUrl);
-    sendHttpPing();
-    session.latencyTimer = setInterval(sendHttpPing, intervalMs);
+    // Inicializar estado de ping HTTP
+    session.httpPingState = {
+      baseUrl
+    };
+
+    // Enviar el primer ping inmediatamente
+    this.scheduleNextHttpPing(session, 0);
   }
 
   sendLatencyUpdate(payload: DeviceLatencyPayload & { at: number }): void {
@@ -300,6 +369,17 @@ export class DeviceManager {
     }
 
     session.pendingPings.clear();
+
+    // Limpiar estado de ping HTTP
+    if (session.httpPingState) {
+      if (session.httpPingState.timeout) {
+        clearTimeout(session.httpPingState.timeout);
+      }
+      if (session.httpPingState.nextPingTimer) {
+        clearTimeout(session.httpPingState.nextPingTimer);
+      }
+      session.httpPingState = undefined;
+    }
   }
 
   private dispatchLatencyPing(session: DeviceSession): void {
@@ -374,11 +454,27 @@ export class DeviceManager {
       return;
     }
 
+    // Verificar que este pong corresponde al ping pendiente
+    if (!session.httpPingState?.pendingTimestamp || 
+        session.httpPingState.pendingTimestamp !== sentTimestamp) {
+      logger.warn(
+        `[DeviceManager] Received unexpected pong from ${session.id}: expected ${session.httpPingState?.pendingTimestamp}, got ${sentTimestamp}`
+      );
+      return;
+    }
+
+    // Cancelar el timeout del ping pendiente
+    if (session.httpPingState.timeout) {
+      clearTimeout(session.httpPingState.timeout);
+      session.httpPingState.timeout = undefined;
+    }
+
     const now = Date.now();
     const latency = Math.max(0, now - sentTimestamp);
 
     session.lastSeenAt = now;
     session.latencyMs = latency;
+    session.httpPingState.pendingTimestamp = undefined;
 
     const latencyPayload: DeviceLatencyPayload & { at: number } = {
       device: session.id,
@@ -388,28 +484,102 @@ export class DeviceManager {
     };
 
     this.sendLatencyUpdate(latencyPayload);
+
+    // Programar el siguiente ping después de 4 segundos
+    this.scheduleNextHttpPing(session, 4_000);
   }
 
-  private async dispatchHttpLatencyPing(session: DeviceSession, baseUrl: string): Promise<void> {
-    if (!session || session.transport !== "http") {
+  /**
+   * Programa el siguiente ping HTTP después de un delay
+   */
+  private scheduleNextHttpPing(session: DeviceSession, delayMs: number): void {
+    if (!session.httpPingState) {
+      return;
+    }
+
+    // Limpiar cualquier timer existente
+    if (session.httpPingState.nextPingTimer) {
+      clearTimeout(session.httpPingState.nextPingTimer);
+    }
+
+    session.httpPingState.nextPingTimer = setTimeout(() => {
+      this.sendHttpPingWithTimeout(session);
+    }, delayMs);
+  }
+
+  /**
+   * Envía un ping HTTP y configura su timeout
+   */
+  private async sendHttpPingWithTimeout(session: DeviceSession): Promise<void> {
+    if (!session.httpPingState || session.transport !== "http") {
       return;
     }
 
     const sentAt = Date.now();
+    const baseUrl = session.httpPingState.baseUrl;
     const url = `${baseUrl}/ping?time=${sentAt}`;
 
+    // Marcar el timestamp del ping pendiente
+    session.httpPingState.pendingTimestamp = sentAt;
+
+    // Configurar timeout de 10 segundos
+    session.httpPingState.timeout = setTimeout(() => {
+      logger.error(
+        `[DeviceManager] HTTP ping timeout for ${session.id} (${session.instanceId}), disconnecting device`
+      );
+      
+      // Limpiar el ping pendiente
+      if (session.httpPingState) {
+        session.httpPingState.pendingTimestamp = undefined;
+        session.httpPingState.timeout = undefined;
+      }
+
+      // Desconectar el dispositivo HTTP por timeout
+      this.disconnectHttpDevice(session.instanceId);
+    }, 10_000);
+
     try {
-      // No esperamos respuesta aquí - el Arduino debe llamar a /pong
-      await fetch(url, {
+      // Enviar el ping y procesar respuesta
+      const response = await fetch(url, {
         method: "GET",
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(10000)
       });
+
+      if (response.ok) {
+        // Calcular latencia inmediatamente
+        this.handleHttpPong(session.instanceId, sentAt);
+      } else {
+        logger.error(
+          `[DeviceManager] Ping to ${session.id} failed with status ${response.status}, disconnecting device`
+        );
+        // Limpiar estado y desconectar el dispositivo
+        if (session.httpPingState) {
+          if (session.httpPingState.timeout) {
+            clearTimeout(session.httpPingState.timeout);
+          }
+          session.httpPingState.pendingTimestamp = undefined;
+          session.httpPingState.timeout = undefined;
+        }
+        this.disconnectHttpDevice(session.instanceId);
+      }
+      
     } catch (error) {
-      logger.warn(
-        `[DeviceManager] Failed to send HTTP ping to ${session.id} at ${url}: ${
+      logger.error(
+        `[DeviceManager] Failed to send HTTP ping to ${session.id} at ${url}, disconnecting device: ${
           error instanceof Error ? error.message : String(error)
         }`
       );
+      
+      // Si falla el envío, limpiar y desconectar el dispositivo
+      if (session.httpPingState) {
+        if (session.httpPingState.timeout) {
+          clearTimeout(session.httpPingState.timeout);
+        }
+        session.httpPingState.pendingTimestamp = undefined;
+        session.httpPingState.timeout = undefined;
+      }
+      
+      this.disconnectHttpDevice(session.instanceId);
     }
   }
 
@@ -589,5 +759,31 @@ export class DeviceManager {
     }
 
     return first.startsWith("::ffff:") ? first.slice(7) : first;
+  }
+
+  /**
+   * Busca un dispositivo HTTP por su IP
+   * Útil para identificar Arduinos sin requerir parámetro de ID
+   */
+  findHttpDeviceByIp(ip: string): DeviceSession | undefined {
+    if (!ip) {
+      return undefined;
+    }
+
+    const normalizedIp = this.normalizeIp(ip);
+    if (!normalizedIp) {
+      return undefined;
+    }
+
+    for (const session of this.sessions.values()) {
+      if (session.transport === "http" && session.ip) {
+        const normalizedSessionIp = this.normalizeIp(session.ip);
+        if (normalizedSessionIp === normalizedIp) {
+          return session;
+        }
+      }
+    }
+
+    return undefined;
   }
 }

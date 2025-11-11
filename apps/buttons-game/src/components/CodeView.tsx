@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import View from '../view-manager/View';
-import { useGameStore } from '../store';
-import useViewStore from '../view-manager/view-manager-store';
-import { requestButtonsStart } from '../socket';
+import React, { useState, useRef, useEffect } from "react";
+import View from "../view-manager/View";
+import { useGameStore } from "../store";
+import useViewStore from "../view-manager/view-manager-store";
+import { requestButtonsStart } from "../socket";
 
-const CORRECT_CODE = (import.meta.env.VITE_BUTTONS_CODE as string | undefined) ?? "1606";
+const CORRECT_CODE =
+  (import.meta.env.VITE_BUTTONS_CODE as string | undefined) ?? "SPM02";
 
 export const CodeView: React.FC = () => {
-  const [digits, setDigits] = useState(['', '', '', '']);
+  const [digits, setDigits] = useState(["", "", "", "", ""]);
   const { error, setError } = useGameStore();
   const currentView = useViewStore((state) => state.currentView);
   const codeResetCounter = useViewStore((state) => state.codeResetCounter);
@@ -16,7 +17,7 @@ export const CodeView: React.FC = () => {
 
   // Auto-focus al primer input cuando la vista está activa
   useEffect(() => {
-    if (currentView === 'code') {
+    if (currentView === "code") {
       setTimeout(() => {
         inputRefs.current[0]?.focus();
       }, 100);
@@ -25,53 +26,54 @@ export const CodeView: React.FC = () => {
 
   // Force focus en cualquier input cuando se escriba
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = () => {
       // Si la vista actual no es 'code', no hacer nada
-      if (currentView !== 'code') return;
+      if (currentView !== "code") return;
 
       // Si ya hay un input con foco, no hacer nada
-      if (document.activeElement === inputRefs.current[0] ||
-          document.activeElement === inputRefs.current[1] ||
-          document.activeElement === inputRefs.current[2] ||
-          document.activeElement === inputRefs.current[3]) {
+      if (
+        document.activeElement === inputRefs.current[0] ||
+        document.activeElement === inputRefs.current[1] ||
+        document.activeElement === inputRefs.current[2] ||
+        document.activeElement === inputRefs.current[3] ||
+        document.activeElement === inputRefs.current[4]
+      ) {
         return;
       }
 
-      // Si es un número, enfoca el primer input
-      if (/^\d$/.test(e.key)) {
-        inputRefs.current[0]?.focus();
-      }
+      inputRefs.current[0]?.focus();
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentView]);
 
   // Auto-submit cuando se completen los 4 dígitos
   useEffect(() => {
-    if (currentView !== 'code') {
+    if (currentView !== "code") {
       return;
     }
 
-    const code = digits.join('');
-    if (code.length !== 4) {
+    const code = digits.join("");
+
+    if (code.length !== 5) {
       return;
     }
 
-    if (code === CORRECT_CODE) {
-      setError('');
+    if (code.toUpperCase() === CORRECT_CODE.toUpperCase()) {
+      setError("");
       requestButtonsStart();
-      setView('mesa');
-      setDigits(['', '', '', '']);
+      setView("mesa");
+      setDigits(["", "", "", "", ""]);
     } else {
-      setError('Código incorrecto');
+      setError("Código incorrecto");
     }
   }, [digits, setError, currentView, setView]);
 
   // Limpiar cuando hay error
   useEffect(() => {
     if (error) {
-      setDigits(['', '', '', '']);
+      setDigits(["", "", "", "", ""]);
       inputRefs.current[0]?.focus();
     }
   }, [error]);
@@ -79,14 +81,14 @@ export const CodeView: React.FC = () => {
   // Limpiar cuando se solicita reset del código desde el store (socket o flow reset)
   useEffect(() => {
     // Si el contador cambia, limpiamos los dígitos y enfocamos el primer input
-    setDigits(['', '', '', '']);
+    setDigits(["", "", "", "", ""]);
     inputRefs.current[0]?.focus();
   }, [codeResetCounter]);
 
   const handleChange = (index: number, value: string) => {
-    // Solo permitir números
-    if (value && !/^\d$/.test(value)) {
-      return;
+    // Limpiar error cuando el usuario empieza a escribir
+    if (error) {
+      setError("");
     }
 
     const newDigits = [...digits];
@@ -94,44 +96,53 @@ export const CodeView: React.FC = () => {
     setDigits(newDigits);
 
     // Auto-focus al siguiente input si hay un valor
-    if (value && index < 3) {
+    if (value && index < 4) {
       inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     // Retroceder al input anterior al presionar backspace
-    if (e.key === 'Backspace' && !digits[index] && index > 0) {
+    if (e.key === "Backspace" && !digits[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
-    const newDigits = pastedData.split('').concat(['', '', '', '']).slice(0, 4);
+    const pastedData = e.clipboardData
+      .getData("text")
+      .replace(/\D/g, "")
+      .slice(0, 5);
+    const newDigits = pastedData
+      .split("")
+      .concat(["", "", "", "", ""])
+      .slice(0, 5);
     setDigits(newDigits);
-    
+
     // Focus al último input con valor o al primero vacío
-    const nextEmptyIndex = newDigits.findIndex(d => !d);
-    const focusIndex = nextEmptyIndex === -1 ? 3 : nextEmptyIndex;
+    const nextEmptyIndex = newDigits.findIndex((d) => !d);
+    const focusIndex = nextEmptyIndex === -1 ? 4 : nextEmptyIndex;
     inputRefs.current[focusIndex]?.focus();
   };
 
   return (
     <View viewId="code">
-      <div 
+      <div
         className="w-full h-full flex items-center justify-center relative"
         style={{
-          backgroundImage: 'url(/bttn_bg_code.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundImage: "url(/bttn_bg_code.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="w-full max-w-2xl px-8">
           {/* Inputs de código */}
-          <div className="flex justify-center gap-8">
+          <div className="flex justify-center gap-8 -translate-x-24 mt-24">
             {digits.map((digit, index) => (
               <input
                 key={index}
@@ -139,17 +150,13 @@ export const CodeView: React.FC = () => {
                   inputRefs.current[index] = el;
                 }}
                 type="text"
-                inputMode="numeric"
-                value={digit}
+                value={digit ? "*" : ""}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={handlePaste}
                 maxLength={1}
                 autoFocus={index === 0}
-                className="w-32 h-40 text-9xl font-mono text-center bg-white border-4 border-white/30 rounded-3xl text-black focus:outline-none focus:border-white/80 focus:ring-4 focus:ring-white/30"
-                style={{
-                  WebkitTextSecurity: 'disc',
-                } as React.CSSProperties}
+                className="w-40 h-[270px] text-9xl font-mono text-center bg-white border-4 border-white/30 rounded-3xl text-black focus:outline-none focus:border-white/80 focus:ring-4 focus:ring-white-30"
               />
             ))}
           </div>
@@ -159,7 +166,9 @@ export const CodeView: React.FC = () => {
         {error && (
           <div className="absolute bottom-16 left-0 right-0 px-8">
             <div className="max-w-2xl mx-auto rounded-2xl border-4 border-red-500/60 bg-red-500/20 backdrop-blur-sm p-6">
-              <p className="text-2xl font-semibold text-red-100 text-center">{error}</p>
+              <p className="text-2xl font-semibold text-red-100 text-center">
+                {error}
+              </p>
             </div>
           </div>
         )}

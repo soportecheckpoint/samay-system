@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { FeedbackInputView } from '@samay/tablet-shared-ui';
-import View from '../view-manager/View';
-import useViewStore from '../view-manager/view-manager-store';
-import { useTabletStore } from '../store';
-import { emitTabletInput } from '../socket';
+import { useEffect, useState } from "react";
+import { FeedbackInputView } from "@samay/tablet-shared-ui";
+import View from "../view-manager/View";
+import useViewStore from "../view-manager/view-manager-store";
+import { useTabletStore } from "../store";
+import { emitTabletInput } from "../socket";
 
 export function FeedbackInput() {
   const setView = useViewStore((state) => state.setView);
@@ -24,7 +24,7 @@ export function FeedbackInput() {
   const handleSubmit = () => {
     const sanitized = localText.trim();
     setFeedbackText(sanitized);
-    setView('feedback-confirm');
+    setView("feedback-confirm");
   };
 
   return (
@@ -34,6 +34,13 @@ export function FeedbackInput() {
         onChange={handleChange}
         onSubmit={handleSubmit}
         submitDisabled={localText.trim().length < 5}
+        Message={() => (
+          <p className="text-3xl font-semibold italic leading-tight text-white">
+            Escriban
+            <br />
+            su mensaje
+          </p>
+        )}
       />
     </View>
   );

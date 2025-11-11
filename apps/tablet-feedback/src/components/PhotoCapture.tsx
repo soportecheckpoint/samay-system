@@ -176,15 +176,39 @@ export function PhotoCapture() {
             <div className="mt-8 flex gap-4 justify-center">
               <button
                 onClick={retake}
-                className="px-10 py-4 rounded-full bg-white/90 text-black font-medium hover:bg-white transition shadow-lg italic text-lg"
+                className="relative px-10 text-black font-medium transition italic text-lg"
+                style={{ minHeight: "42px", minWidth: "150px" }}
               >
-                Otra foto
+                <svg 
+                  className="absolute inset-0 w-full h-full pointer-events-none" 
+                  viewBox="0 0 407 61" 
+                  preserveAspectRatio="none"
+                >
+                  <path 
+                    d="M403.601 19.2112C403.218 18.714 399.494 13.9214 394.653 9.81346C390.17 5.83591 384.506 2.43706 382.705 1.59754C380.464 0.489043 378.345 0.0407536 376.397 0H37.6038C34.5313 0 31.8907 0.978086 29.9021 1.85836C24.5313 4.14056 8.47593 14.6142 2.35533 24.3706C-3.24368 33.3038 2.82802 40.7943 3.34147 41.5116C3.34147 41.5116 7.43274 46.8259 12.2983 50.9012C16.7644 54.8788 21.6951 57.8049 24.2216 59.1171C26.0717 60.1115 28.1091 60.7636 30.383 60.8532L369.315 60.8614C371.637 60.8695 374.196 60.2908 377.033 58.8889C381.923 56.5008 398.467 46.1004 404.588 36.3766C410.366 27.2315 404.017 19.7818 403.601 19.2112Z" 
+                    fill="rgba(255, 255, 255, 0.9)"
+                    className="transition-all"
+                  />
+                </svg>
+                <span className="relative z-10">Otra foto</span>
               </button>
               <button
                 onClick={confirm}
-                className="px-10 py-4 rounded-full bg-[#00BCD4] text-white font-medium hover:bg-[#00ACC1] transition shadow-lg italic text-lg"
+                className="relative px-10 text-white font-medium transition italic text-lg"
+                style={{ minHeight: "42px", minWidth: "150px" }}
               >
-                Confirmar
+                <svg 
+                  className="absolute inset-0 w-full h-full pointer-events-none" 
+                  viewBox="0 0 407 61" 
+                  preserveAspectRatio="none"
+                >
+                  <path 
+                    d="M403.601 19.2112C403.218 18.714 399.494 13.9214 394.653 9.81346C390.17 5.83591 384.506 2.43706 382.705 1.59754C380.464 0.489043 378.345 0.0407536 376.397 0H37.6038C34.5313 0 31.8907 0.978086 29.9021 1.85836C24.5313 4.14056 8.47593 14.6142 2.35533 24.3706C-3.24368 33.3038 2.82802 40.7943 3.34147 41.5116C3.34147 41.5116 7.43274 46.8259 12.2983 50.9012C16.7644 54.8788 21.6951 57.8049 24.2216 59.1171C26.0717 60.1115 28.1091 60.7636 30.383 60.8532L369.315 60.8614C371.637 60.8695 374.196 60.2908 377.033 58.8889C381.923 56.5008 398.467 46.1004 404.588 36.3766C410.366 27.2315 404.017 19.7818 403.601 19.2112Z" 
+                    fill="#01B5D9"
+                    className="transition-all"
+                  />
+                </svg>
+                <span className="relative z-10">Confirmar</span>
               </button>
             </div>
           )}

@@ -34,6 +34,14 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: 'Flexo';
+  src: url('/fonts/Flexo-BlackIt.woff') format('woff'),
+       url('/fonts/Flexo-BlackIt.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
 body {
   margin: 0;
   font-family: 'Flexo', system-ui, -apple-system, sans-serif;
