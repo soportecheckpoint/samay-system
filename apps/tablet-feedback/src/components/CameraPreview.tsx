@@ -59,10 +59,7 @@ export function CameraPreview() {
                 }).catch(err => {
                   console.error("[CAMERA-PREVIEW] Error stopping scanner:", err);
                   isScanningRef.current = false;
-                  setView("message-select");
                 });
-              } else {
-                setView("message-select");
               }
             } else {
               console.log("[CAMERA-PREVIEW] QR code does not match target");
