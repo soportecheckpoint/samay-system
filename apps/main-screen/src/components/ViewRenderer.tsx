@@ -18,11 +18,7 @@ export const ViewRenderer = ({ className = '' }: ViewRendererProps) => {
   useAudioPlayer(content?.audio, [content?.audio]);
 
   if (!content) {
-    return (
-      <div className={`flex items-center justify-center text-2xl opacity-50 ${containerClass}`}>
-        {currentView}
-      </div>
-    );
+    return ""
   }
 
   // Render image view

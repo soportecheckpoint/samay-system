@@ -18,6 +18,16 @@ export function CameraPreview() {
   useEffect(() => {
     const startQrScanner = async () => {
       try {
+        // Clear any existing scanner before creating a new one
+        if (qrScannerRef.current && isScanningRef.current) {
+          try {
+            await qrScannerRef.current.stop();
+            isScanningRef.current = false;
+          } catch (err) {
+            console.warn("[CAMERA-PREVIEW] Error stopping existing scanner:", err);
+          }
+        }
+
         const html5QrCode = new Html5Qrcode("qr-reader");
         qrScannerRef.current = html5QrCode;
 
@@ -79,18 +89,24 @@ export function CameraPreview() {
 
     return () => {
       // Clean up QR scanner when leaving view
-      if (qrScannerRef.current && isScanningRef.current) {
-        console.log("[CAMERA-PREVIEW] Stopping QR scanner");
-        qrScannerRef.current
-          .stop()
-          .then(() => {
-            console.log("[CAMERA-PREVIEW] QR scanner stopped");
-            isScanningRef.current = false;
-          })
-          .catch((err) => {
-            console.error("[CAMERA-PREVIEW] Error stopping QR scanner:", err);
-            isScanningRef.current = false;
-          });
+      if (qrScannerRef.current) {
+        console.log("[CAMERA-PREVIEW] Cleaning up QR scanner");
+        if (isScanningRef.current) {
+          qrScannerRef.current
+            .stop()
+            .then(() => {
+              console.log("[CAMERA-PREVIEW] QR scanner stopped");
+              isScanningRef.current = false;
+              qrScannerRef.current = null;
+            })
+            .catch((err) => {
+              console.error("[CAMERA-PREVIEW] Error stopping QR scanner:", err);
+              isScanningRef.current = false;
+              qrScannerRef.current = null;
+            });
+        } else {
+          qrScannerRef.current = null;
+        }
       }
     };
   }, [currentView, setView]);
