@@ -33,7 +33,7 @@ export const MesaView: React.FC = () => {
       >
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Contenedor proporcional a la imagen de la mesa */}
-          <div className="relative" style={{ width: '80vmin', height: '80vmin' }}>
+          <div className="relative" style={{ width: '100vmin', height: '80vmin' }}>
             {/* Imagen de la mesa */}
             <img 
               src="/mesa.png" 

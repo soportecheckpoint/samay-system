@@ -65,18 +65,20 @@ export function PhotoMessage() {
 
           const recognitionAsset = response.assets?.recognition ?? null;
           const photoAsset = response.assets?.photo ?? null;
+          const photoPublicPath = response.photoPublicPath ?? 
+            (photoAsset && 'publicPath' in photoAsset ? photoAsset.publicPath : null);
 
           setComposedImage(composed, {
-            path: recognitionAsset?.publicPath ?? response.publicPath ?? null,
-            url: recognitionAsset?.cloudinaryUrl ?? response.cloudinaryUrl ?? null,
-            photoPath: photoAsset?.publicPath ?? null,
+            path: recognitionAsset && 'publicPath' in recognitionAsset ? recognitionAsset.publicPath : response.publicPath ?? null,
+            url: recognitionAsset && 'cloudinaryUrl' in recognitionAsset ? recognitionAsset.cloudinaryUrl : response.cloudinaryUrl ?? null,
+            photoPath: photoPublicPath,
           });
 
           emitTabletActivity({
             currentView: 'photo-preview',
             input: sanitized,
-            photoPath: photoAsset?.publicPath ?? null,
-            recognitionPath: recognitionAsset?.publicPath ?? response.publicPath ?? null,
+            photoPath: photoPublicPath,
+            recognitionPath: recognitionAsset && 'publicPath' in recognitionAsset ? recognitionAsset.publicPath : response.publicPath ?? null,
           });
         } catch (uploadError) {
           console.warn('[TABLET] Unable to upload recognition image', uploadError);

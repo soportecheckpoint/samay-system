@@ -9,6 +9,7 @@ import { MonitorManager } from "../modules/monitorManager.js";
 import { PrinterManager } from "../modules/printerManager.js";
 import { ArduinoBridge } from "../modules/arduinoBridge.js";
 import { createRecognitionRouter } from "../routes/recognitionRouter.js";
+import { createFeedbackRouter } from "../routes/feedbackRouter.js";
 import { logger } from "../utils/logger.js";
 import { DEVICE_MANAGER_EVENTS, SDK_EVENTS, type DeviceId, type ResetPayload } from "@samay/scape-protocol";
 import { AdminStateManager } from "../modules/adminStateManager.js";
@@ -56,7 +57,8 @@ export class ScapeServer {
       res.json({ status: "ok", timestamp: new Date().toISOString() });
     });
 
-    app.use("/api/recognition", createRecognitionRouter());
+  app.use("/api/feedback", createFeedbackRouter());
+  app.use("/api/recognition", createRecognitionRouter());
 
     this.arduinoBridge.register();
   }
@@ -209,7 +211,7 @@ export class ScapeServer {
         }
 
         delivered.add(key);
-        recipient.socket.emit(SDK_EVENTS.RESET, payload);
+        recipient.socket?.emit(SDK_EVENTS.RESET, payload);
       }
     }
 

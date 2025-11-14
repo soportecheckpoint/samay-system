@@ -1,43 +1,78 @@
 import { promises as fs } from "fs";
 import { join, relative as relativePath } from "path";
 import { randomBytes } from "crypto";
-import { v2 as cloudinary } from "cloudinary";
 import { logger } from "../utils/logger.js";
 
 export interface SaveRecognitionOptions {
+  /** Prefijo opcional para el public_id en Cloudinary */
+  kind?: string;
+}
+
+export interface SaveRecognitionResult {
+  /** URL devuelta por Cloudinary (si se quiere obtener explícitamente) */
+  cloudinaryUrl: string | null;
+  /** public_id usado en Cloudinary (si se quiere obtener explícitamente) */
+  publicId: string | null;
+}
+
+export interface SavePhotoLocallyOptions {
   kind?: string;
   subfolder?: string;
 }
 
-export interface SaveRecognitionResult {
+export interface SavePhotoLocallyResult {
   filePath: string;
   relativePath: string;
   publicPath: string;
-  cloudinaryUrl: string | null;
 }
+
+interface CloudinaryUploadResponse {
+  secure_url?: string;
+  url?: string;
+  public_id: string;
+  [key: string]: unknown;
+}
+
+const getCloudinaryConfig = () => {
+  const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } = process.env;
+
+  if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+    throw new Error(
+      "Missing CLOUDINARY_CLOUD_NAME or CLOUDINARY_UPLOAD_PRESET environment variables",
+    );
+  }
+
+  return {
+    cloudName: CLOUDINARY_CLOUD_NAME,
+    uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+  };
+};
+
+const buildPublicId = (kind?: string) => {
+  const prefix = kind?.replace(/[^a-zA-Z0-9_-]/g, "") || "recognition";
+  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+  return `${prefix}/${stamp}`;
+};
 
 const PUBLIC_ASSETS_ROOT =
   process.env.PUBLIC_ASSETS_DIR ??
   process.env.RECOGNITION_IMAGE_DIR ??
   join(process.cwd(), "public");
 
-const trimSlashes = (value: string) => value.replace(/^\/+/u, "").replace(/\/+$/u, "");
+const DEFAULT_SUBFOLDER = "recognitions";
 
-const PUBLIC_ROUTE_PREFIX = trimSlashes(process.env.PUBLIC_ASSETS_ROUTE ?? "public");
+const trimSlashes = (value: string) =>
+  value.replace(/^\/+/, "").replace(/\/+$/, "");
 
-const DEFAULT_SUBFOLDER = trimSlashes(process.env.RECOGNITION_PUBLIC_SUBDIR ?? "recognitions");
-
-const CLOUDINARY_FOLDER =
-  process.env.CLOUDINARY_RECOGNITION_FOLDER ?? "recognition-images";
-
-let cloudinaryConfigured = false;
-let cloudinaryWarningLogged = false;
+const PUBLIC_ROUTE_PREFIX = trimSlashes(
+  process.env.PUBLIC_ASSETS_ROUTE ?? "public",
+);
 
 const sanitizeSegment = (value: string) => value.replace(/[^a-zA-Z0-9_-]/g, "");
 
 const toPathSegments = (value?: string) =>
   (value ?? "")
-    .split(/[\\/]+/)
+    .split(/[\/\\]+/)
     .map((segment) => sanitizeSegment(segment))
     .filter((segment) => segment.length > 0);
 
@@ -56,9 +91,8 @@ const ensureOutputDirectory = async (subfolder?: string) => {
 };
 
 const parseDataUrl = (value: string) => {
-  const match = /^data:(?<mime>image\/(png|jpeg|jpg));base64,(?<data>.+)$/i.exec(
-    value
-  );
+  const match =
+    /^data:(?<mime>image\/(png|jpeg|jpg));base64,(?<data>.+)$/i.exec(value);
 
   if (!match || !match.groups) {
     throw new Error("Invalid image data URL received");
@@ -71,105 +105,39 @@ const parseDataUrl = (value: string) => {
   return { buffer, extension };
 };
 
-const configureCloudinary = () => {
-  if (cloudinaryConfigured) {
-    return true;
-  }
-
-  const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
-    process.env;
-
-  if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
-    return false;
-  }
-
-  cloudinary.config({
-    cloud_name: CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET,
-    secure: true
-  });
-
-  cloudinaryConfigured = true;
-  return true;
-};
-
 const buildFilename = (extension: string, kind?: string) => {
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const randomSuffix = randomBytes(4).toString("hex");
-  const prefix = kind ? kind.replace(/[^a-zA-Z0-9_-]/g, "") : "recognition";
+  const prefix = kind ? sanitizeSegment(kind) : "recognition";
   return `${prefix}-${stamp}-${randomSuffix}.${extension}`;
 };
 
 const buildPublicPath = (filename: string, subfolder: string) => {
-  const segments = [PUBLIC_ROUTE_PREFIX, ...toPathSegments(subfolder), filename]
-    .filter((segment) => segment.length > 0);
+  const segments = [
+    PUBLIC_ROUTE_PREFIX,
+    ...toPathSegments(subfolder),
+    filename,
+  ].filter((segment) => segment.length > 0);
   return `/${segments.join("/")}`;
 };
 
-const buildCloudinaryPublicId = (
-  filename: string,
-  kind?: string,
-  subfolder?: string
-) => {
-  const baseName = filename.replace(/\.[^.]+$/, "");
-  const folderSegments = [CLOUDINARY_FOLDER, ...toPathSegments(subfolder)];
-  const sanitizedKind = kind ? sanitizeSegment(kind) : "";
-
-  if (sanitizedKind) {
-    folderSegments.push(sanitizedKind);
-  }
-
-  const folderPath = folderSegments.filter((segment) => segment.length > 0).join("/");
-  return folderPath ? `${folderPath}/${baseName}` : baseName;
-};
-
-const scheduleCloudinaryUpload = (
-  filePath: string,
-  filename: string,
-  kind?: string,
-  subfolder?: string
-) => {
-  if (!configureCloudinary()) {
-    if (!cloudinaryWarningLogged) {
-      logger.warn(
-        "[CLOUDINARY] Skipping upload. Missing CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET"
-      );
-      cloudinaryWarningLogged = true;
-    }
-    return;
-  }
-
-  const publicId = buildCloudinaryPublicId(filename, kind, subfolder);
-
-  setTimeout(() => {
-    cloudinary.uploader
-      .upload(filePath, {
-        public_id: publicId,
-        overwrite: true,
-        resource_type: "image"
-      })
-      .then((result) => {
-        const url = result.secure_url ?? result.url ?? null;
-        if (url) {
-          logger.info(`[CLOUDINARY] Uploaded ${publicId} -> ${url}`);
-        } else {
-          logger.info(`[CLOUDINARY] Upload completed for ${publicId}`);
-        }
-      })
-      .catch((error) => {
-        logger.error(
-          `[CLOUDINARY] Failed to upload ${publicId}: ${(error as Error).message}`
-        );
-      });
-  }, 0);
-};
-
-export const saveRecognitionImage = async (
+/**
+ * Guarda una imagen (foto sin editar) localmente en public/
+ * @param dataUrl - Data URL de la imagen
+ * @param options - Opciones para organizar la imagen
+ * @returns Información de la imagen guardada localmente
+ */
+export const savePhotoLocally = async (
   dataUrl: string,
-  options: SaveRecognitionOptions = {}
-): Promise<SaveRecognitionResult> => {
-  const { directory, resolvedSubfolder } = await ensureOutputDirectory(options.subfolder);
+  options: SavePhotoLocallyOptions = {},
+): Promise<SavePhotoLocallyResult> => {
+  if (!dataUrl || typeof dataUrl !== "string") {
+    throw new Error("Invalid dataUrl: must be a non-empty string");
+  }
+
+  const { directory, resolvedSubfolder } = await ensureOutputDirectory(
+    options.subfolder,
+  );
 
   const { buffer, extension } = parseDataUrl(dataUrl);
   const filename = buildFilename(extension, options.kind);
@@ -179,7 +147,70 @@ export const saveRecognitionImage = async (
 
   await fs.writeFile(filePath, buffer);
 
-  scheduleCloudinaryUpload(filePath, filename, options.kind, resolvedSubfolder);
+  logger.info(`[LOCAL] Saved photo: ${publicPath}`);
 
-  return { filePath, relativePath: relative, publicPath, cloudinaryUrl: null };
+  return {
+    filePath,
+    relativePath: relative,
+    publicPath,
+  };
+};
+
+export const saveRecognitionImage = async (
+  dataUrl: string,
+  options: SaveRecognitionOptions = {},
+): Promise<SaveRecognitionResult> => {
+  if (!dataUrl || typeof dataUrl !== "string") {
+    throw new Error("Invalid dataUrl: must be a non-empty string");
+  }
+
+  const config = getCloudinaryConfig();
+
+  // Cloudinary acepta directamente data URLs en el campo "file"
+  const publicId = buildPublicId(options.kind);
+
+  // Lanzamos la subida en background, sin bloquear el request
+  setImmediate(async () => {
+    try {
+      const formData = new URLSearchParams();
+      formData.append("file", dataUrl);
+      formData.append("upload_preset", config.uploadPreset);
+      formData.append("public_id", publicId);
+
+      const uploadUrl = `https://api.cloudinary.com/v1_1/${config.cloudName}/image/upload`;
+
+      const response = await fetch(uploadUrl, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logger.error(
+          `[CLOUDINARY] Upload failed: ${response.status} ${response.statusText} - ${errorText}`,
+        );
+        return;
+      }
+
+      const result = (await response.json()) as CloudinaryUploadResponse;
+      const url = result.secure_url ?? result.url;
+
+      if (!url) {
+        logger.error("[CLOUDINARY] Upload did not return a URL");
+        return;
+      }
+
+      logger.info(`[CLOUDINARY] Uploaded ${publicId} -> ${url}`);
+    } catch (error) {
+      logger.error(
+        `[CLOUDINARY] Unexpected error uploading image: ${(error as Error).message}`,
+      );
+    }
+  });
+
+  // Devolvemos inmediatamente sin esperar a Cloudinary
+  return {
+    cloudinaryUrl: null,
+    publicId,
+  };
 };

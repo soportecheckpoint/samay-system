@@ -177,7 +177,8 @@ export const createRecognitionImage = async ({
   context.fillStyle = '#FFFFFF';
   context.fill();
 
-  const fontSize = Math.max(12, Math.floor(messageBoxHeight * 0.18));
+  const adjustedFontScale = 0.14;
+  const fontSize = Math.max(12, Math.floor(messageBoxHeight * adjustedFontScale));
   context.font = `600 ${fontSize}px "Montserrat", "Arial", sans-serif`;
   context.fillStyle = '#111111';
   context.textAlign = 'center';
@@ -189,7 +190,7 @@ export const createRecognitionImage = async ({
     Math.floor(messageBoxWidth * 0.3),
   );
   const lines = wrapText(context, message.trim(), maxTextWidth);
-  const lineHeight = Math.max(1, Math.floor(fontSize * 1.3));
+  const lineHeight = Math.max(fontSize, Math.floor(fontSize * 1.2));
   const totalTextHeight = lineHeight * (lines.length - 1);
   const messageCenterY = messageBoxY + messageBoxHeight / 2;
 

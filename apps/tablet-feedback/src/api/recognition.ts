@@ -10,24 +10,26 @@ export interface UploadRecognitionPayload {
 }
 
 export interface UploadRecognitionAsset {
-  filePath: string;
-  relativePath: string;
+  filePath?: string;
+  relativePath?: string;
   publicPath: string;
-  cloudinaryUrl: string | null;
+  cloudinaryUrl?: string | null;
 }
 
 export interface UploadRecognitionResponse {
   status: string;
-  filePath: string;
-  relativePath: string;
-  publicPath: string;
+  filePath?: string;
+  relativePath?: string;
+  publicPath?: string;
   cloudinaryUrl: string | null;
+  publicId: string | null;
+  photoPublicPath?: string | null;
   message: string | null;
   sessionId: string | null;
   metadata: Record<string, unknown> | null;
   assets: {
-    recognition: UploadRecognitionAsset;
-    photo: UploadRecognitionAsset | null;
+    recognition: UploadRecognitionAsset | { publicId: string | null; cloudinaryUrl: string | null };
+    photo: UploadRecognitionAsset | { publicPath: string } | null;
   };
 }
 

@@ -62,7 +62,7 @@ export function FeedbackInputView({
           readOnly={readOnly || !onChange}
           placeholder=""
           className="h-72 w-full resize-none rounded-[50px] border-none bg-white px-10 py-8 text-xl text-black outline-none placeholder-gray-400"
-          maxLength={150}
+          maxLength={100}
         />
         <div className="mt-8 flex justify-center">
           <button

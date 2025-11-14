@@ -27,7 +27,7 @@ export function FinalView() {
         className="w-full h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url(/ai_final.png)" }}
       />
-      <div onClick={handlePrint} className="w-[600px] h-[20%] absolute bottom-[18%] left-1/2 -translate-x-1/2"></div>
+      <div onClick={handlePrint} className="cursor-pointer w-[600px] h-[20%] absolute bottom-[18%] left-1/2 -translate-x-1/2"></div>
     </View>
   );
 }
