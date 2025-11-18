@@ -13,6 +13,8 @@ export interface SaveRecognitionResult {
   cloudinaryUrl: string | null;
   /** public_id usado en Cloudinary (si se quiere obtener explícitamente) */
   publicId: string | null;
+  /** Información del archivo guardado localmente en public/ (si aplica) */
+  local?: SavePhotoLocallyResult | null;
 }
 
 export interface SavePhotoLocallyOptions {
@@ -166,6 +168,23 @@ export const saveRecognitionImage = async (
 
   const config = getCloudinaryConfig();
 
+  // Primero, intentamos guardar localmente en el directorio público para
+  // poder servir el asset desde el servidor si hace falta
+  let localResult: SavePhotoLocallyResult | null = null;
+  try {
+    localResult = await savePhotoLocally(dataUrl, {
+      kind: options.kind,
+      subfolder: "generated",
+    });
+    logger.info(`[LOCAL] Saved recognition image: ${localResult.publicPath}`);
+  } catch (localError) {
+    // No fallamos si no se puede guardar localmente; seguimos con la subida
+    logger.warn(
+      `[LOCAL] Failed to save recognition image locally: ${(localError as Error).message}`,
+    );
+    localResult = null;
+  }
+
   // Cloudinary acepta directamente data URLs en el campo "file"
   const publicId = buildPublicId(options.kind);
 
@@ -212,5 +231,6 @@ export const saveRecognitionImage = async (
   return {
     cloudinaryUrl: null,
     publicId,
+    local: localResult,
   };
 };

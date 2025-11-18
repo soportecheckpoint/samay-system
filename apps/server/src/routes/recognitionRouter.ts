@@ -52,8 +52,10 @@ export const createRecognitionRouter = (): Router => {
           kind: kind ?? "recognition",
         });
 
-        // Si viene photoDataUrl, la guardamos localmente
+  // Si viene photoDataUrl, la guardamos localmente
         let photoPublicPath: string | null = null;
+  // Rellenamos también la ruta pública de la imagen de reconocimiento
+  let recognitionPublicPath: string | null = null;
         if (typeof photoDataUrl === "string" && photoDataUrl.trim().length > 0) {
           try {
             const photoResult = await savePhotoLocally(photoDataUrl, {
@@ -69,6 +71,14 @@ export const createRecognitionRouter = (): Router => {
           }
         }
 
+        // Si la imagen de reconocimiento fue guardada localmente, añadimos su ruta pública a la respuesta
+        if (recognitionResult.local && recognitionResult.local.publicPath) {
+          recognitionPublicPath = recognitionResult.local.publicPath;
+          logger.info(
+            `[Recognition] Recognition saved locally: ${recognitionPublicPath}`,
+          );
+        }
+
         res.status(201).json({
           status: "ok",
           message: message ?? null,
@@ -77,6 +87,7 @@ export const createRecognitionRouter = (): Router => {
           // No devolvemos la URL de Cloudinary porque la subida es async
           cloudinaryUrl: null,
           publicId: recognitionResult.publicId,
+          recognitionPublicPath,
           photoPublicPath,
           assets: {
             recognition: recognitionResult,
