@@ -15,7 +15,7 @@ export const MessageView: React.FC = () => {
     // Después de 8 segundos, pasar a la siguiente vista
     const timer = setTimeout(() => {
       setView('confirm');
-    }, 8000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, [currentView, setView]);
