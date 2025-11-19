@@ -17,10 +17,6 @@ export class StatusModuleImpl implements StatusModule {
     this.socket.emit(STATUS_EVENTS.PAUSE, payload ?? {});
   }
 
-  resume(payload?: StatusPayload): void {
-    this.socket.emit(STATUS_EVENTS.RESUME, payload ?? {});
-  }
-
   restart(payload?: StatusPayload): void {
     this.socket.emit(STATUS_EVENTS.RESTART, payload ?? {});
   }

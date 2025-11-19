@@ -16,7 +16,7 @@ import type {
   StorageModifyOptions,
   StorageSubscribePayload,
   StorageUpdatePayload,
-  UnregisteredDevicePayload,
+  UnregisteredDevicePayload
 } from "@samay/scape-protocol";
 import type { ManagerOptions, Socket, SocketOptions } from "socket.io-client";
 import type { SocketFactory } from "./core/socketFactory.js";
@@ -50,39 +50,31 @@ export interface DirectModule<TDevice extends DeviceId> {
   execute<TTarget extends DeviceId>(target: TTarget): ExecuteTarget<TTarget>;
   on<TCommand extends DeviceCommandName<TDevice>>(
     command: TCommand,
-    handler: (
-      ...args: CommandPayloadArgs<DirectCommandPayload<TDevice, TCommand>>
-    ) => void,
+    handler: (...args: CommandPayloadArgs<DirectCommandPayload<TDevice, TCommand>>) => void
   ): () => void;
   off<TCommand extends DeviceCommandName<TDevice>>(
     command: TCommand,
-    handler: (
-      ...args: CommandPayloadArgs<DirectCommandPayload<TDevice, TCommand>>
-    ) => void,
+    handler: (...args: CommandPayloadArgs<DirectCommandPayload<TDevice, TCommand>>) => void
   ): void;
   send<TTarget extends DeviceId>(
     target: TTarget,
     command: string,
     payload?: unknown,
-    options?: { targetInstanceId?: string },
+    options?: { targetInstanceId?: string }
   ): void;
 }
 
 export interface StorageModule {
-  modify(
-    patch: StorageModifyPayload["patch"],
-    options?: StorageModifyOptions,
-  ): void;
+  modify(patch: StorageModifyPayload["patch"], options?: StorageModifyOptions): void;
   subscribe(
     handler: (payload: StorageUpdatePayload) => void,
-    options?: StorageSubscribePayload,
+    options?: StorageSubscribePayload
   ): () => void;
 }
 
 export interface StatusModule {
   start(payload?: StatusPayload): void;
   pause(payload?: StatusPayload): void;
-  resume(payload?: StatusPayload): void;
   restart(payload?: StatusPayload): void;
   win(payload?: StatusPayload): void;
   lose(payload?: StatusPayload): void;
@@ -91,9 +83,7 @@ export interface StatusModule {
 export interface DevicesModule {
   onList(handler: (payload: DeviceConnectionSummary[]) => void): () => void;
   onLatency(handler: (payload: DeviceLatencyPayload) => void): () => void;
-  onUnregistered(
-    handler: (payload: UnregisteredDevicePayload) => void,
-  ): () => void;
+  onUnregistered(handler: (payload: UnregisteredDevicePayload) => void): () => void;
 }
 
 export interface MonitorModule {

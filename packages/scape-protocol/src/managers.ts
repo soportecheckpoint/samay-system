@@ -5,11 +5,11 @@ export const ROUTER_EVENTS = {
   UNREGISTER: "device:unregister",
   LATENCY_PING: "device:latency-ping",
   LATENCY_PONG: "device:latency-pong",
-  EXECUTE: "direct:execute",
+  EXECUTE: "direct:execute"
 } as const;
 
 export const SDK_EVENTS = {
-  RESET: "sdk:reset",
+  RESET: "sdk:reset"
 } as const;
 
 export interface RegisterDevicePayload {
@@ -51,7 +51,7 @@ export const STORAGE_EVENTS = {
   MODIFY: "modify-storage",
   SUBSCRIBE: "subscribe-storage",
   UNSUBSCRIBE: "unsubscribe-storage",
-  UPDATE: "storage-update",
+  UPDATE: "storage-update"
 } as const;
 
 export type StorageSnapshot = Record<string, unknown>;
@@ -83,7 +83,7 @@ export interface StorageUpdatePayload {
 export const DEVICE_MANAGER_EVENTS = {
   LIST: "devices:list",
   LATENCY: "devices:latency",
-  UNREGISTERED: "devices:unregistered",
+  UNREGISTERED: "devices:unregistered"
 } as const;
 
 export interface DeviceLatencyPayload {
@@ -131,7 +131,7 @@ export interface UnregisteredDevicePayload {
 export const MONITOR_EVENTS = {
   STREAM: "monitor:event",
   LATENCY: "monitor:latency",
-  HISTORY: "monitor:history",
+  HISTORY: "monitor:history"
 } as const;
 
 export interface MonitorEventPayload {
@@ -155,7 +155,7 @@ export interface MonitorHistoryPayload {
 }
 
 export const PRINTER_EVENTS = {
-  PRINT: "print",
+  PRINT: "print"
 } as const;
 
 export interface PrintPayload {
@@ -167,10 +167,9 @@ export interface PrintPayload {
 export const STATUS_EVENTS = {
   START: "start-scape",
   PAUSE: "pause-scape",
-  RESUME: "resume-scape",
   RESTART: "restart-scape",
   WIN: "win-scape",
-  LOSE: "lose-scape",
+  LOSE: "lose-scape"
 } as const;
 
 export interface StatusPayload {

@@ -16,7 +16,7 @@ export class StatusManager {
   private state: TimerState = {
     durationMs: DEFAULT_DURATION_MS,
     remainingMs: DEFAULT_DURATION_MS,
-    phase: "idle",
+    phase: "idle"
   };
 
   private ticker: NodeJS.Timeout | null = null;
@@ -32,7 +32,7 @@ export class StatusManager {
     if (!snapshot.status) {
       patch.status = {
         phase: "idle",
-        updatedAt: Date.now(),
+        updatedAt: Date.now()
       };
     }
 
@@ -41,7 +41,7 @@ export class StatusManager {
         totalMs: this.state.durationMs,
         remainingMs: this.state.remainingMs,
         startedAt: null,
-        phase: "idle",
+        phase: "idle"
       };
     }
 
@@ -51,27 +51,17 @@ export class StatusManager {
   }
 
   attach(socket: Socket): void {
-    socket.on(
-      STATUS_EVENTS.START,
-      (payload?: StatusPayload & { durationSeconds?: number }) => {
-        this.start(payload);
-      },
-    );
+    socket.on(STATUS_EVENTS.START, (payload?: StatusPayload & { durationSeconds?: number }) => {
+      this.start(payload);
+    });
 
     socket.on(STATUS_EVENTS.PAUSE, (payload?: StatusPayload) => {
       this.pause(payload);
     });
 
-    socket.on(STATUS_EVENTS.RESUME, (payload?: StatusPayload) => {
-      this.resume(payload);
+    socket.on(STATUS_EVENTS.RESTART, (payload?: StatusPayload & { durationSeconds?: number }) => {
+      this.restart(payload);
     });
-
-    socket.on(
-      STATUS_EVENTS.RESTART,
-      (payload?: StatusPayload & { durationSeconds?: number }) => {
-        this.restart(payload);
-      },
-    );
 
     socket.on(STATUS_EVENTS.WIN, (payload?: StatusPayload) => {
       this.win(payload);
@@ -90,7 +80,7 @@ export class StatusManager {
       durationMs,
       remainingMs: durationMs,
       startedAt: null,
-      phase: "idle",
+      phase: "idle"
     };
 
     this.pushState();
@@ -105,14 +95,12 @@ export class StatusManager {
       durationMs,
       startedAt,
       remainingMs: durationMs,
-      phase: "running",
+      phase: "running"
     };
 
     this.startTicker();
     this.pushState({ note: payload?.note, operator: payload?.operator });
-    logger.info(
-      `[StatusManager] Escape started with duration ${Math.round(durationMs / 1000)}s`,
-    );
+    logger.info(`[StatusManager] Escape started with duration ${Math.round(durationMs / 1000)}s`);
   }
 
   private pause(payload?: StatusPayload): void {
@@ -127,46 +115,22 @@ export class StatusManager {
     this.state = {
       ...this.state,
       remainingMs,
-      phase: "paused",
+      phase: "paused"
     };
 
     this.pushState({ note: payload?.note, operator: payload?.operator });
-    logger.info(
-      `[StatusManager] Escape paused with ${Math.round(remainingMs / 1000)}s remaining`,
-    );
+    logger.info(`[StatusManager] Escape paused with ${Math.round(remainingMs / 1000)}s remaining`);
   }
 
-  private resume(payload?: StatusPayload): void {
-    if (this.state.phase !== "paused") {
-      return;
-    }
-
-    const elapsed = this.state.durationMs - this.state.remainingMs;
-    const startedAt = Date.now() - elapsed;
-
-    this.state = {
-      ...this.state,
-      startedAt,
-      phase: "running",
-    };
-
-    this.startTicker();
-    this.pushState({ note: payload?.note, operator: payload?.operator });
-    logger.info(`[StatusManager] Escape resumed`);
-  }
-
-  private restart(
-    payload?: StatusPayload & { durationSeconds?: number },
-  ): void {
+  private restart(payload?: StatusPayload & { durationSeconds?: number }): void {
     this.stopTicker();
-    const durationMs =
-      this.resolveDuration(payload?.durationSeconds) ?? this.state.durationMs;
+    const durationMs = this.resolveDuration(payload?.durationSeconds) ?? this.state.durationMs;
 
     this.state = {
       durationMs,
       startedAt: payload?.at ?? Date.now(),
       remainingMs: durationMs,
-      phase: "running",
+      phase: "running"
     };
 
     this.startTicker();
@@ -186,17 +150,14 @@ export class StatusManager {
     logger.warn(`[StatusManager] Escape failed`);
   }
 
-  private finalizeOutcome(
-    phase: "won" | "lost",
-    payload?: StatusPayload,
-  ): void {
+  private finalizeOutcome(phase: "won" | "lost", payload?: StatusPayload): void {
     const elapsed = this.computeElapsed();
     const remainingMs = Math.max(this.state.durationMs - elapsed, 0);
 
     this.state = {
       ...this.state,
       remainingMs,
-      phase,
+      phase
     };
 
     this.pushState({ note: payload?.note, operator: payload?.operator });
@@ -210,17 +171,14 @@ export class StatusManager {
 
       if (remainingMs <= 0) {
         this.stopTicker();
-        this.finalizeOutcome("lost", {
-          note: "timer-expired",
-          operator: "system",
-        });
+        this.finalizeOutcome("lost", { note: "timer-expired", operator: "system" });
         logger.warn(`[StatusManager] Escape failed (timer)`);
         return;
       }
 
       this.state = {
         ...this.state,
-        remainingMs,
+        remainingMs
       };
 
       this.pushState();
@@ -254,14 +212,14 @@ export class StatusManager {
         phase: this.state.phase,
         operator: extra?.operator,
         note: extra?.note,
-        updatedAt: Date.now(),
+        updatedAt: Date.now()
       },
       timer: {
         totalMs: this.state.durationMs,
         remainingMs: this.state.remainingMs,
         startedAt: this.state.startedAt ?? null,
-        phase: this.state.phase,
-      },
+        phase: this.state.phase
+      }
     });
   }
 }
