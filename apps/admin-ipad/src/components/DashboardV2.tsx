@@ -64,6 +64,7 @@ export function DashboardV2() {
   const [isPressingPause, setIsPressingPause] = useState(false);
   const pressStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pressPauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pauseActionFiredRef = useRef(false);
 
   const [markers, setMarkers] = useState<StageMarker[]>(DEFAULT_MARKERS);
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
@@ -520,13 +521,15 @@ export function DashboardV2() {
   const handlePauseMouseDown = useCallback(() => {
     pressPauseTimerRef.current = setTimeout(() => {
       setIsPressingPause(true);
-      if (timer.status === "paused") {
-        statusRestart({ durationSeconds: Math.max(timer.remainingTime, 0) });
-      } else if (timer.isRunning) {
-        statusPause();
+      pauseActionFiredRef.current = true;
+      if (timer.status === "paused" || timer.isRunning) {
+        statusPause({
+          operator: "admin-ipad",
+          note: timer.status === "paused" ? "resume" : "pause"
+        });
       }
     }, 500);
-  }, [timer.status, timer.isRunning, timer.remainingTime, statusPause, statusRestart]);
+  }, [timer.status, timer.isRunning, statusPause]);
 
   const handlePauseMouseUp = useCallback(() => {
     if (pressPauseTimerRef.current) {
@@ -534,6 +537,10 @@ export function DashboardV2() {
       pressPauseTimerRef.current = null;
     }
     setIsPressingPause(false);
+    // Avoid double-firing with onClick by clearing the pauseActionFiredRef a bit later
+    setTimeout(() => {
+      pauseActionFiredRef.current = false;
+    }, 300);
   }, []);
 
   const formatTime = useCallback((seconds: number) => {
@@ -695,19 +702,19 @@ export function DashboardV2() {
                   ? "scale-95 shadow-[0_0_30px_rgba(52,211,153,0.6)]"
                   : "scale-100 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
               } ${
-                timer.isRunning
+                timer.isRunning || timer.status === "paused"
                   ? "border-rose-400/40 bg-rose-500/20 hover:border-rose-400/60 hover:bg-rose-500/30"
                   : "border-emerald-400/40 bg-emerald-500/20 hover:border-emerald-400/60 hover:bg-emerald-500/30"
               }`}
             >
               <div className="flex flex-col items-center gap-2">
-                {timer.isRunning ? (
+                {(timer.isRunning || timer.status === "paused") ? (
                   <StopCircle className="h-8 w-8" strokeWidth={2} />
                 ) : (
                   <Play className="h-8 w-8" strokeWidth={2} />
                 )}
                 <span className="text-sm font-semibold">
-                  {timer.isRunning
+                  {timer.isRunning || timer.status === "paused"
                     ? "Mantén para Detener"
                     : "Mantén para Iniciar"}
                 </span>

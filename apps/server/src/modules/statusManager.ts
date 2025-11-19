@@ -104,22 +104,45 @@ export class StatusManager {
   }
 
   private pause(payload?: StatusPayload): void {
-    if (this.state.phase !== "running") {
+    if (this.state.phase === "running") {
+      this.stopTicker();
+      const elapsed = this.computeElapsed();
+      const remainingMs = Math.max(this.state.durationMs - elapsed, 0);
+
+      this.state = {
+        ...this.state,
+        remainingMs,
+        startedAt: null,
+        phase: "paused"
+      };
+
+      this.pushState({ note: payload?.note, operator: payload?.operator });
+      logger.info(`[StatusManager] Escape paused with ${Math.round(remainingMs / 1000)}s remaining`);
       return;
     }
 
-    this.stopTicker();
-    const elapsed = this.computeElapsed();
-    const remainingMs = Math.max(this.state.durationMs - elapsed, 0);
+    if (this.state.phase === "paused") {
+      this.resume(payload);
+    }
+  }
+
+  private resume(payload?: StatusPayload): void {
+    if (this.state.phase !== "paused") {
+      return;
+    }
+
+    const elapsedBeforePause = Math.max(this.state.durationMs - this.state.remainingMs, 0);
+    const startedAt = Math.max((payload?.at ?? Date.now()) - elapsedBeforePause, 0);
 
     this.state = {
       ...this.state,
-      remainingMs,
-      phase: "paused"
+      startedAt,
+      phase: "running"
     };
 
+    this.startTicker();
     this.pushState({ note: payload?.note, operator: payload?.operator });
-    logger.info(`[StatusManager] Escape paused with ${Math.round(remainingMs / 1000)}s remaining`);
+    logger.info(`[StatusManager] Escape resumed with ${Math.round(this.state.remainingMs / 1000)}s remaining`);
   }
 
   private restart(payload?: StatusPayload & { durationSeconds?: number }): void {
