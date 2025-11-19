@@ -21,34 +21,56 @@ const formatTime = (milliseconds: number): string => {
 const splitDigits = (timeLabel: string): string[] => Array.from(timeLabel);
 
 // Smoothly decrement the timer locally so UI keeps counting between server syncs.
-const useOptimisticTimer = (phase: TimerPhase, lastServerSyncAt: number) => {
+// This hook now depends on remainingMs explicitly to ensure it restarts the optimistic
+// countdown whenever the server sends an updated remaining value (for example on resume).
+const useOptimisticTimer = (phase: TimerPhase, lastServerSyncAt: number, remainingMs: number) => {
   useEffect(() => {
-    if (phase !== 'running') {
-      return;
+    let timeoutId: number | null = null;
+    let active = true;
+
+    const clearCurrent = () => {
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    // Always clear previous timeouts on any dependency change or cleanup
+    clearCurrent();
+
+    if (phase !== 'running' || !active) {
+      return () => {
+        active = false;
+        clearCurrent();
+      };
     }
 
-    const { remainingMs } = useTimerStore.getState();
     if (remainingMs <= 0) {
-      return;
+      useTimerStore.getState().update({ remainingMs: 0 });
+      return () => {
+        active = false;
+        clearCurrent();
+      };
     }
 
     const targetTimestamp = Date.now() + remainingMs;
-    let timeoutId: number | null = null;
 
     const scheduleTick = () => {
+      if (!active) {
+        return;
+      }
+
       const state = useTimerStore.getState();
       if (state.phase !== 'running') {
         return;
       }
 
       const msLeft = Math.max(0, targetTimestamp - Date.now());
+      state.update({ remainingMs: msLeft });
 
       if (msLeft <= 0) {
-        state.update({ remainingMs: 0 });
         return;
       }
-
-      state.update({ remainingMs: msLeft });
 
       const delay = msLeft % 1000 || 1000;
       timeoutId = window.setTimeout(scheduleTick, delay);
@@ -58,11 +80,10 @@ const useOptimisticTimer = (phase: TimerPhase, lastServerSyncAt: number) => {
     timeoutId = window.setTimeout(scheduleTick, initialDelay);
 
     return () => {
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
-      }
+      active = false;
+      clearCurrent();
     };
-  }, [phase, lastServerSyncAt]);
+  }, [phase, lastServerSyncAt, remainingMs]);
 };
 
 export const Timer: React.FC = () => {
@@ -70,7 +91,7 @@ export const Timer: React.FC = () => {
   const phase = useTimerStore((state) => state.phase);
   const lastServerSyncAt = useTimerStore((state) => state.lastServerSyncAt);
 
-  useOptimisticTimer(phase, lastServerSyncAt);
+  useOptimisticTimer(phase, lastServerSyncAt, remainingMs);
 
   const timeLabel = useMemo(() => formatTime(remainingMs), [remainingMs]);
   const digits = useMemo(() => splitDigits(timeLabel), [timeLabel]);
