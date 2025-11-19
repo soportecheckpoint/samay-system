@@ -1,6 +1,10 @@
 import { useCallback, useMemo } from "react";
 import { useScapeSdk } from "@samay/scape-sdk";
-import { DEVICE, type DeviceId, type StatusPayload } from "@samay/scape-protocol";
+import {
+  DEVICE,
+  type DeviceId,
+  type StatusPayload,
+} from "@samay/scape-protocol";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 
@@ -44,7 +48,11 @@ export function useDeviceCommands() {
   const isConnected = connectionState.status === "connected";
 
   const sendCommand = useCallback(
-    (target: DeviceId | undefined, command: string, options?: CommandOptions) => {
+    (
+      target: DeviceId | undefined,
+      command: string,
+      options?: CommandOptions,
+    ) => {
       if (!target || !command || !isConnected) {
         return;
       }
@@ -62,13 +70,28 @@ export function useDeviceCommands() {
         return;
       }
 
-      const metadata = { ...(options?.metadata ?? {}) } as Record<string, unknown> & {
-        targets?: Array<{ device?: DeviceId; deviceId?: DeviceId; instanceId?: string }>;
+      const metadata = { ...(options?.metadata ?? {}) } as Record<
+        string,
+        unknown
+      > & {
+        targets?: Array<{
+          device?: DeviceId;
+          deviceId?: DeviceId;
+          instanceId?: string;
+        }>;
       };
 
-      const existingTargets = Array.isArray(metadata.targets) ? metadata.targets : [];
-      const normalizedTargets = existingTargets.filter((entry) => entry && (entry.device || entry.deviceId));
-      normalizedTargets.push({ device: target, deviceId: target, instanceId: options?.targetInstanceId });
+      const existingTargets = Array.isArray(metadata.targets)
+        ? metadata.targets
+        : [];
+      const normalizedTargets = existingTargets.filter(
+        (entry) => entry && (entry.device || entry.deviceId),
+      );
+      normalizedTargets.push({
+        device: target,
+        deviceId: target,
+        instanceId: options?.targetInstanceId,
+      });
       metadata.targets = normalizedTargets;
 
       sdk.reset(
@@ -99,40 +122,65 @@ export function useDeviceCommands() {
     [sdk, isConnected],
   );
 
-  const statusStart = useCallback((options?: StatusCommandOptions) => {
-    if (!isConnected) {
-      return;
-    }
-    sdk.status.start(options);
-  }, [sdk, isConnected]);
+  const statusStart = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.start(options);
+    },
+    [sdk, isConnected],
+  );
 
-  const statusPause = useCallback((options?: StatusCommandOptions) => {
-    if (!isConnected) {
-      return;
-    }
-    sdk.status.pause(options);
-  }, [sdk, isConnected]);
+  const statusPause = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.pause(options);
+    },
+    [sdk, isConnected],
+  );
 
-  const statusRestart = useCallback((options?: StatusCommandOptions) => {
-    if (!isConnected) {
-      return;
-    }
-    sdk.status.restart(options);
-  }, [sdk, isConnected]);
+  const statusResume = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.resume(options);
+    },
+    [sdk, isConnected],
+  );
 
-  const statusWin = useCallback((options?: StatusCommandOptions) => {
-    if (!isConnected) {
-      return;
-    }
-    sdk.status.win(options);
-  }, [sdk, isConnected]);
+  const statusRestart = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.restart(options);
+    },
+    [sdk, isConnected],
+  );
 
-  const statusLose = useCallback((options?: StatusCommandOptions) => {
-    if (!isConnected) {
-      return;
-    }
-    sdk.status.lose(options);
-  }, [sdk, isConnected]);
+  const statusWin = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.win(options);
+    },
+    [sdk, isConnected],
+  );
+
+  const statusLose = useCallback(
+    (options?: StatusCommandOptions) => {
+      if (!isConnected) {
+        return;
+      }
+      sdk.status.lose(options);
+    },
+    [sdk, isConnected],
+  );
 
   const getCommands = useCallback(
     (target?: DeviceId, options?: BuildOptions): DeviceCommandHandle => {
@@ -141,7 +189,8 @@ export function useDeviceCommands() {
       const execute = (command: string, commandOptions?: CommandOptions) => {
         sendCommand(target, command, {
           payload: commandOptions?.payload,
-          targetInstanceId: commandOptions?.targetInstanceId ?? targetInstanceId,
+          targetInstanceId:
+            commandOptions?.targetInstanceId ?? targetInstanceId,
         });
       };
 
@@ -170,6 +219,7 @@ export function useDeviceCommands() {
       resetAll,
       statusStart,
       statusPause,
+      statusResume,
       statusRestart,
       statusWin,
       statusLose,
@@ -183,6 +233,7 @@ export function useDeviceCommands() {
       resetAll,
       statusStart,
       statusPause,
+      statusResume,
       statusRestart,
       statusWin,
       statusLose,

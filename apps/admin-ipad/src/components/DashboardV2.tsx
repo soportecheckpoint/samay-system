@@ -49,16 +49,23 @@ export function DashboardV2() {
   const stageRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { connected, modules, arduinos, timer, gameCompleted, gameFailed, completionTime } =
-    useAdminStore((state) => ({
-      connected: state.connected,
-      modules: state.modules,
-      arduinos: state.arduinos,
-      timer: state.timer,
-      gameCompleted: state.gameCompleted,
-      gameFailed: state.gameFailed,
-      completionTime: state.completionTime,
-    }));
+  const {
+    connected,
+    modules,
+    arduinos,
+    timer,
+    gameCompleted,
+    gameFailed,
+    completionTime,
+  } = useAdminStore((state) => ({
+    connected: state.connected,
+    modules: state.modules,
+    arduinos: state.arduinos,
+    timer: state.timer,
+    gameCompleted: state.gameCompleted,
+    gameFailed: state.gameFailed,
+    completionTime: state.completionTime,
+  }));
 
   const [isPressingStart, setIsPressingStart] = useState(false);
   const [isPressingPause, setIsPressingPause] = useState(false);
@@ -279,7 +286,15 @@ export function DashboardV2() {
     setSelectedMarkerId(null);
   }, []);
 
-  const { getCommands, sendCommand, resetAll, statusStart, statusPause, statusRestart, statusWin } = useDeviceCommands();
+  const {
+    getCommands,
+    sendCommand,
+    resetAll,
+    statusStart,
+    statusPause,
+    statusResume,
+    statusWin,
+  } = useDeviceCommands();
 
   const targetDevice = useMemo(() => {
     if (!selectedMarker) {
@@ -436,7 +451,10 @@ export function DashboardV2() {
       }
     }
 
-    if (selectedMarker.type === "arduino" && targetDeviceId === DEVICE.BUTTONS_ARDUINO) {
+    if (
+      selectedMarker.type === "arduino" &&
+      targetDeviceId === DEVICE.BUTTONS_ARDUINO
+    ) {
       actions.push({
         id: "start-buttons-arduino",
         label: "Iniciar Buttons Arduino",
@@ -455,34 +473,32 @@ export function DashboardV2() {
       });
     }
 
-    actions.push(
-      {
-        id: "reset-device",
-        label: "Reset dispositivo",
-        description: "Envía un reset al equipo seleccionado.",
-        tone: "danger",
-        requireHold: true,
-        disabled: !canTriggerReset,
-        onClick: () => {
-          // Para Arduinos (transport: http), usar comando directo "reset"
-          // Para apps React (transport: socket), usar SDK reset
-          const isArduino = selectedMarker?.type === "arduino";
-          
-          if (isArduino && targetDeviceId) {
-            // Arduino: usar comando HTTP "reset" (convertido a "restart" por DirectRouter)
-            sendCommand(targetDeviceId, "reset", {
-              targetInstanceId: targetInstanceId,
-              payload: baseMetadata,
-            });
-          } else {
-            // Apps React: usar SDK reset
-            resetSelectedDevice({
-              metadata: baseMetadata,
-            });
-          }
-        },
+    actions.push({
+      id: "reset-device",
+      label: "Reset dispositivo",
+      description: "Envía un reset al equipo seleccionado.",
+      tone: "danger",
+      requireHold: true,
+      disabled: !canTriggerReset,
+      onClick: () => {
+        // Para Arduinos (transport: http), usar comando directo "reset"
+        // Para apps React (transport: socket), usar SDK reset
+        const isArduino = selectedMarker?.type === "arduino";
+
+        if (isArduino && targetDeviceId) {
+          // Arduino: usar comando HTTP "reset" (convertido a "restart" por DirectRouter)
+          sendCommand(targetDeviceId, "reset", {
+            targetInstanceId: targetInstanceId,
+            payload: baseMetadata,
+          });
+        } else {
+          // Apps React: usar SDK reset
+          resetSelectedDevice({
+            metadata: baseMetadata,
+          });
+        }
       },
-    );
+    });
 
     return actions;
   }, [
@@ -500,14 +516,24 @@ export function DashboardV2() {
     pressStartTimerRef.current = setTimeout(() => {
       setIsPressingStart(true);
       if (timer.isRunning) {
-        resetAll({ reason: "admin-stop-reset", metadata: { source: "dashboard" } });
+        resetAll({
+          reason: "admin-stop-reset",
+          metadata: { source: "dashboard" },
+        });
       } else if (timer.status === "paused") {
-        statusRestart({ durationSeconds: Math.max(timer.remainingTime, 0) });
+        statusResume();
       } else {
         statusStart();
       }
     }, 500);
-  }, [timer.isRunning, timer.status, timer.remainingTime, resetAll, statusStart, statusRestart]);
+  }, [
+    timer.isRunning,
+    timer.status,
+    timer.remainingTime,
+    resetAll,
+    statusStart,
+    statusResume,
+  ]);
 
   const handleStartStopMouseUp = useCallback(() => {
     if (pressStartTimerRef.current) {
@@ -521,12 +547,18 @@ export function DashboardV2() {
     pressPauseTimerRef.current = setTimeout(() => {
       setIsPressingPause(true);
       if (timer.status === "paused") {
-        statusRestart({ durationSeconds: Math.max(timer.remainingTime, 0) });
+        statusResume();
       } else if (timer.isRunning) {
         statusPause();
       }
     }, 500);
-  }, [timer.status, timer.isRunning, timer.remainingTime, statusPause, statusRestart]);
+  }, [
+    timer.status,
+    timer.isRunning,
+    timer.remainingTime,
+    statusPause,
+    statusResume,
+  ]);
 
   const handlePauseMouseUp = useCallback(() => {
     if (pressPauseTimerRef.current) {
@@ -543,7 +575,10 @@ export function DashboardV2() {
   }, []);
 
   const handleOutcomeReset = useCallback(() => {
-    resetAll({ reason: "admin-outcome-reset", metadata: { source: "dashboard" } });
+    resetAll({
+      reason: "admin-outcome-reset",
+      metadata: { source: "dashboard" },
+    });
   }, [resetAll]);
 
   const handleRestartArduinos = useCallback(() => {
@@ -552,7 +587,10 @@ export function DashboardV2() {
       return;
     }
 
-    const uniqueTargets = new Map<string, { deviceId: string; instanceId?: string }>();
+    const uniqueTargets = new Map<
+      string,
+      { deviceId: string; instanceId?: string }
+    >();
 
     for (const arduino of arduinos) {
       if (!arduino.id) {
@@ -560,7 +598,10 @@ export function DashboardV2() {
       }
       const key = `${arduino.id}::${arduino.instanceId ?? ""}`;
       if (!uniqueTargets.has(key)) {
-        uniqueTargets.set(key, { deviceId: arduino.id, instanceId: arduino.instanceId });
+        uniqueTargets.set(key, {
+          deviceId: arduino.id,
+          instanceId: arduino.instanceId,
+        });
       }
     }
 
@@ -571,9 +612,9 @@ export function DashboardV2() {
         payload: {
           origin: "admin-ipad",
           source: "dashboard-menu",
-          action: "hardware-reset"
+          action: "hardware-reset",
         },
-        targetInstanceId: instanceId
+        targetInstanceId: instanceId,
       });
     });
 
@@ -584,7 +625,7 @@ export function DashboardV2() {
     statusWin({
       operator: "admin-ipad",
       note: "triggered-from-dashboard-menu",
-      at: Date.now()
+      at: Date.now(),
     });
     setMenuOpen(false);
   }, [statusWin]);
@@ -594,8 +635,8 @@ export function DashboardV2() {
       reason: "admin-menu-full-reset",
       metadata: {
         origin: "admin-ipad",
-        source: "dashboard-menu"
-      }
+        source: "dashboard-menu",
+      },
     });
     setMenuOpen(false);
   }, [resetAll]);
@@ -885,7 +926,10 @@ export function DashboardV2() {
         )}
 
         {gameCompleted && completionTime !== undefined && (
-          <VictoryModal completionTime={completionTime} onReset={handleOutcomeReset} />
+          <VictoryModal
+            completionTime={completionTime}
+            onReset={handleOutcomeReset}
+          />
         )}
 
         {gameFailed && (
@@ -896,7 +940,10 @@ export function DashboardV2() {
           />
         )}
 
-        <MonitorModal open={monitorOpen} onClose={() => setMonitorOpen(false)} />
+        <MonitorModal
+          open={monitorOpen}
+          onClose={() => setMonitorOpen(false)}
+        />
       </div>
     </div>
   );
